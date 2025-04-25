@@ -1,0 +1,16 @@
+<div class="hero-wrapper">
+    <div class="hero-carousel" [style.transform]="'translateX(' + transformValue + '%)'">
+      <div *ngFor="let item of items; let i = index" class="carousel-item">
+        <img [src]="item.image" alt="Carousel item" />
+        <div class="carousel-caption">{{ item.caption }}</div>
+      </div>
+    </div>
+  
+    <div class="dots-container">
+      <span *ngFor="let item of items; let i = index"
+            class="dot"
+            [class.active]="currentIndex === i"
+            (click)="moveSlideTo(i)">
+      </span>
+    </div>
+  </div>

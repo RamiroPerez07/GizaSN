@@ -1,0 +1,18 @@
+export interface IProduct{
+    id: number,
+    description: string,
+    brand: string,
+    idCategory: string,
+    priority: number,
+    visible: boolean,
+    price: number,
+    iva: number,
+    discount1: number | null,
+    discount2: number | null,
+    discount3: number | null,
+    updatedAt: Date,
+    urlImg: string,
+    inStock: boolean,
+    status: string,
+    quantity?: number,
+}

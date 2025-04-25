@@ -1,0 +1,17 @@
+<li 
+    (click)="onCategoryClick(category)" 
+    class="category-tree-father-option"
+    [ngStyle]="{ 'padding-left.px': category.level * 20 }"
+>
+    <span>{{ category.txt_category }}</span>
+    <svg *ngIf="category.children" [class.rotated]="category.showChildren" class="dropdown-icon" xmlns="http://www.w3.org/2000/svg"
+         width="16" height="16" viewBox="0 0 24 24" fill="none"
+         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+         stroke-linejoin="round">
+        <polyline points="6 9 12 15 18 9" />
+    </svg>
+</li>
+
+<ul *ngIf="category.children && category.showChildren">
+    <app-category-node *ngFor="let child of category.children" [category]="child"></app-category-node>
+</ul>

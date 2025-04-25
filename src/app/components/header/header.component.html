@@ -1,0 +1,31 @@
+<header>
+    <div class="header-content">
+        <div class="h-stack">
+            <img class="header-logo" [src]="headerLogoUrl" alt="Logo Giza" (click)="routerSvc.navigate([''])" />
+            <nav class="products-menu-header">
+                <li (click)="toggleShowTree()" class="category-btn">Categorias</li>
+            </nav>
+        </div>
+        <div class="h-stack">
+            <span (click)="navigateToCart()" class="cart-btn">
+                <div class="icon-container">
+                    <svg class="cart-icon" xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24" fill="currentColor">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm0 2zm10-2c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zm0 2zM7.16 13.26L6.27 9h12.12l-1.09 4.26c-.12.49-.55.84-1.05.84H8.21c-.5 0-.93-.35-1.05-.84zM18.31 6l.76-3H5.21l-.94-2H1v2h2l3.6 7.59L5.25 14c-.41.75-.12 1.69.63 2.1.35.2.75.3 1.12.3h11v-2H7.42c-.13 0-.25-.11-.25-.25l.03-.12.9-3.63h9.45c.75 0 1.41-.41 1.75-1.03L21 4H6.31z"/>
+                    </svg>
+                    @if(totalQuantity>0){
+                        <div class="counter">{{totalQuantity}}</div>
+                    }
+                </div>
+                <!--<span class="cart-text">Ver carrito</span> -->
+            </span>
+        </div>
+    </div>
+
+    @if(showTree){
+        <nav class="categories-tree" [class.open]="showTree">
+            <ul>
+                <app-category-node *ngFor="let category of categories" [category]="category"></app-category-node>
+            </ul>
+        </nav>
+    }
+</header>
