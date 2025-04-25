@@ -1,0 +1,28 @@
+.benefits{
+    width: 100%;
+    max-width: 1800px;
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    margin: 5px auto;
+    justify-content: center;
+}
+
+.benefit-card{
+    margin: 10px;
+    padding: 10px;
+    box-shadow: 2px 2px 3px -2px;
+    width: 100%;
+    max-width: 220px;
+}
+
+.benefit-title{
+    font-weight: 800;
+    font-size: 0.8rem;
+    margin-bottom: 10px;
+}
+
+.benefit-description{
+    font-weight: 500;
+    font-size: 0.75rem;
+}

@@ -4,7 +4,7 @@
     max-width: 1800px;
     overflow: hidden;
     height: 400px;
-    margin: 10px auto;
+    margin: 2px auto;
   }
   
   .hero-carousel {
@@ -14,8 +14,10 @@
   
   .carousel-item {
     min-width: 100%;
-    box-sizing: border-box;
+    max-height: 500px;
     position: relative;
+    display: flex;
+    justify-content: stretch;
   }
   
   .carousel-item img {
