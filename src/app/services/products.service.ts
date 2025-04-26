@@ -24,4 +24,8 @@ export class ProductsService {
     this.products.next(filterProducts)
   }
 
+  getProductById(id: number): IProduct | undefined{
+    return this._dbProducts.find(p => p.id === id);
+  }
+
 }

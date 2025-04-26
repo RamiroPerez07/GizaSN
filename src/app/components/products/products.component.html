@@ -1,7 +1,7 @@
 <div class="flex-wrapper">
     @for(product of products; track product.id){
         <div class="product-card">
-            <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" />
+            <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" (click)="viewProductDetail(product)" />
             <p class="product-card-description">{{product.description}}</p>
             <p class="product-card-brand">{{product.brand}}</p>
             <p class="product-card-price">{{product.price | currency:"ARS"}}</p>

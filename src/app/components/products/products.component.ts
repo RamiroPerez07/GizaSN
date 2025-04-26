@@ -4,6 +4,7 @@ import { IProduct } from '../../interfaces/products.interface';
 import { CommonModule } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-products',
@@ -20,6 +21,9 @@ export class ProductsComponent implements OnInit {
 
   readonly toastSvc = inject(ToastrService);
 
+  readonly routerSvc = inject(Router);
+
+
   products! : IProduct[];
 
   ngOnInit(): void {
@@ -32,7 +36,11 @@ export class ProductsComponent implements OnInit {
 
   addProduct(product: IProduct){
     this.cartSvc.addProductToCart(product);
-    this.toastSvc.success(`${product.description} - ${product.brand}`, "Producto agregado al carrito")
+    this.toastSvc.success(`${product.description} - ${product.brand}`, "Producto agregado al carrito");
+  }
+
+  viewProductDetail(product: IProduct){
+    this.routerSvc.navigate(["products", product.id])
   }
 
 }

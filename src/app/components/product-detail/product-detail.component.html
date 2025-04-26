@@ -1,0 +1,19 @@
+<div class="wrapper">
+  @if (product) {
+    <div class="image-container">
+      <div class="breadcrumb">
+        @for (breadcrumb of breadcrumbRoutes; track breadcrumb; let i = $index; let isLast = $last) {
+          <span class="breadcrumb-item" (click)="breadcrumb.redirectFx()">{{breadcrumb.name}}</span>
+          @if(!isLast){<span>></span>}
+        }
+      </div>
+      <img [src]="product.urlImg" [alt]="product.description" class="image-detail">
+    </div>
+    <div class="product-info">
+      <p class="description">{{product.description}}</p>
+      <p class="brand">{{product.brand}}</p>
+      <p class="price">{{product.price | currency: "ARS"}}</p>
+      <button class="add-product-btn" (click)="addProduct(product)">Agegar al carrito</button>
+    </div>
+  }
+</div>

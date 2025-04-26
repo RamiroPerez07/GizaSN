@@ -69,4 +69,8 @@ export class CartComponent implements OnInit {
     window.open(url, '_blank');
   }
 
+  viewProductDetail(id: number){
+    this.routerSvc.navigate(["products", id]);
+  }
+
 }
