@@ -1,7 +1,7 @@
 <div class="hero-wrapper">
     <div class="hero-carousel" [style.transform]="'translateX(' + transformValue + '%)'">
       @for (item of items; track $index) {
-        <img [src]="item.image" alt="Carousel item" />
+        <img [src]="item.image" alt="Carousel item" (click)="item.redirectTo()" />
       }
     </div>
   
