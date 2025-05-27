@@ -21,14 +21,7 @@ export class HeroCarouselComponent {
       image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_21.31.11_sgnyqc.jpg', 
       caption: 'Running for fitness', 
       redirectTo: () => {
-        this.routerSvc.navigate(["products"])
-        this.productsSvc.filterProductsByCategory({
-          id: "1.2",
-          txt_category: "Nutremax",
-          priority: 20,
-          level: 2,
-          children: null,
-      });
+        this.routerSvc.navigate(["products/category", "1.2"])
       } 
     },
     { image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_22.47.48_etffl4.jpg', caption: 'Supplements for strength', redirectTo: () => {} },

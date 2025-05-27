@@ -36,8 +36,7 @@ export class CategoryNodeComponent implements OnInit {
     if (category.children && category.children.length > 0) {
       category.showChildren = !category.showChildren;
     } else {
-      this.router.navigate(["products"])
-      this.productsSvc.filterProductsByCategory(category);
+      this.router.navigate(["products/category",`${category.id}`])
       this.categoryTreeSvc.toggleShowTree();
     }
   }

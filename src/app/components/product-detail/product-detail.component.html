@@ -1,12 +1,7 @@
 <div class="wrapper">
   @if (product) {
     <div class="image-container">
-      <div class="breadcrumb">
-        @for (breadcrumb of breadcrumbRoutes; track breadcrumb; let i = $index; let isLast = $last) {
-          <span class="breadcrumb-item" (click)="breadcrumb.redirectFx()">{{breadcrumb.name}}</span>
-          @if(!isLast){<span>></span>}
-        }
-      </div>
+      <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes"></app-breadcrumb>
       <img [src]="product.urlImg" [alt]="product.description" class="image-detail">
     </div>
     <div class="product-info">

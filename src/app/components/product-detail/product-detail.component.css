@@ -52,19 +52,3 @@
   transition: background-color 200ms ease-out;
 }
 
-.breadcrumb{
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-left: 20px;
-}
-
-.breadcrumb>span{
-  margin-right: 5px;
-  font-size: 0.75rem;
-}
-
-.breadcrumb-item{
-  cursor: pointer;
-}

@@ -1,11 +1,19 @@
-<div class="flex-wrapper">
-    @for(product of products; track product.id){
-        <div class="product-card">
-            <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" (click)="viewProductDetail(product)" />
-            <p class="product-card-description">{{product.description}}</p>
-            <p class="product-card-brand">{{product.brand}}</p>
-            <p class="product-card-price">{{product.price | currency:"ARS"}}</p>
-            <button class="add-product-btn" (click)="addProduct(product)">Agregar al pedido</button>
-        </div>
+<section class="products-wrapper">
+    <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes"></app-breadcrumb>
+    @if(category){
+        <h2 class="products-title">{{category.txt_category.charAt(0).toUpperCase() + category.txt_category.slice(1).toLowerCase()}}</h2>
+    }@else {
+        <h2 class="products-title">Catálogo de productos</h2>
     }
-</div>
+    <div class="flex-wrapper">
+        @for(product of products; track product.id){
+            <div class="product-card">
+                <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" (click)="viewProductDetail(product)" />
+                <p class="product-card-description">{{product.description}}</p>
+                <p class="product-card-brand">{{product.brand}}</p>
+                <p class="product-card-price">{{product.price | currency:"ARS"}}</p>
+                <button class="add-product-btn" (click)="addProduct(product)">Agregar al pedido</button>
+            </div>
+        }
+    </div>
+</section>

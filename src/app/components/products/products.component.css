@@ -1,3 +1,13 @@
+.products-wrapper{
+    width: 100% ;
+    max-width: 1800px;
+    margin: 15px auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
 .flex-wrapper{
     padding: 20px;
     display: flex;
@@ -26,6 +36,11 @@
     margin-top: 3px;
     font-weight: 100;
     font-size: 0.9rem;
+}
+
+.product-card-description{
+    min-height: 36px;
+    display: block;
 }
 
 .product-card-price{
@@ -61,4 +76,11 @@
 .add-product-btn:hover{
     background-color: var(--c_secondary);
     transition: background-color 200ms ease-out;
+}
+
+.products-title{
+    margin: 10px auto;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
 }

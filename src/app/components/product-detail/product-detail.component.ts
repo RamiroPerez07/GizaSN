@@ -5,11 +5,12 @@ import { IProduct } from '../../interfaces/products.interface';
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BreadcrumbComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
@@ -45,6 +46,10 @@ export class ProductDetailComponent {
           {
             name: "Productos",
             redirectFx: () => this.routerSvc.navigate(["products"])
+          },
+          {
+            name: `${this.productsSvc.findCategoryById(this.product.idCategory)?.txt_category}`,
+            redirectFx: () => this.routerSvc.navigate(["products/category", `${this.product?.idCategory}`])
           },
           {
             name: this.product.description,

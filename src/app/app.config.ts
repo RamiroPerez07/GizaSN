@@ -19,7 +19,7 @@ export const appConfig: ApplicationConfig = {
     { provide: LOCALE_ID, useValue: 'es-ES' },
     provideAnimationsAsync(),
     provideAnimations(),
-    provideToastr({timeOut: 1500, preventDuplicates: false}),
+    provideToastr({timeOut: 1500, preventDuplicates: false,positionClass: 'toast-bottom-right'}),
     provideHttpClient(
       withFetch(),
       withInterceptors([])
