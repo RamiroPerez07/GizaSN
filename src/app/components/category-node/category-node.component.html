@@ -1,17 +1,31 @@
-<li 
-    (click)="onCategoryClick(category)" 
-    class="category-tree-father-option"
-    [ngStyle]="{ 'padding-left.px': category.level * 20 }"
->
-    <span>{{ category.txt_category }}</span>
-    <svg *ngIf="category.children" [class.rotated]="category.showChildren" class="dropdown-icon" xmlns="http://www.w3.org/2000/svg"
-         width="16" height="16" viewBox="0 0 24 24" fill="none"
-         stroke="currentColor" stroke-width="2" stroke-linecap="round"
-         stroke-linejoin="round">
-        <polyline points="6 9 12 15 18 9" />
-    </svg>
-</li>
+<ul *ngIf="getChildren(parentId).length > 0">
+  <li *ngFor="let category of getChildren(parentId)">
+    <div 
+      class="category-node" 
+      (click)="toggleCategory(category)"
+      [ngStyle]="{ 'padding-left.px': category.level * 20 }"
+    >
+      <span class="node-title">{{ category.title }}</span>
 
-<ul *ngIf="category.children && category.showChildren">
-    <app-category-node *ngFor="let child of category.children" [category]="child"></app-category-node>
+      <!-- Flecha para expandir si tiene hijos -->
+      <svg 
+        *ngIf="hasChildren(category)" 
+        [class.rotated]="category.showChildren" 
+        class="dropdown-icon" 
+        xmlns="http://www.w3.org/2000/svg"
+        width="16" height="16" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <polyline points="6 9 12 15 18 9" />
+      </svg>
+    </div>
+
+    <!-- Renderiza los hijos solo si está expandido -->
+    <app-category-node 
+      *ngIf="category.showChildren"
+      [allCategories]="allCategories"
+      [parentId]="category.id"
+    ></app-category-node>
+  </li>
 </ul>

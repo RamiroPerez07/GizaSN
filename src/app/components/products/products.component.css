@@ -79,8 +79,16 @@
 }
 
 .products-title{
-    margin: 10px auto;
+    margin: 10px auto 5px;
     text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
+}
+
+.products-subtitle{
+    margin: 2px auto 10px;
+    text-align: center;
+    font-weight: 200;
+    font-size: 0.9rem;
+    color: gray;
 }

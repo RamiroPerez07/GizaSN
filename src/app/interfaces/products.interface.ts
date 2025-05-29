@@ -2,7 +2,7 @@ export interface IProduct{
     id: number,
     description: string,
     brand: string,
-    idCategory: string,
+    idCategories: string[],
     priority: number,
     visible: boolean,
     price: number,
@@ -15,4 +15,5 @@ export interface IProduct{
     inStock: boolean,
     status: string,
     quantity?: number,
+    tags: string[],
 }

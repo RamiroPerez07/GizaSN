@@ -42,7 +42,11 @@ export class ProductsComponent implements OnInit {
     }
   ]
 
-  category! :ICategory | null;
+  category! :ICategory | undefined;
+
+  title : string = "Catálogo de productos"
+
+  subtitle!: string
 
   ngOnInit(): void {
 
@@ -53,6 +57,7 @@ export class ProductsComponent implements OnInit {
         this.productsSvc.filterProductsByCategory(this.categoryId);
         this.category = this.productsSvc.findCategoryById(this.categoryId);
         if(this.category){
+          this.subtitle = this.productsSvc.getCategoryPath(this.categoryId).map((category) => category.title ).join(" - ")
           this.breadcrumbRoutes = [
             {
               name: "Inicio",
@@ -62,10 +67,10 @@ export class ProductsComponent implements OnInit {
               name: "Productos",
               redirectFx: () => this.routerSvc.navigate(["products"])
             },
-            {
-              name: `${this.category.txt_category}`,
-              redirectFx: () => this.routerSvc.navigate(["products/category", `${this.category?.id}`])
-            },
+            ...this.productsSvc.getCategoryPath(this.categoryId).map(category => ({
+              name: category.title,
+              redirectFx: () => this.routerSvc.navigate(['products', 'category', category.id])
+            })),
         ]
       }
       }else{
@@ -86,7 +91,12 @@ export class ProductsComponent implements OnInit {
   }
 
   viewProductDetail(product: IProduct){
-    this.routerSvc.navigate(["products", product.id])
+  if(this.categoryId){
+    this.routerSvc.navigate(["products", "category", this.categoryId, "product", product.id]);
+  } else {
+    // fallback si no hay categoría en la URL
+    this.routerSvc.navigate(["products", product.id]);
   }
+}
 
 }

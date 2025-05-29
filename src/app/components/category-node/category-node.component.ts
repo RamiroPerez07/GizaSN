@@ -1,9 +1,9 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { ICategory } from '../../interfaces/categories.interface';
 import { CommonModule } from '@angular/common';
-import { ProductsService } from '../../services/products.service';
 import { Router } from '@angular/router';
 import { CategoryTreeService } from '../../services/category-tree.service';
+
 
 @Component({
   selector: 'app-category-node',
@@ -12,32 +12,34 @@ import { CategoryTreeService } from '../../services/category-tree.service';
   templateUrl: './category-node.component.html',
   styleUrl: './category-node.component.css'
 })
-export class CategoryNodeComponent implements OnInit {
-  @Input() category!: ICategory;
-
-  readonly productsSvc = inject(ProductsService);
+export class CategoryNodeComponent {
+  @Input() allCategories: ICategory[] = [];
+  @Input() parentId: string | null = null;
 
   readonly router = inject(Router);
 
-  readonly categoryTreeSvc = inject(CategoryTreeService);
+  readonly categoryTreeSvc = inject(CategoryTreeService)
 
-  showTree! : boolean;
+  toggleCategory(category: ICategory & { showChildren?: boolean }) {
+    const hasChild = this.hasChildren(category);
 
-  ngOnInit(): void {
-    this.categoryTreeSvc.$showTree.subscribe({
-      next: (showTree: boolean) => {
-        this.showTree = showTree;
-      }
-    })
-  }
-
-
-  onCategoryClick(category: ICategory): void {
-    if (category.children && category.children.length > 0) {
+    if (hasChild) {
+      // Solo expande/colapsa
       category.showChildren = !category.showChildren;
     } else {
-      this.router.navigate(["products/category",`${category.id}`])
-      this.categoryTreeSvc.toggleShowTree();
+      // Si no tiene hijos, navega
+      this.router.navigate(['products', 'category', category.id]);
+      this.categoryTreeSvc.toggleShowTree()
     }
+  }
+
+  getChildren(parentId: string | null): ICategory[] {
+    return this.allCategories
+      .filter(cat => cat.parentId === parentId)
+      .sort((a, b) => a.priority - b.priority);
+  }
+
+  hasChildren(category: ICategory): boolean {
+    return this.allCategories.some(cat => cat.parentId === category.id);
   }
 }

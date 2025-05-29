@@ -1,8 +1,9 @@
 export interface ICategory {
     id: string;
-    txt_category: string;
+    title: string;
     priority: number;
     level: number;
-    children: ICategory[] | null;
+    parentId: string | null;
+    visible: boolean;
     showChildren?: boolean;
 }

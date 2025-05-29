@@ -33,9 +33,9 @@
 
     @if(showTree){
         <nav class="categories-tree" [class.open]="showTree">
-            <ul>
-                <app-category-node *ngFor="let category of categories" [category]="category"></app-category-node>
-            </ul>
+
+            <app-category-node [allCategories]="categories" [parentId]="null"></app-category-node>
+
         </nav>
     }
 </header>

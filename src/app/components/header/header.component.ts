@@ -17,6 +17,7 @@ import { IProduct } from '../../interfaces/products.interface';
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit {
+  
   categories: ICategory[] = categories;
 
   showTree!: boolean;
