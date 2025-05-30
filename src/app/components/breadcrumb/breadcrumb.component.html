@@ -1,6 +1,8 @@
-<div class="breadcrumb">
-  @for (breadcrumb of breadcrumbRoutes; track breadcrumb; let i = $index; let isLast = $last) {
-    <span class="breadcrumb-item" (click)="breadcrumb.redirectFx()">{{breadcrumb.name}}</span>
-    @if(!isLast){<span>></span>}
-  }
+<div class="breadcrumb-container">
+  <div class="breadcrumb">
+    @for (breadcrumb of breadcrumbRoutes; track breadcrumb; let i = $index; let isLast = $last) {
+      <span class="breadcrumb-item" (click)="breadcrumb.redirectFx()">{{breadcrumb.name}}</span>
+      @if(!isLast){<span>></span>}
+    }
+  </div>
 </div>

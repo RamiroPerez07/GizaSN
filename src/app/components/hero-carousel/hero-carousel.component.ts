@@ -33,6 +33,9 @@ export class HeroCarouselComponent {
   currentIndex = 0;
   transformValue = 0;
 
+  private touchStartX = 0;
+  private touchEndX = 0;
+
   // Función para mover al slide directamente desde los puntos
   moveSlideTo(index: number): void {
     this.currentIndex = index;
@@ -43,4 +46,39 @@ export class HeroCarouselComponent {
   updateTransform(): void {
     this.transformValue = -100 * this.currentIndex;
   }
+
+  onTouchStart(event: TouchEvent): void {
+    this.touchStartX = event.touches[0].clientX;
+  }
+
+  onTouchMove(event: TouchEvent): void {
+    this.touchEndX = event.touches[0].clientX;
+  }
+
+  onTouchEnd(): void {
+    const delta = this.touchEndX - this.touchStartX;
+
+    if (Math.abs(delta) > 50) { // umbral mínimo de swipe
+      if (delta < 0) {
+        this.nextSlide();
+      } else {
+        this.previousSlide();
+      }
+    }
+  }
+
+  nextSlide(): void {
+    if (this.currentIndex < this.items.length - 1) {
+      this.currentIndex++;
+      this.updateTransform();
+    }
+  }
+
+  previousSlide(): void {
+    if (this.currentIndex > 0) {
+      this.currentIndex--;
+      this.updateTransform();
+    }
+  }
+
 }

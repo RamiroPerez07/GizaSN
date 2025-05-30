@@ -1,5 +1,5 @@
 <div class="hero-wrapper">
-    <div class="hero-carousel" [style.transform]="'translateX(' + transformValue + '%)'">
+    <div class="hero-carousel" [style.transform]="'translateX(' + transformValue + '%)'" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd()">
       @for (item of items; track $index) {
         <img [src]="item.image" alt="Carousel item" (click)="item.redirectTo()" />
       }

@@ -1,9 +1,19 @@
+.breadcrumb-container{
+  width: 100%;
+  margin: 10px auto;
+  max-width: 1800px;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .breadcrumb{
   display: flex;
   justify-content: start;
   align-items: center;
   flex-wrap: wrap;
-  margin-left: 20px;
+  margin-top: 20px;
 }
 
 .breadcrumb>span{

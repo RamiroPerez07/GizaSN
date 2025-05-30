@@ -9,6 +9,7 @@
 }
 
 .image-detail{
+  margin-top: 15px;
   width: 100%;
   max-width: 350px;
   max-height: 500px;
@@ -51,4 +52,3 @@
   background-color: var(--c_secondary);
   transition: background-color 200ms ease-out;
 }
-
