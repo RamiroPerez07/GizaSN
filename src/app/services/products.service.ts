@@ -65,7 +65,7 @@ export class ProductsService {
     const filtered = this._dbProducts.filter(product => {
       if (!product.visible /*|| product.status !== 'active'*/) return false;
 
-      return terms.every(term => {
+      return terms.some(term => {
         const inDescription = product.description.toLowerCase().includes(term);
         const inBrand = product.brand.toLowerCase().includes(term);
         const inCategories = product.idCategories.some(cat => cat.toLowerCase().includes(term));
