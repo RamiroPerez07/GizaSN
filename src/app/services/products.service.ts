@@ -59,4 +59,23 @@ export class ProductsService {
     return path;
   }
 
+  filterProductsBySearch(searchTerm: string) {
+    const terms = searchTerm.toLowerCase().trim().split(/\s+/); // separa por espacios
+
+    const filtered = this._dbProducts.filter(product => {
+      if (!product.visible /*|| product.status !== 'active'*/) return false;
+
+      return terms.every(term => {
+        const inDescription = product.description.toLowerCase().includes(term);
+        const inBrand = product.brand.toLowerCase().includes(term);
+        const inCategories = product.idCategories.some(cat => cat.toLowerCase().includes(term));
+        const inTags = product.tags.some(tag => tag.toLowerCase().includes(term));
+        
+        return inDescription || inBrand || inCategories || inTags;
+      });
+    });
+
+    this.products.next(filtered);
+  }
+
 }

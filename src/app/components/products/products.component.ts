@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 import { ICategory } from '../../interfaces/categories.interface';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -49,40 +50,50 @@ export class ProductsComponent implements OnInit {
   subtitle!: string
 
   ngOnInit(): void {
+    combineLatest([this.router.paramMap, this.router.queryParams])
+      .subscribe(([params, queryParams]) => {
+        const searchTerm = (queryParams['search'] || '').trim();
+        this.categoryId = params.get('categoryId');
 
-    this.router.paramMap.subscribe(params => {
-      this.categoryId = params.get('categoryId');
-
-      if(this.categoryId){
-        this.productsSvc.filterProductsByCategory(this.categoryId);
-        this.category = this.productsSvc.findCategoryById(this.categoryId);
-        if(this.category){
-          this.subtitle = this.productsSvc.getCategoryPath(this.categoryId).map((category) => category.title ).join(" - ")
+        if (searchTerm) {
+          // Filtrar solo por búsqueda
+          this.productsSvc.filterProductsBySearch(searchTerm);
+          this.subtitle = `Resultados para: "${searchTerm}"`;
           this.breadcrumbRoutes = [
-            {
-              name: "Inicio",
-              redirectFx: () => this.routerSvc.navigate([""])
-            },
-            {
-              name: "Productos",
-              redirectFx: () => this.routerSvc.navigate(["products"])
-            },
-            ...this.productsSvc.getCategoryPath(this.categoryId).map(category => ({
-              name: category.title,
-              redirectFx: () => this.routerSvc.navigate(['products', 'category', category.id])
-            })),
-        ]
-      }
-      }else{
-        this.productsSvc.getAllProducts();
-      }
-      this.productsSvc.$products.subscribe({
-        next: (products: IProduct[]) => {
-          this.products = products;
+            { name: "Inicio", redirectFx: () => this.routerSvc.navigate([""]) },
+            { name: "Productos", redirectFx: () => this.routerSvc.navigate(["products"]) },
+            { name: `Buscar: "${searchTerm}"`, redirectFx: () => {} }
+          ];
+        } else if (this.categoryId) {
+          // Filtrar solo por categoría
+          this.productsSvc.filterProductsByCategory(this.categoryId);
+          this.category = this.productsSvc.findCategoryById(this.categoryId);
+          if (this.category) {
+            this.subtitle = this.productsSvc.getCategoryPath(this.categoryId).map(cat => cat.title).join(" - ");
+            this.breadcrumbRoutes = [
+              { name: "Inicio", redirectFx: () => this.routerSvc.navigate([""]) },
+              { name: "Productos", redirectFx: () => this.routerSvc.navigate(["products"]) },
+              ...this.productsSvc.getCategoryPath(this.categoryId).map(cat => ({
+                name: cat.title,
+                redirectFx: () => this.routerSvc.navigate(['products', 'category', cat.id])
+              })),
+            ];
+          }
+        } else {
+          // Sin filtro, mostrar todo
+          this.productsSvc.getAllProducts();
+          this.subtitle = "Catálogo de productos";
+          this.breadcrumbRoutes = [
+            { name: "Inicio", redirectFx: () => this.routerSvc.navigate([""]) },
+            { name: "Productos", redirectFx: () => this.routerSvc.navigate(["products"]) }
+          ];
         }
-      })
-    })
 
+        this.productsSvc.$products.subscribe({
+          next: (products: IProduct[]) => this.products = products
+        });
+      }
+    );
   }
 
   addProduct(product: IProduct){

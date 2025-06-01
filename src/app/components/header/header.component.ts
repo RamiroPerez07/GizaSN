@@ -7,12 +7,13 @@ import { CategoryTreeService } from '../../services/category-tree.service';
 import { Router } from '@angular/router';
 import { BRAND_IMAGES } from '../../utils/constants';
 import { CartService } from '../../services/cart.service';
-import { IProduct } from '../../interfaces/products.interface';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, CategoryNodeComponent],
+  imports: [CommonModule, CategoryNodeComponent, FormsModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
@@ -54,6 +55,24 @@ export class HeaderComponent implements OnInit {
     if(this.totalQuantity>0){
       this.routerSvc.navigate(['cart'])
     }
+  }
+
+  searchTerm: string = '';
+
+  onSearch(): void {
+    if (this.searchTerm.trim()) {
+      this.routerSvc.navigate(['/products'], { queryParams: { search: this.searchTerm.trim() } });
+    }
+  }
+
+  isSearchModalOpen = false;
+
+  openSearchModal() {
+    this.isSearchModalOpen = true;
+  }
+
+  closeSearchModal() {
+    this.isSearchModalOpen = false;
   }
   
 }

@@ -5,6 +5,36 @@
             <nav class="products-menu-header">
                 <li (click)="toggleShowTree()" class="category-btn">Categorias</li>
             </nav>
+            <div class="search-container">
+                <input
+                    type="search"
+                    name="search-product"
+                    [(ngModel)]="searchTerm"
+                    (keyup.enter)="onSearch()"
+                    placeholder="Buscar productos"
+                />
+                <button class="search-icon-btn" (click)="onSearch()" aria-label="Buscar">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 
+                        1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.156a5 
+                        5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Solo visible en mobile -->
+            <button class="search-toggle-btn" (click)="openSearchModal()" aria-label="Buscar">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                viewBox="0 0 16 16">
+                <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 
+                    0 0 1.415-1.414l-3.85-3.85zM6.5 11a4.5 4.5 0 
+                    1 1 0-9 4.5 4.5 0 0 1 0 9z"/>
+            </svg>
+            </button>
+            <!-- Mobile -->
         </div>
         <div class="h-stack">
             <span (click)="navigateToCart()" class="cart-btn">
@@ -30,6 +60,7 @@
             </span>
         </div>
     </div>
+    
 
     @if(showTree){
         <nav class="categories-tree" [class.open]="showTree">
@@ -38,4 +69,31 @@
 
         </nav>
     }
+
+    <!-- Modal de búsqueda para mobile -->
+    <div class="search-modal" *ngIf="isSearchModalOpen">
+        <div class="search-modal-backdrop" (click)="closeSearchModal()"></div>
+
+        <div class="search-modal-content">
+            <button class="close-btn" (click)="closeSearchModal()" aria-label="Cerrar">
+            &times;
+            </button>
+
+            <h2 class="modal-title">Buscar productos</h2>
+
+            <div class="modal-search-box">
+                <input
+                    type="search"
+                    [(ngModel)]="searchTerm"
+                    (keyup.enter)="onSearch(); closeSearchModal()"
+                    placeholder="Escribí el nombre del producto..."
+                    autofocus
+                />
+                <button (click)="onSearch(); closeSearchModal()">Buscar</button>
+            </div>
+        </div>
+    </div>
+    <!-- Fin Modal -->
 </header>
+
+
