@@ -6,10 +6,10 @@
     </div>
   
     <div class="dots-container">
-      <span *ngFor="let item of items; let i = index"
+      <span *ngFor="let item of desktopItems; let i = index"
             class="dot"
             [class.active]="currentIndex === i"
             (click)="moveSlideTo(i)">
       </span>
     </div>
-  </div>
+</div>
