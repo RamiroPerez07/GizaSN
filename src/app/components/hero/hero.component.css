@@ -1,0 +1,23 @@
+.btn-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-all-products-btn{
+  padding: 8px 15px;
+  border-radius: 3px;
+  background-color: var(--c_primary);
+  color: white;
+  transition: background-color 200ms ease-in;
+  cursor: pointer;
+  margin: 8px auto 0px;
+  border: var(--c_primary) 1px solid;
+}
+
+
+.view-all-products-btn:hover{
+    background-color: var(--c_secondary);
+    transition: background-color 200ms ease-out;
+}

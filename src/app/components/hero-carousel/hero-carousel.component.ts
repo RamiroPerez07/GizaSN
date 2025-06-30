@@ -16,6 +16,10 @@ export class HeroCarouselComponent implements OnInit, OnDestroy {
 
   readonly productsSvc = inject(ProductsService);
 
+  redirectTo(path: string){
+    this.routerSvc.navigate([path])
+  }
+
   items! : {
     image: string,
     caption: string,

@@ -47,6 +47,30 @@
     background-color: white;
   }
 
+  a.go-to-products{
+  padding: 5px 8px;
+  border-radius: 3px;
+  background-color: var(--c_primary);
+  color: white;
+  transition: background-color 200ms ease-in;
+  cursor: pointer;
+  margin: 8px auto 0px;
+  border: var(--c_primary) 1px solid;
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  z-index: 50;
+  font-size: 0.9rem;
+  /*box-shadow: 0px 0px 4px -1px lightgray;*/
+  font-weight: 600;
+}
+
+a.go-to-products:hover{
+  background-color: var(--c_secondary);
+  transition: background-color 200ms ease-out;
+}
+
+
   
   @media (max-width: 720px) {
     .dot{
@@ -56,10 +80,20 @@
   }
 
 
-  @media (max-width: 480px) {
+  @media (max-width: 470px) {
 
     .dot{
       width: 8px;
       height: 8px;
     }
+
+    a.go-to-products{
+      bottom: 25%;
+      right: 50%;
+      transform: translate(50%,50%);
+      font-size: 1.2rem;
+    }
   }
+
+
+
