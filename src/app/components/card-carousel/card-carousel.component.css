@@ -22,7 +22,7 @@
   width: 100%; /* Ajustar a tu necesidad */
   max-width: 1600px;
   overflow: hidden;
-  box-shadow: 2px 2px 3px -2px;
+  /*box-shadow: 2px 2px 3px -2px;*/
   position: relative;
   margin: 0 auto;
   padding: 10px;
