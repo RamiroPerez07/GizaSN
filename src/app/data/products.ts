@@ -17,8 +17,8 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-15"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1713823127/whey_prot_chocolat_2_LB-removebg-preview_bxelxb.png",
     inStock: true,
-    status: "active",
-    tags: ["suplementos","proteinas"]
+    tags: ["suplementos","proteinas"],
+    showInHeroCarousel: true,
   },
   {
     id: 2,
@@ -35,8 +35,8 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-18"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1713823301/whey_prot_vainilla_2_LB-removebg-preview_y2xvrk.png",
     inStock: true,
-    status: "active",
-    tags: ["suplementos","proteinas"]
+    tags: ["suplementos","proteinas"],
+    showInHeroCarousel: true,
   },
   {
     id: 3,
@@ -53,8 +53,8 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-20"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1713824863/whey_prot_chocolat_1_lb-removebg-preview_xstbhr.png",
     inStock: false,
-    status: "inactive",
-    tags: ["suplementos","proteinas"]
+    tags: ["suplementos","proteinas"],
+    showInHeroCarousel: true,
   },
   {
     id: 4,
@@ -71,8 +71,8 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-22"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1713824869/whey_prot_cookies_and_cream_1lb-removebg-preview_tfqevv.png",
     inStock: true,
-    status: "active",
-    tags: ["suplementos","proteinas"]
+    tags: ["suplementos","proteinas"],
+    showInHeroCarousel: true,
   },
 
   // Nutremax
@@ -91,8 +91,8 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-25"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1713824874/whey_prot_chocolat_900_g-removebg-preview_moe9t6.png",
     inStock: true,
-    status: "active",
-    tags: ["suplementos","proteinas"]
+    tags: ["suplementos","proteinas"],
+    showInHeroCarousel: true,
   },
   {
     id: 6,
@@ -109,8 +109,8 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-01"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1713825203/whey_prot_frutilla_1_lb-removebg-preview_awnupx.png",
     inStock: true,
-    status: "active",
-    tags: ["suplementos","proteinas"]
+    tags: ["suplementos","proteinas"],
+    showInHeroCarousel: true,
   },
   {
     id: 7,
@@ -127,8 +127,8 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-03"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1713825353/whey_prot_true_made_neutro_1lb-removebg-preview_fwgari.png",
     inStock: false,
-    status: "inactive",
     tags: ["suplementos","proteinas"],
+    showInHeroCarousel: true,
   },
 
   // Innova Naturals
@@ -147,7 +147,7 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1713823862/creatina_microniz_frutilla_300_g-removebg-preview_ztgsxe.png",
     inStock: true,
-    status: "active",
     tags: ["suplementos","proteinas"],
+    showInHeroCarousel: true,
   }
 ]

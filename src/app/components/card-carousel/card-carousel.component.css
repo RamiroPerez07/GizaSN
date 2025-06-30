@@ -1,0 +1,129 @@
+.section-wrapper{
+  max-width: 1600px;
+  width: 100%;
+  margin: 10px auto;
+}
+
+.carousel-title{
+  margin-top: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.carousel-container{
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+
+.carousel {
+  width: 100%; /* Ajustar a tu necesidad */
+  max-width: 1600px;
+  overflow: hidden;
+  box-shadow: 2px 2px 3px -2px;
+  position: relative;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.carousel-track {
+  display: flex;
+  width: max-content;
+  animation: scroll 100s linear infinite;
+}
+
+.card {
+  min-width: 300px;
+  height: 200px;
+  border: 2px solid black;
+  display: flex;
+  margin: 0 15px;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Animación continua hacia la izquierda */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+.product-card{
+    padding: 10px;
+    box-shadow: 2px 2px 3px -2px;
+    width: 100%;
+    max-width: 220px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 15px;
+}
+
+.product-card-brand{
+    margin-top: 3px;
+    font-weight: 100;
+    font-size: 0.9rem;
+}
+
+.product-card-description{
+    min-height: 36px;
+    display: block;
+}
+
+.product-card-price{
+    margin-top: 3px;
+    font-weight: 700;
+}
+
+.product-card-desc{
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.product-card-img{
+    width: 200px;
+    height: 160px;
+    object-fit: contain;
+    display: block;
+    margin: 0 auto;
+}
+
+
+.add-product-btn{
+    padding: 5px 8px;
+    border-radius: 3px;
+    background-color: var(--c_primary);
+    color: white;
+    transition: background-color 200ms ease-in;
+    cursor: pointer;
+    margin: 8px auto 0px;
+    border: var(--c_primary) 1px solid;
+}
+
+.add-product-btn:hover{
+    background-color: var(--c_secondary);
+    transition: background-color 200ms ease-out;
+}
+
+.products-title{
+    margin: 10px auto 5px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.products-subtitle{
+    margin: 2px auto 10px;
+    text-align: center;
+    font-weight: 200;
+    font-size: 0.9rem;
+    color: gray;
+}

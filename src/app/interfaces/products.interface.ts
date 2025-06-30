@@ -13,7 +13,7 @@ export interface IProduct{
     updatedAt: Date,
     urlImg: string,
     inStock: boolean,
-    status: string,
     quantity?: number,
     tags: string[],
+    showInHeroCarousel: boolean,
 }

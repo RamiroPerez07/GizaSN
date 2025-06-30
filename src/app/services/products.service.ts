@@ -29,6 +29,16 @@ export class ProductsService {
     this.products.next(visibleProducts);
   }
 
+  getProductsForHeroCarousel() {
+  const heroProducts = this._dbProducts
+    .filter((product: IProduct) => 
+      product.visible !== false && product.showInHeroCarousel === true
+    )
+    .sort((a, b) => b.priority - a.priority); // orden descendente por prioridad
+
+  this.products.next(heroProducts);
+}
+
   filterProductsByCategory(categoryId: string) {
     const filterProducts = this._dbProducts.filter(product =>
       product.visible === true &&
