@@ -42,7 +42,7 @@
             <p>Total: <span>{{subtotal | currency:"ARS"}}</span></p>
         </div>
         <div class="cart-options">
-            <button class="send-order-cart-btn" (click)="sendWhatsapp()">Consultar al vendedor</button>
+            <button class="send-order-cart-btn" (click)="sendWhatsapp()"><i class="fab fa-whatsapp"></i>Realizar Pedido</button>
             <button class="clear-cart-btn" (click)="cleanCart()">Vaciar Carrito</button>
             <button class="continue-btn" (click)="routerSvc.navigate(['products'])">Seguir comprando</button>
         </div>

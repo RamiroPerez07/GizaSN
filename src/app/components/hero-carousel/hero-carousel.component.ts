@@ -42,7 +42,7 @@ export class HeroCarouselComponent implements OnInit, OnDestroy {
     },
   ];
 
-  mobileItems = [
+  tabletItems = [
     {
       image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1748813291/WhatsApp_Image_2025-05-30_at_11.09.58_ydxyev.jpg',
       caption: 'Aumenta tu energía',
@@ -59,6 +59,30 @@ export class HeroCarouselComponent implements OnInit, OnDestroy {
     },
     {
       image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1748813291/WhatsApp_Image_2025-05-30_at_11.07.32_jpsk0y.jpg',
+      caption: "Aumenta tu energia",
+      redirectTo: () => {
+        this.routerSvc.navigate(["products/category", "nutremax"])
+      },
+    },
+  ]
+
+  mobileItems = [
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_2_u0fmr5.jpg',
+      caption: 'Aumenta tu energía',
+      redirectTo: () => {
+        this.routerSvc.navigate(["products/category", "nutremax"])
+      },
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_1_b3yk0u.jpg',
+      caption: "Aumenta tu energia",
+      redirectTo: () => {
+        this.routerSvc.navigate(["products/category", "nutremax"])
+      },
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_lvhuac.jpg',
       caption: "Aumenta tu energia",
       redirectTo: () => {
         this.routerSvc.navigate(["products/category", "nutremax"])
@@ -83,8 +107,9 @@ export class HeroCarouselComponent implements OnInit, OnDestroy {
 
   updateItemsForScreenSize(): void {
     if (typeof window !== 'undefined') {
-      const isMobile = window.matchMedia('(max-width: 768px)').matches;
-      this.items = isMobile ? this.mobileItems : this.desktopItems;
+      const isTablet = window.matchMedia('(max-width: 768px)').matches;
+      const isMobile = window.matchMedia('(max-width: 468px)').matches;
+      this.items = isMobile ? this.mobileItems : (isTablet ? this.tabletItems : this.desktopItems);
       this.currentIndex = 0;
       this.updateTransform();
     }

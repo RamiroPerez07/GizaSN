@@ -139,6 +139,10 @@
     transition: background-color 200ms ease;
 }
 
+.send-order-cart-btn i {
+  margin-right: 8px;
+}
+
 .send-order-cart-btn:hover{
     background-color: var(--c_secondary);
     transition: background-color 200ms ease;
