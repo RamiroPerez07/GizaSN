@@ -63,6 +63,7 @@
   font-size: 0.9rem;
   /*box-shadow: 0px 0px 4px -1px lightgray;*/
   font-weight: 600;
+  text-align: center;
 }
 
 a.go-to-products:hover{
@@ -91,7 +92,7 @@ a.go-to-products:hover{
       bottom: 25%;
       right: 50%;
       transform: translate(50%,50%);
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 
