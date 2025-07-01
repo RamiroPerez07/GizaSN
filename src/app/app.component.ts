@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, RouterOutlet } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
 import { PointOfSaleService } from './services/point-of-sale.service';
 
@@ -17,18 +17,21 @@ export class AppComponent implements OnInit{
 
   readonly pointOfSaleSvc = inject(PointOfSaleService);
 
-  ngOnInit(): void {
-  this.activatedRute.queryParams.subscribe(params => {
-    const pv = params['pv'] || null;
+  readonly router = inject(Router);
 
-    // Validamos antes de guardar
-    if (pv && this.pointOfSaleSvc.isValidPv(pv)) {
-      this.pointOfSaleSvc.setPv(pv);
-    } else {
-      this.pointOfSaleSvc.clearPv();
+  ngOnInit(): void {
+  this.router.events.subscribe(event => {
+    if (event instanceof NavigationEnd) {
+      const pv = this.activatedRute.snapshot.queryParams['pv'] || null;
+
+      if (pv && this.pointOfSaleSvc.isValidPv(pv)) {
+        this.pointOfSaleSvc.setPv(pv);
+      } else {
+        this.pointOfSaleSvc.clearPv();
+      }
     }
   });
-}
+  }
 
 
 }

@@ -68,7 +68,6 @@ export class CartComponent implements OnInit {
     mensaje += `Te hago el siguiente pedido:\n\n`;
 
     this.productsInCart.forEach((product, index) => {
-      const subtotal = product.price * (product.quantity || 0);
 
       mensaje += `${index + 1}. ${product.description}\n`;
       mensaje += `Marca: ${product.brand}\n`;
