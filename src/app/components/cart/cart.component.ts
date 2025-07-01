@@ -3,6 +3,7 @@ import { IProduct } from '../../interfaces/products.interface';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { PointOfSaleService } from '../../services/point-of-sale.service';
 
 @Component({
   selector: 'app-cart',
@@ -19,8 +20,6 @@ export class CartComponent implements OnInit {
   readonly routerSvc = inject(Router);
 
   subtotal!: number;
-
-  numberWhatsapp = 3364512634;
 
   ngOnInit(): void {
     this.cartSvc.$productsInCart.subscribe({
@@ -52,20 +51,37 @@ export class CartComponent implements OnInit {
     this.routerSvc.navigate(['products'])
   }
 
+  readonly pointOfSaleSvc = inject(PointOfSaleService);
+
   sendWhatsapp(){
+
+    const pos = this.pointOfSaleSvc.getCurrentPointOfSale();
+
+    if (!pos) {
+      console.warn('No se encontró un punto de venta válido');
+      return;
+    }
+
+    const telefono = pos.telefono;
+
     let mensaje = `Hola! 👋\n\n`;
-    mensaje += `Quería consultar por los siguientes productos:\n\n`;
+    mensaje += `Te hago el siguiente pedido:\n\n`;
 
     this.productsInCart.forEach((product, index) => {
+      const subtotal = product.price * (product.quantity || 0);
+
       mensaje += `${index + 1}. ${product.description}\n`;
       mensaje += `Marca: ${product.brand}\n`;
       mensaje += `Cantidad: ${product.quantity}\n\n`;
+      mensaje += `Precio Unitario: ${product.price}\n\n`;
     });
+
+    mensaje += `🧾 Total ${this.subtotal.toFixed(2)}`;
 
     mensaje += `Desde ya, muchas gracias!\nSaludos.`;
 
     const mensajeCodificado = encodeURIComponent(mensaje);
-    const url = `https://wa.me/${this.numberWhatsapp}?text=${mensajeCodificado}`;
+    const url = `https://wa.me/${telefono}?text=${mensajeCodificado}`;
     window.open(url, '_blank');
   }
 
