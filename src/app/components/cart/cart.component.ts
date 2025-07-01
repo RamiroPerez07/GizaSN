@@ -62,6 +62,8 @@ export class CartComponent implements OnInit {
       return;
     }
 
+    console.log(pos)
+
     const telefono = pos.telefono;
 
     let mensaje = `Hola! 👋\n\n`;
