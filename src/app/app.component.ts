@@ -22,12 +22,14 @@ export class AppComponent implements OnInit{
   ngOnInit(): void {
   this.router.events.subscribe(event => {
     if (event instanceof NavigationEnd) {
-      const pv = this.activatedRute.snapshot.queryParams['pv'] || null;
+      const pv = this.activatedRute.snapshot.queryParams['pv'];
 
-      if (pv && this.pointOfSaleSvc.isValidPv(pv)) {
-        this.pointOfSaleSvc.setPv(pv);
-      } else {
-        this.pointOfSaleSvc.clearPv();
+      if (pv !== undefined) {
+        if (this.pointOfSaleSvc.isValidPv(pv)) {
+          this.pointOfSaleSvc.setPv(pv);
+        } else {
+          this.pointOfSaleSvc.clearPv();
+        }
       }
     }
   });
