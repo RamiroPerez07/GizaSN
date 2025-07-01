@@ -73,13 +73,13 @@ export class CartComponent implements OnInit {
 
       mensaje += `${index + 1}. ${product.description}\n`;
       mensaje += `Marca: ${product.brand}\n`;
-      mensaje += `Cantidad: ${product.quantity}\n\n`;
+      mensaje += `Cantidad: ${product.quantity}\n`;
       mensaje += `Precio Unitario: ${product.price}\n\n`;
     });
 
-    mensaje += `🧾 Total ${this.subtotal.toFixed(2)}`;
+    mensaje += `🧾 Total ${this.subtotal}\n\n`;
 
-    mensaje += `Desde ya, muchas gracias!\nSaludos.`;
+    mensaje += `Gracias!\nSaludos.`;
 
     const mensajeCodificado = encodeURIComponent(mensaje);
     const url = `https://wa.me/${telefono}?text=${mensajeCodificado}`;

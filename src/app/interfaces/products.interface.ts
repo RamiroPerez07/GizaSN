@@ -1,6 +1,7 @@
 export interface IProduct{
     id: number,
     description: string,
+    longDescription: string,
     brand: string,
     idCategories: string[],
     priority: number,
@@ -16,4 +17,10 @@ export interface IProduct{
     quantity?: number,
     tags: string[],
     showInHeroCarousel: boolean,
+    attributes?: {
+        content?: string,
+        packaging?: string,
+        services?: string,
+        flavor?:string,
+    }
 }
