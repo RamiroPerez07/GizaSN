@@ -4,13 +4,6 @@
   margin: 10px auto;
 }
 
-.carousel-title{
-  margin-top: 20px;
-  font-size: 1.1rem;
-  font-weight: 600;
-  text-align: center;
-}
-
 .carousel-container{
   padding: 10px;
   display: flex;

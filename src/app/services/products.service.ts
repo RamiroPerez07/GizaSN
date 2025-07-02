@@ -56,6 +56,10 @@ export class ProductsService {
     return categories.find(cat => cat.id === id);
   }
 
+  getCategoriesByParent(parentId: string): ICategory[] {
+    return categories.filter(cat => (cat.parentId === parentId) && (cat.visible === true))
+  }
+
   getCategoryPath(categoryId: string): ICategory[] {
     const path: ICategory[] = [];
     let currentCategory = this.findCategoryById(categoryId);

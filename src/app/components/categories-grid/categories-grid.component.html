@@ -1,0 +1,6 @@
+<h2 class="section-title">Línea Nutremax</h2>
+<div class="container">
+  @for (category of categories; track $index) {
+    <div class="category-card" (click)="redirectTo(category)">{{category.title}}</div>
+  }
+</div>

@@ -7,6 +7,7 @@
     <div class="product-info">
       <p class="description">{{product.description}}</p>
       <p class="brand">{{product.brand}}</p>
+      <p class="long-description">{{product.longDescription}}</p>
       <p class="price">{{product.price | currency: "ARS"}}</p>
       <button class="add-product-btn" (click)="addProduct(product)">Agegar al carrito</button>
     </div>

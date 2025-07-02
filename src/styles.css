@@ -42,3 +42,10 @@ body, html{
 li{
     list-style-type: none;
 }
+
+.section-title{
+  margin-top: 20px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+}

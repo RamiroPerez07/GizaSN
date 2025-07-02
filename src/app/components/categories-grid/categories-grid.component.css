@@ -1,0 +1,29 @@
+.container{
+  width: 100%;
+  max-width: 1600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.section-title{
+  margin-top: 30px;
+}
+
+.category-card{
+  padding: 15px 20px;
+  cursor: pointer;
+  margin: 10px;
+  background-color: var(--c_primary);
+  border-radius: 5px;
+  color: white;
+  transition: background-color 200ms ease-in;
+}
+
+.category-card:hover{
+  background-color: var(--c_secondary);
+  transition: background-color 200ms ease-out;
+}
