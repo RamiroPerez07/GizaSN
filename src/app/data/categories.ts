@@ -33,7 +33,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
-        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751480857/Agregar_un_t%C3%ADtulo_3_xqls0m.png",
+        urlImg: "https://asset.cloudinary.com/dr0rbyqrk/a19b5f1f8593b5a4d4512c1da0703873",
     },
     {
         id: "nutremax-recuperadores",
