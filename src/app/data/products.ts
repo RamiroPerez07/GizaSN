@@ -94,7 +94,7 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-25"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751380867/DSC_9257-energy-gel-Photoroom_yuipuh.png",
     inStock: true,
-    tags: ["suplementos","proteinas","gel","triberry"],
+    tags: ["suplementos","gel","triberry"],
     showInHeroCarousel: true,
   },
   {
@@ -113,7 +113,7 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-25"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751381115/DSC_9256-energy-gel-Photoroom_yhr6cs.png",
     inStock: true,
-    tags: ["suplementos","proteinas","gel","naranja"],
+    tags: ["suplementos","gel","naranja"],
     showInHeroCarousel: true,
   },
   {
@@ -132,7 +132,7 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-25"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751381318/DSC_9258-caja-energy-gel-Photoroom_dl4qmy.png",
     inStock: true,
-    tags: ["suplementos","proteinas","gel","caramelo","salado","caramelo salado"],
+    tags: ["suplementos","gel","caramelo","salado","caramelo salado"],
     showInHeroCarousel: true,
   },
   {

@@ -20,4 +20,5 @@ export class HeroComponent {
   redirectTo(path: string){
     this.routerSvc.navigate([path])
   }
+
 }

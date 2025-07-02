@@ -6,4 +6,5 @@ export interface ICategory {
     parentId: string | null;
     visible: boolean;
     showChildren?: boolean;
+    urlImg?: string;
 }

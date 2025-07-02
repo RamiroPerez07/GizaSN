@@ -24,6 +24,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg:"https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751480857/Agregar_un_t%C3%ADtulo_3_xqls0m.png",
     },
     {
         id: "nutremax-energizantes",
@@ -32,6 +33,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751480857/Agregar_un_t%C3%ADtulo_3_xqls0m.png",
     },
     {
         id: "nutremax-recuperadores",
@@ -40,6 +42,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751480911/Agregar_un_t%C3%ADtulo_5_l3ggmr.png",
     },
     {
         id: "nutremax-aminoacidos",
@@ -48,6 +51,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751480993/Agregar_un_t%C3%ADtulo_8_fvw17s.png",
     },
     {
         id: "nutremax-proteinas",
@@ -56,6 +60,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751480930/Agregar_un_t%C3%ADtulo_6_woxq2r.png",
     },
     {
         id: "nutremax-colagenos",
@@ -64,6 +69,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751481266/Agregar_un_t%C3%ADtulo_12_l65jft.png",
     },
     {
         id: "nutremax-descenso-de-peso",
@@ -72,6 +78,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751481015/Agregar_un_t%C3%ADtulo_9_b5rdfl.png",
     },
     {
         id: "nutremax-construcciones-musculares",
@@ -80,6 +87,7 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751480970/Agregar_un_t%C3%ADtulo_7_juddda.png",
     },
     {
         id: "nutremax-accesorios",
@@ -88,5 +96,6 @@ export const categories : ICategory[] = [
         parentId: "nutremax",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751481263/Agregar_un_t%C3%ADtulo_13_sif5bf.png",
     },
 ]

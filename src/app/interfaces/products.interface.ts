@@ -22,5 +22,7 @@ export interface IProduct{
         packaging?: string,
         services?: string,
         flavor?:string,
+        colour?:string,
+        performance?:string,
     }
 }
