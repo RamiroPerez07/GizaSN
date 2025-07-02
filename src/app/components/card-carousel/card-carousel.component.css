@@ -24,7 +24,9 @@
 .carousel-track {
   display: flex;
   width: max-content;
-  animation: scroll 100s linear infinite;
+  /*animation: scroll 100s linear infinite;*/
+  animation: none;
+  will-change: transform;
 }
 
 .card {

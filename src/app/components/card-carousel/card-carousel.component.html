@@ -3,18 +3,22 @@
   <div class="carousel-container">
     <div
       class="carousel"
+      (touchstart)="onTouchStart($event)"
+      (touchmove)="onTouchMove($event)"
+      (touchend)="onTouchEnd()"
+      (mousedown)="onMouseDown($event)"
+      (mousemove)="onMouseMove($event)"
+      (mouseup)="onMouseUp()"
       (mouseenter)="pauseCarousel()"
-      (mouseleave)="resumeCarousel()"
-      (touchstart)="pauseCarousel()"
-      (touchend)="resumeCarousel()"
+      (mouseleave)="onMouseLeaveHandler($event)"
     >
       <div
         class="carousel-track"
-        [ngStyle]="{ animationPlayState: paused ? 'paused' : 'running' }"
+        #carouselTrack
       >
         @for (product of products; track $index ) {
           <div class="product-card" >
-            <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" (click)="viewProductDetail(product)" />
+            <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" (click)="onCardClick($event, product)" />
             <p class="product-card-description">{{product.description}}</p>
             <p class="product-card-brand">{{product.brand}}</p>
             <p class="product-card-price">{{product.price | currency:"ARS"}}</p>
