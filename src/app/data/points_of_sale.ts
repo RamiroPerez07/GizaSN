@@ -19,4 +19,10 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     telefono: "3364401635",
     contacto: "Clari"
   },
+  {
+    id:"eduardo-vinas",
+    puntoDeVenta: "Eduardo Viñas",
+    telefono: "3364401635",
+    contacto: "Eduardo Viñas"
+  },
 ]
