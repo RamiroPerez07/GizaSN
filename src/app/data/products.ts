@@ -20,6 +20,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","sport", "drink", "hydromax", "naranja"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "600g",
+      flavor: "Naranja",
+      packaging: "Envase plástico",
+      performance: "600g/9L",
+    }
   },
   {
     id: 2,
@@ -39,6 +46,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","sport", "drink", "hydromax", "naranja"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "1500g",
+      flavor: "Naranja",
+      packaging: "Envase plástico",
+      performance: "1500g/23L",
+    }
   },
   {
     id: 3,
@@ -58,6 +72,13 @@ export const products: IProduct[] = [
     inStock: false,
     tags: ["suplementos","sport", "drink", "hydromax", "naranja"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "33g por sobre",
+      flavor: "Naranja",
+      packaging: "Display 20 sobres",
+      performance: "33g/0.5L",
+    }
   },
   {
     id: 4,
@@ -77,6 +98,11 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","electrolitos","capsulas"],
     showInHeroCarousel: true,
+    attributes: {
+      content: "57g",
+      packaging: "60 Cápsulas",
+      services: "60 (1 Cápsula por servicio)",
+    }
   },
   {
     id: 5,
@@ -96,6 +122,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","gel","triberry"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#8E3A59",
+      content: "33g por gel",
+      flavor: "Triberry",
+      packaging: "Display 12 geles",
+      textColor: "#ffffff",
+    }
   },
   {
     id: 6,
@@ -115,6 +148,12 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","gel","naranja"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "33g por gel",
+      flavor: "Naranja",
+      packaging: "Display 12 geles",
+    }
   },
   {
     id: 7,
@@ -134,6 +173,12 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","gel","caramelo","salado","caramelo salado"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#D8A368",
+      content: "33g por gel",
+      flavor: "Caramelo salado",
+      packaging: "Display 12 geles",
+    }
   },
   {
     id: 8,
@@ -153,6 +198,11 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","cafeina","cafe"],
     showInHeroCarousel: true,
+    attributes: {
+      content: "28g",
+      packaging: "60 Cápsulas",
+      services: "60 (1 Cápsula por servicio)",
+    }
   },
   {
     id: 9,
@@ -172,6 +222,11 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","cafeina","cafe","booster"],
     showInHeroCarousel: true,
+    attributes: {
+      content: "28g",
+      packaging: "90 Cápsulas",
+      services: "30 (3 Cápsulas por servicio)"
+    }
   },
   {
     id: 10,
@@ -191,10 +246,15 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","sport","fuel"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#D8A368",
+      content: "84g por sobre",
+      packaging: "Display 8 geles",
+    }
   },
   {
     id: 11,
-    description: "EXTREME ENERGY Bebida Energ. 580g (7L)",
+    description: "EXTREME ENERGY Bebida Energ. 580g (7L) - Naranja",
     longDescription: "Bebida deportiva con tecnologia hydrogel 320 Kcal x serv. 80 gr de carbohdiratos por servicio. Aporta electrolitos (sodio, potasio, magnesio y calcio) SIN TACC. Ideal para ejercicios de resistencia +2 hs.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-energizantes"],
@@ -210,10 +270,18 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","extreme","energy","bebida"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "560g",
+      flavor: "Naranja",
+      packaging: "Envase plástico",
+      performance: "580g/7L",
+      services: "14"
+    }
   },
   {
     id: 12,
-    description: "EXTREME ENERGY Bebida Energ. Display 20 sobres",
+    description: "EXTREME ENERGY Bebida Energ. Display 20 sobres - Naranja",
     longDescription: "Bebida deportiva con tecnologia hydrogel 320 Kcal x serv. 80 gr de carbohdiratos por servicio. Aporta electrolitos (sodio, potasio, magnesio y calcio) SIN TACC. Ideal para ejercicios de resistencia +2 hs.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-energizantes"],
@@ -229,10 +297,18 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","extreme","energy","bebida"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "640g (40g/sobre)",
+      flavor: "Naranja",
+      packaging: "Display 20 sobres",
+      performance: "1 sobre/0.5L",
+      services: "20"
+    }
   },
   {
     id: 13,
-    description: "RECOVERY DRINK Bebida Post. Ejercicio Display 10 sobres",
+    description: "RECOVERY DRINK Bebida Post. Ejercicio Display 10 sobres - Naranja",
     longDescription: "Bebida post ejercicio. Carbohidratos (43 g), proteinas (13 g) y aminoacidos. Vit E y C. Electrolitos. SIN TACC. Rapida reparacion y recuperacion muscular.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-recuperadores"],
@@ -248,10 +324,18 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","post","ejercicio","bebida"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "560g",
+      flavor: "Naranja",
+      packaging: "Display 10 sobres",
+      performance: "1 sobre/0.5L",
+      services: "10"
+    }
   },
   {
     id: 14,
-    description: "RECOVERY DRINK Bebida Post. Ejercicio 540g",
+    description: "RECOVERY DRINK Bebida Post. Ejercicio 540g - Naranja",
     longDescription: "Bebida post ejercicio. Carbohidratos (43 g), proteinas (13 g) y aminoacidos. Vit E y C. Electrolitos. SIN TACC. Rapida reparacion y recuperacion muscular.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-recuperadores"],
@@ -267,6 +351,12 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","post","ejercicio","bebida"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "540g",
+      flavor: "Naranja",
+      packaging: "Envase plástico",
+    }
   },
   {
     id: 15,
@@ -286,6 +376,12 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","post","ejercicio","bebida"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FFA500",
+      content: "1500g",
+      flavor: "Naranja",
+      packaging: "Envase plástico",
+    }
   },
   {
     id: 16,
@@ -305,6 +401,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","micronizada","creatina","pura"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#F2F2F2",
+      content: "200g",
+      flavor: "Neutro",
+      packaging: "Envase plástico",
+      services: "66 servicios"
+    }
   },
   {
     id: 17,
@@ -324,6 +427,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","glutamina"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#F2F2F2",
+      content: "200g",
+      flavor: "Neutro",
+      packaging: "Envase plástico",
+      services: "40 servicios"
+    }
   },
   {
     id: 18,
@@ -343,6 +453,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","aminoacidos"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#F3E5AB",
+      content: "200g",
+      flavor: "Vainilla",
+      packaging: "200 Comprimidos masticables",
+      services: "25 servicios"
+    }
   },
   {
     id: 19,
@@ -362,6 +479,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","aminoacidos","ramificados","aminoacidos ramificados"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#F2F2F2",
+      content: "120g",
+      flavor: "Neutro",
+      packaging: "Envase 120 Comprimidos",
+      services: "30 servicios"
+    }
   },
   {
     id: 20,
@@ -381,6 +505,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","alanina","b-alanina","beta","vitamina","b1","b6","vit"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#F2F2F2",
+      content: "180g",
+      flavor: "Neutro",
+      packaging: "Envase plástico 120 Comprimidos",
+      services: "60 servicios"
+    }
   },
   {
     id: 21,
@@ -400,6 +531,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","aminoacidos","nitrico","glutamina","oxido","polvo"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#DFFF00",
+      content: "250g",
+      flavor: "Citrus",
+      packaging: "Envase plástico",
+      services: "25 servicios"
+    }
   },
   {
     id: 22,
@@ -419,6 +557,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","proteina","whey","protein","suero","polvo","vainilla"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#F3E5AB",
+      content: "1000g",
+      flavor: "Vainilla",
+      packaging: "Envase plástico",
+      services: "30 servicios"
+    }
   },
   {
     id: 23,
@@ -438,6 +583,14 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","proteina","whey","protein","suero","polvo","chocolate"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#C97E56",
+      content: "1000g",
+      flavor: "Chocolate",
+      packaging: "Envase plástico",
+      services: "30 servicios",
+      textColor: "#ffffff",
+    }
   },
   {
     id: 24,
@@ -457,6 +610,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","proteina","whey","protein","suero","polvo","frutilla"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#E94B6E",
+      content: "1000g",
+      flavor: "Frutilla",
+      packaging: "Envase plástico",
+      services: "30 servicios"
+    }
   },
   {
     id: 25,
@@ -476,6 +636,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","colageno","hidrolizado"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#FF8C87",
+      content: "390g",
+      flavor: "Pomelo rosado",
+      packaging: "Envase plástico",
+      services: "30 servicios"
+    }
   },
   {
     id: 26,
@@ -495,10 +662,17 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","carnitina","tartrato"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#F2F2F2",
+      content: "390g",
+      flavor: "Neutro",
+      packaging: "Envase plástico 90 Cápsulas",
+      services: "45 servicios"
+    }
   },
   {
     id: 27,
-    description: "ESCULTOR 1000g Vainilla",
+    description: "ESCULTOR 1500g Vainilla",
     longDescription: "Constructor muscular. 20gr de proteina por servicio y aminoacidos puros. 3200 mg de creatina + 600mg taurina + 4000mg BCAA + 4000mg glutamina. Post-entreno. SIN TACC",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-construcciones-musculares"],
@@ -514,10 +688,17 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","vainilla"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#F3E5AB",
+      content: "1500g",
+      flavor: "Vainilla",
+      packaging: "Envase plástico",
+      services: "30 servicios"
+    }
   },
   {
     id: 28,
-    description: "ESCULTOR 1000g Chocolate",
+    description: "ESCULTOR 1500g Chocolate",
     longDescription: "Constructor muscular. 20gr de proteina por servicio y aminoacidos puros. 3200 mg de creatina + 600mg taurina + 4000mg BCAA + 4000mg glutamina. Post-entreno. SIN TACC",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-construcciones-musculares"],
@@ -533,10 +714,18 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","chocolate"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#C97E56",
+      content: "1500g",
+      flavor: "Chocolate",
+      packaging: "Envase plástico",
+      services: "30 servicios",
+      textColor: "#ffffff",
+    }
   },
   {
     id: 29,
-    description: "ESCULTOR 1000g Frutilla",
+    description: "ESCULTOR 1500g Frutilla",
     longDescription: "Constructor muscular. 20gr de proteina por servicio y aminoacidos puros. 3200 mg de creatina + 600mg taurina + 4000mg BCAA + 4000mg glutamina. Post-entreno. SIN TACC",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-construcciones-musculares"],
@@ -552,6 +741,13 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","frutilla"],
     showInHeroCarousel: true,
+    attributes: {
+      colour: "#E94B6E",
+      content: "1500g",
+      flavor: "Frutilla",
+      packaging: "Envase plástico",
+      services: "30 servicios"
+    }
   },
   {
     id: 30,

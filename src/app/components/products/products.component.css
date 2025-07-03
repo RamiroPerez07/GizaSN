@@ -30,17 +30,19 @@
     max-width: 220px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .product-card-brand{
     margin-top: 3px;
     font-weight: 100;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 .product-card-description{
     min-height: 36px;
     display: block;
+    font-size: 0.9;
 }
 
 .product-card-price{
@@ -91,4 +93,20 @@
     font-weight: 200;
     font-size: 0.9rem;
     color: gray;
+}
+
+.flavor-tag{
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: none;
+  width: auto;
+  font-size: 0.8rem;
+  display: grid;
+  place-items: center;
+  align-self: start;
+  margin: 5px 0px;
+  font-weight: 800;
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }

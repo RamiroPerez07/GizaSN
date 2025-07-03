@@ -24,5 +24,6 @@ export interface IProduct{
         flavor?:string,
         colour?:string,
         performance?:string,
+        textColor?: string,
     }
 }

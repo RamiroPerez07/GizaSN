@@ -26,7 +26,7 @@
 }
 
 .long-description{
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
   margin-bottom: 8px;
 }
@@ -57,4 +57,35 @@
 .add-product-btn:hover{
   background-color: var(--c_secondary);
   transition: background-color 200ms ease-out;
+}
+
+.flavor{
+  font-size: 0.9rem;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
+
+.content{
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 12px;
+}
+
+.content > span {
+  font-weight: 800;
+}
+
+
+p.flavor{
+  font-weight: 500;
+}
+
+p.flavor > span{
+  font-weight: 800;
+}
+
+.flavor-tag{
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: none;
 }

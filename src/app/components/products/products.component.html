@@ -11,6 +11,9 @@
                 <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" (click)="viewProductDetail(product)" />
                 <p class="product-card-description">{{product.description}}</p>
                 <p class="product-card-brand">{{product.brand}}</p>
+                @if (product.attributes && product.attributes.colour && product.attributes.flavor) {
+                    <span class="flavor-tag" [style.background-color]="product.attributes.colour" [style.color]="product.attributes.textColor ?? 'inherit'">{{product.attributes.flavor}}</span>
+                }
                 <p class="product-card-price">{{product.price | currency:"ARS"}}</p>
                 <button class="add-product-btn" (click)="addProduct(product)">Agregar al pedido</button>
             </div>

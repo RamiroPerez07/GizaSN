@@ -8,6 +8,23 @@
       <p class="description">{{product.description}}</p>
       <p class="brand">{{product.brand}}</p>
       <p class="long-description">{{product.longDescription}}</p>
+      @if(product.attributes){
+        @if(product.attributes.flavor && product.attributes.colour){
+          <p class="flavor">Sabor: <span class="flavor-tag" [style.background-color]="product.attributes.colour" [style.color]="product.attributes.textColor ?? 'inherit'">{{product.attributes.flavor}}</span></p>
+        }
+        @if(product.attributes.packaging){
+          <p class="content">Presentación: <span class="content-tag">{{product.attributes.packaging}}</span></p>
+        }
+        @if(product.attributes.services){
+          <p class="content">Servicios: <span class="content-tag">{{product.attributes.services}}</span></p>
+        }
+        @if(product.attributes.performance){
+          <p class="content">Rendimiento: <span class="content-tag">{{product.attributes.performance}}</span></p>
+        }
+        @if(product.attributes.content){
+          <p class="content">Contenido: <span class="content-tag">{{product.attributes.content}}</span></p>
+        }
+      }
       <p class="price">{{product.price | currency: "ARS"}}</p>
       <button class="add-product-btn" (click)="addProduct(product)">Agegar al carrito</button>
     </div>
