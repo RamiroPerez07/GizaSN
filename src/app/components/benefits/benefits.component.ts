@@ -11,7 +11,7 @@ export class BenefitsComponent {
   benefits = [
     {
       title: "Envíos Gratuitos",
-      description: "San Nicolás de los Arroyos, Villa Constitución, Rosario, San Pedro, Pergamino"
+      description: "San Nicolás de los Arroyos, Villa Constitución, Rosario, San Pedro, Ramallo y Baradero."
     },
     {
       title: "Atención Personalizada",
