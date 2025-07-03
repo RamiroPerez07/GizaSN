@@ -1,8 +1,8 @@
 import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { POINTS_OF_SALE } from '../utils/constants';
 import { isPlatformBrowser } from '@angular/common';
 import { PointOfSale } from '../interfaces/pointofsale.interface';
+import { POINTS_OF_SALE } from '../data/points_of_sale';
 
 
 const PV_STORAGE_KEY = 'point-of-sale-id';

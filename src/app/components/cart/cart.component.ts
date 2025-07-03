@@ -62,12 +62,15 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    console.log(pos)
-
     const telefono = pos.telefono;
+
+    const puntoDeVenta = pos.puntoDeVenta;
+
 
     let mensaje = `Hola! 👋\n\n`;
     mensaje += `Te hago el siguiente pedido:\n\n`;
+
+    mensaje += `Punto de venta: *${puntoDeVenta}*\n\n`;
 
     this.productsInCart.forEach((product, index) => {
 
