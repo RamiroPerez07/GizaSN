@@ -25,4 +25,10 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     telefono: "3364358745",
     contacto: "Eduardo Viñas"
   },
+    {
+    id:"matias-ledesma",
+    puntoDeVenta: "Matias Ledesma",
+    telefono: "3364358745",
+    contacto: "Matias Ledesma"
+  },
 ]
