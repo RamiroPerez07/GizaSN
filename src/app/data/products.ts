@@ -4,7 +4,7 @@ export const products: IProduct[] = [
 // Ena
 {
     id: 1,
-    description: "HYDROMAX Sport Drink 600g (9L) - Naranja",
+    description: "HYDROMAX Sport Drink 600g - Naranja",
     longDescription: "Bebida deportiva isotónica c/ electrolitos (sodio, potasio, cloruros). Fuente de Vit E y C. Sin TACC",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-hidratacion"],
@@ -16,21 +16,22 @@ export const products: IProduct[] = [
     discount2: null,
     discount3: null,
     updatedAt: new Date("2025-07-01"),
-    urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391684/WhatsApp_Image_2025-07-01_at_2.40.55_PM-Photoroom_tijs5k.png",
+    urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391684/WhatsApp_Image_2025-07-01_at_2.40.55_PM-Photoroom_tijs5k.png",   // Cambiar
     inStock: true,
-    tags: ["suplementos","sport", "drink", "hydromax", "naranja"],
+    tags: ["suplementos","sport", "drink", "hydromax", "naranja","bebida","isotonica","bebida isotonica","hidratacion","sodio","electrolitos","potasio","cloruros"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
       content: "600g",
       flavor: "Naranja",
       packaging: "Envase plástico",
-      performance: "600g/9L",
+      performance: "1 Servicio/500ml",
+      services: "18"
     }
   },
   {
     id: 2,
-    description: "HYDROMAX Sport Drink 1500g (23L) - Naranja",
+    description: "HYDROMAX Sport Drink 1500g - Naranja",
     longDescription: "Bebida deportiva isotónica c/ electrolitos (sodio, potasio, cloruros). Fuente de Vit E y C. Sin TACC",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-hidratacion"],
@@ -44,14 +45,15 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-18"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391832/WhatsApp_Image_2025-07-01_at_2.43.19_PM-Photoroom_rxav2j.png",
     inStock: true,
-    tags: ["suplementos","sport", "drink", "hydromax", "naranja"],
+    tags: ["suplementos","sport", "drink", "hydromax", "naranja","bebida","isotonica","bebida isotonica","hidratacion","sodio","electrolitos","potasio","cloruros"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
-      content: "1500g",
+      content: "1520g",
       flavor: "Naranja",
       packaging: "Envase plástico",
-      performance: "1500g/23L",
+      performance: "1 Servicio/500ml",
+      services: "46",
     }
   },
   {
@@ -70,14 +72,15 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-20"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751383166/Copia_de_Hydromax_gdi24b.png",
     inStock: false,
-    tags: ["suplementos","sport", "drink", "hydromax", "naranja"],
+    tags: ["suplementos","sport", "drink", "hydromax", "naranja","bebida","isotonica","bebida isotonica","hidratacion","sodio","electrolitos","potasio","cloruros"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
       content: "33g por sobre",
       flavor: "Naranja",
       packaging: "Display 20 sobres",
-      performance: "33g/0.5L",
+      performance: "33g/500ml",
+      services: "20",
     }
   },
   {
@@ -96,11 +99,11 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-22"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391934/WhatsApp_Image_2025-07-01_at_2.45.12_PM-Photoroom_rmwgp0.png",
     inStock: true,
-    tags: ["suplementos","electrolitos","capsulas"],
+    tags: ["suplementos","electrolitos","capsulas","sales","rehidratacion","hidratacion","calambres","fatiga","vitamina","potasio","magnesio","sodio","cloruros"],
     showInHeroCarousel: true,
     attributes: {
       content: "57g",
-      packaging: "60 Cápsulas",
+      packaging: "Envase plástico 60 Cápsulas",
       services: "60 (1 Cápsula por servicio)",
     }
   },
@@ -120,7 +123,7 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-25"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751380867/DSC_9257-energy-gel-Photoroom_yuipuh.png",
     inStock: true,
-    tags: ["suplementos","gel","triberry"],
+    tags: ["suplementos","gel","triberry","energia","cafeina"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#8E3A59",
@@ -146,7 +149,7 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-25"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751381115/DSC_9256-energy-gel-Photoroom_yhr6cs.png",
     inStock: true,
-    tags: ["suplementos","gel","naranja"],
+    tags: ["suplementos","gel","naranja","energia","cafeina"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
@@ -171,7 +174,7 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-03-25"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751381318/DSC_9258-caja-energy-gel-Photoroom_dl4qmy.png",
     inStock: true,
-    tags: ["suplementos","gel","caramelo","salado","caramelo salado"],
+    tags: ["suplementos","gel","caramelo","salado","caramelo salado","energia","cafeina"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#D8A368",
@@ -196,11 +199,11 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751383266/DSC_1495-caffeine-Photoroom_fdz67x.png",
     inStock: true,
-    tags: ["suplementos","cafeina","cafe"],
+    tags: ["suplementos","cafeina","cafe","energia","capsulas","potencia","rendimiento"],
     showInHeroCarousel: true,
     attributes: {
       content: "28g",
-      packaging: "60 Cápsulas",
+      packaging: "Envase plástico 60 Cápsulas",
       services: "60 (1 Cápsula por servicio)",
     }
   },
@@ -220,10 +223,10 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751383357/Caffeines-Booster-Solo-SinFondo_vrh1eu.png",
     inStock: true,
-    tags: ["suplementos","cafeina","cafe","booster"],
+    tags: ["suplementos","cafeina","cafe","booster","energia","capsulas","potencia","rendimiento","oxido","nitrico","oxido nitrico"],
     showInHeroCarousel: true,
     attributes: {
-      content: "28g",
+      content: "46g",
       packaging: "90 Cápsulas",
       services: "30 (3 Cápsulas por servicio)"
     }
@@ -242,19 +245,20 @@ export const products: IProduct[] = [
     discount2: null,
     discount3: null,
     updatedAt: new Date("2024-04-05"),
-    urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751380501/Sport_Fuel_f76usb.png",
+    urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751380501/Sport_Fuel_f76usb.png",   // Ver imagen
     inStock: true,
-    tags: ["suplementos","sport","fuel"],
+    tags: ["suplementos","sport","fuel","carbohidratos","electrolitos","energia","resistencia","potasio","sodio","magnesio","calcio"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#D8A368",
+      flavor: "Limón",
       content: "84g por sobre",
-      packaging: "Display 8 geles",
+      packaging: "Display 10 sobres",
     }
   },
   {
     id: 11,
-    description: "EXTREME ENERGY Bebida Energ. 580g (7L) - Naranja",
+    description: "EXTREME ENERGY Bebida Energ. 560g - Naranja",
     longDescription: "Bebida deportiva con tecnologia hydrogel 320 Kcal x serv. 80 gr de carbohdiratos por servicio. Aporta electrolitos (sodio, potasio, magnesio y calcio) SIN TACC. Ideal para ejercicios de resistencia +2 hs.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-energizantes"],
@@ -268,14 +272,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751392187/WhatsApp_Image_2025-07-01_at_2.49.22_PM-Photoroom_vgasem.png",
     inStock: true,
-    tags: ["suplementos","extreme","energy","bebida"],
+    tags: ["suplementos","extreme","energy","bebida","energia","cafeina","bebida","isotonica","electrolitos","potasio","sodio","magnesio","calcio","vitaminas","naranja"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
       content: "560g",
       flavor: "Naranja",
       packaging: "Envase plástico",
-      performance: "580g/7L",
+      performance: "1 Servicio/500ml",
       services: "14"
     }
   },
@@ -295,14 +299,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751380572/Extreme_energy_bbjaew.png",
     inStock: true,
-    tags: ["suplementos","extreme","energy","bebida"],
+    tags: ["suplementos","extreme","energy","bebida","energia","cafeina","bebida","isotonica","electrolitos","potasio","sodio","magnesio","calcio","vitaminas","naranja"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
       content: "640g (40g/sobre)",
       flavor: "Naranja",
       packaging: "Display 20 sobres",
-      performance: "1 sobre/0.5L",
+      performance: "1 sobre/500ml",
       services: "20"
     }
   },
@@ -322,14 +326,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751381512/Copia_de_Recovery_Drink_ojrstg.png",
     inStock: true,
-    tags: ["suplementos","post","ejercicio","bebida"],
+    tags: ["suplementos","post","ejercicio","bebida","recuperacion","entreno","reparacion","rehidratacion","proteina","proteinas","aminoacidos","carbohidratos","naranja"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
       content: "560g",
       flavor: "Naranja",
       packaging: "Display 10 sobres",
-      performance: "1 sobre/0.5L",
+      performance: "1 sobre/500ml",
       services: "10"
     }
   },
@@ -349,18 +353,19 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391684/WhatsApp_Image_2025-07-01_at_2.40.55_PM-Photoroom_tijs5k.png",
     inStock: true,
-    tags: ["suplementos","post","ejercicio","bebida"],
+    tags: ["suplementos","post","ejercicio","bebida","recuperacion","entreno","reparacion","rehidratacion","proteina","proteinas","aminoacidos","carbohidratos","naranja"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
       content: "540g",
       flavor: "Naranja",
       packaging: "Envase plástico",
+      services: "9",
     }
   },
   {
     id: 15,
-    description: "RECOVERY DRINK Bebida Post. Ejercicio 1500g",
+    description: "RECOVERY DRINK Bebida Post. Ejercicio 1500g - Naranja",
     longDescription: "Bebida post ejercicio. Carbohidratos (43 g), proteinas (13 g) y aminoacidos. Vit E y C. Electrolitos. SIN TACC. Rapida reparacion y recuperacion muscular.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-recuperadores"],
@@ -374,13 +379,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391621/WhatsApp_Image_2025-07-01_at_2.40.02_PM-Photoroom_uotk0b.png",
     inStock: true,
-    tags: ["suplementos","post","ejercicio","bebida"],
+    tags: ["suplementos","post","ejercicio","bebida","recuperacion","entreno","reparacion","rehidratacion","proteina","proteinas","aminoacidos","carbohidratos","naranja"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FFA500",
       content: "1500g",
       flavor: "Naranja",
       packaging: "Envase plástico",
+      services: "25"
     }
   },
   {
@@ -397,16 +403,16 @@ export const products: IProduct[] = [
     discount2: null,
     discount3: null,
     updatedAt: new Date("2024-04-05"),
-    urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751389900/creatina-NX-40-Porciones_2_fre39o.png",
+    urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751389900/creatina-NX-40-Porciones_2_fre39o.png",  //ver foto
     inStock: true,
-    tags: ["suplementos","micronizada","creatina","pura"],
+    tags: ["suplementos","micronizada","creatina","pura","aminoacidos","fuerza","potencia"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#F2F2F2",
       content: "200g",
       flavor: "Neutro",
       packaging: "Envase plástico",
-      services: "66 servicios"
+      services: "40"
     }
   },
   {
@@ -425,14 +431,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751392035/WhatsApp_Image_2025-07-01_at_2.46.50_PM-Photoroom_qyak9k.png",
     inStock: true,
-    tags: ["suplementos","glutamina"],
+    tags: ["suplementos","glutamina","recuperacion","masa muscular","resistencia"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#F2F2F2",
       content: "200g",
       flavor: "Neutro",
       packaging: "Envase plástico",
-      services: "40 servicios"
+      services: "40"
     }
   },
   {
@@ -451,14 +457,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751392108/WhatsApp_Image_2025-07-01_at_2.48.08_PM-Photoroom_ik8xhe.png",
     inStock: true,
-    tags: ["suplementos","aminoacidos"],
+    tags: ["suplementos","aminoacidos","reparacion","proteina","aminoacidos","creatina","taurina","glutamina","arginina"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#F3E5AB",
       content: "200g",
       flavor: "Vainilla",
-      packaging: "200 Comprimidos masticables",
-      services: "25 servicios"
+      packaging: "Envase plástico 200 Comprimidos masticables",
+      services: "25"
     }
   },
   {
@@ -477,14 +483,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751382072/bcaa2000_30Dosis-OK_xi7qmd.png",
     inStock: true,
-    tags: ["suplementos","aminoacidos","ramificados","aminoacidos ramificados"],
+    tags: ["suplementos","aminoacidos","ramificados","aminoacidos ramificados","recuperacion","fatiga","masa muscular","leucina","isoleucina","valina"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#F2F2F2",
       content: "120g",
       flavor: "Neutro",
-      packaging: "Envase 120 Comprimidos",
-      services: "30 servicios"
+      packaging: "Envase plástico 120 Comprimidos",
+      services: "30"
     }
   },
   {
@@ -503,20 +509,20 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751382309/beta_1600_nhogdl.png",
     inStock: true,
-    tags: ["suplementos","alanina","b-alanina","beta","vitamina","b1","b6","vit"],
+    tags: ["suplementos","alanina","b-alanina","beta","vitamina","b1","b6","vit","fatiga","magnesio","resistencia","masa muscular"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#F2F2F2",
       content: "180g",
       flavor: "Neutro",
       packaging: "Envase plástico 120 Comprimidos",
-      services: "60 servicios"
+      services: "60"
     }
   },
   {
     id: 21,
     description: "AMINO PRO 250g",
-    longDescription: "Aminoacidos en polvo BCAA + Glutamina + Ox. Nítrico. SIN TACC. Antes y durante el entrenamiento. Reparacion muscular aumento de la potencia y retraso de la fatiga. ",
+    longDescription: "Aminoacidos en polvo BCAA + Glutamina + Ox. Nítrico. SIN TACC. Antes y durante el entrenamiento. Reparacion muscular aumento de la potencia y retraso de la fatiga.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-aminoacidos"],
     priority: 1,
@@ -529,14 +535,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751382378/Amino_Pro_r9s9a6.png",
     inStock: true,
-    tags: ["suplementos","aminoacidos","nitrico","glutamina","oxido","polvo"],
+    tags: ["suplementos","aminoacidos","nitrico","glutamina","oxido","polvo","potencia","recuperacion","reparacion","fatiga"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#DFFF00",
       content: "250g",
       flavor: "Citrus",
       packaging: "Envase plástico",
-      services: "25 servicios"
+      services: "25",
     }
   },
   {
@@ -555,14 +561,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391403/WhatsApp_Image_2025-07-01_at_2.36.19_PM-Photoroom_uu0uqk.png",
     inStock: true,
-    tags: ["suplementos","proteina","whey","protein","suero","polvo","vainilla"],
+    tags: ["suplementos","proteina","whey","protein","suero","polvo","vainilla","masa muscular","masa","musculo","leche"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#F3E5AB",
       content: "1000g",
       flavor: "Vainilla",
       packaging: "Envase plástico",
-      services: "30 servicios"
+      services: "30"
     }
   },
   {
@@ -581,14 +587,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391220/WhatsApp_Image_2025-07-01_at_2.33.23_PM-Photoroom_oka3wk.png",
     inStock: true,
-    tags: ["suplementos","proteina","whey","protein","suero","polvo","chocolate"],
+    tags: ["suplementos","proteina","whey","protein","suero","polvo","chocolate","masa muscular","masa","musculo","leche"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#C97E56",
       content: "1000g",
       flavor: "Chocolate",
       packaging: "Envase plástico",
-      services: "30 servicios",
+      services: "30",
       textColor: "#ffffff",
     }
   },
@@ -608,14 +614,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391118/WhatsApp_Image_2025-06-30_at_11.00.48_PM_2_-Photoroom_vwj4oj.png",
     inStock: true,
-    tags: ["suplementos","proteina","whey","protein","suero","polvo","frutilla"],
+    tags: ["suplementos","proteina","whey","protein","suero","polvo","frutilla","masa muscular","masa","musculo","leche"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#E94B6E",
       content: "1000g",
       flavor: "Frutilla",
       packaging: "Envase plástico",
-      services: "30 servicios"
+      services: "30"
     }
   },
   {
@@ -634,14 +640,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751382527/Flexo-Drink-Tarro-390g-2025_cyulky.png",
     inStock: true,
-    tags: ["suplementos","colageno","hidrolizado"],
+    tags: ["suplementos","colageno","hidrolizado","articulaciones","acido","hialuronico","calcio","magnesio","huesos","vitamina","prolina"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#FF8C87",
       content: "390g",
       flavor: "Pomelo rosado",
       packaging: "Envase plástico",
-      services: "30 servicios"
+      services: "30"
     }
   },
   {
@@ -660,14 +666,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751382598/carnitina_eii4nb.png",
     inStock: true,
-    tags: ["suplementos","carnitina","tartrato"],
+    tags: ["suplementos","carnitina","tartrato","reduccion de peso","peso","reduccion","quemador","quemador de grasa","grasa"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#F2F2F2",
-      content: "390g",
+      content: "42g",
       flavor: "Neutro",
       packaging: "Envase plástico 90 Cápsulas",
-      services: "45 servicios"
+      services: "45"
     }
   },
   {
@@ -686,14 +692,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391514/WhatsApp_Image_2025-07-01_at_2.37.15_PM_3_-Photoroom_cuoecv.png",
     inStock: true,
-    tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","vainilla"],
+    tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","vainilla","musculo","rendimiento","masa"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#F3E5AB",
       content: "1500g",
       flavor: "Vainilla",
       packaging: "Envase plástico",
-      services: "30 servicios"
+      services: "30"
     }
   },
   {
@@ -712,14 +718,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391539/WhatsApp_Image_2025-07-01_at_2.37.15_PM_4_-Photoroom_nzomlf.png",
     inStock: true,
-    tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","chocolate"],
+    tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","chocolate","musculo","rendimiento","masa"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#C97E56",
       content: "1500g",
       flavor: "Chocolate",
       packaging: "Envase plástico",
-      services: "30 servicios",
+      services: "30",
       textColor: "#ffffff",
     }
   },
@@ -739,14 +745,14 @@ export const products: IProduct[] = [
     updatedAt: new Date("2024-04-05"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391475/WhatsApp_Image_2025-07-01_at_2.37.15_PM_2_-Photoroom_1_e0t5s7.png",
     inStock: true,
-    tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","frutilla"],
+    tags: ["suplementos","proteina","aminoacidos","taurina","creatina","glutamina","BCAA","post","entreno","escultor","frutilla","musculo","rendimiento","masa"],
     showInHeroCarousel: true,
     attributes: {
       colour: "#E94B6E",
       content: "1500g",
       flavor: "Frutilla",
       packaging: "Envase plástico",
-      services: "30 servicios"
+      services: "30"
     }
   },
   {
