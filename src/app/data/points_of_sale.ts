@@ -5,30 +5,40 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     id:"ironman",
     puntoDeVenta: "Ironman Gym",
     telefono: "3364358745",
-    contacto: "Pablo Brunelli"
+    contacto: "Pablo Brunelli",
+    direccion: "9 de Julio 127",
+    localidad: "San Nicolás de los Arroyos",
   },
   {
     id:"atenas",
     puntoDeVenta: "Atenas Gym",
     telefono: "3364358745",
-    contacto: "Esteban"
+    contacto: "Esteban",
+    direccion: "Av. Savio 405",
+    localidad: "San Nicolás de los Arroyos",
   },
   {
     id:"giza",
-    puntoDeVenta: "GIZA",
+    puntoDeVenta: "Giza",
     telefono: "3364358745",
-    contacto: "Clari"
+    contacto: "Clari",
+    direccion: "Av. Falcón 391",
+    localidad: "San Nicolás de los Arroyos",
   },
   {
     id:"eduardo-vinas",
     puntoDeVenta: "Eduardo Viñas",
     telefono: "3364358745",
-    contacto: "Eduardo Viñas"
+    contacto: "Eduardo Viñas",
+    direccion: "Av. Falcón 391",
+    localidad: "San Nicolás de los Arroyos",
   },
     {
     id:"matias-ledesma",
     puntoDeVenta: "Matias Ledesma",
     telefono: "3364358745",
-    contacto: "Matias Ledesma"
+    contacto: "Matias Ledesma",
+    direccion: "Av. Falcón 391",
+    localidad: "San Nicolás de los Arroyos",
   },
 ]

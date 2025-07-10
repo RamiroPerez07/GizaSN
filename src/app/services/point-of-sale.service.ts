@@ -45,6 +45,10 @@ export class PointOfSaleService {
     return POINTS_OF_SALE.find(pos => pos.id === pv) ?? POINTS_OF_SALE.find(pos => pos.id === 'giza') ?? null;
   }
 
+  getPointOfSaleById(pvId: string): PointOfSale | undefined {
+    return POINTS_OF_SALE.find(pos => pos.id === pvId)
+  }
+
 
   clearPv() {
     this.setPv(null);
