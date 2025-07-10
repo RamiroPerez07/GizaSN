@@ -82,8 +82,6 @@
           <select formControlName="formaPago" required [class.invalid]="form.get('formaPago')?.invalid && form.get('formaPago')?.touched">
             <option value="Efectivo" selected>Efectivo</option>
             <option value="Transferencia">Transferencia</option>
-            <option value="Tarjeta de Débito">Tarjeta de Débito</option>
-            <option value="Tarjeta de Crédito">Tarjeta de Crédito</option>
         </select>
         @if (form.get('formaPago')?.invalid && form.get('formaPago')?.touched) {
             <small style="color: red; margin-top: 4px;">
@@ -157,16 +155,6 @@
                 }
             </div>
         }
-
-        <div class="input-group">
-            <input type="text" placeholder=" " formControlName="horarioDeEntrega" required [class.invalid]="form.get('horarioDeEntrega')?.invalid && form.get('horarioDeEntrega')?.touched" />
-            <label [class.invalid]="form.get('horarioDeEntrega')?.invalid && form.get('horarioDeEntrega')?.touched">Horario de entrega*</label>
-            @if (form.get('horarioDeEntrega')?.invalid && form.get('horarioDeEntrega')?.touched) {
-                <small style="color: red; margin-top: 4px;">
-                    El horario de entrega es obligatorio
-                </small>
-            }
-        </div>
 
       <div class="cart-options">
         <button class="send-order-cart-btn" type="submit"><i class="fab fa-whatsapp"></i>Enviar Pedido</button>

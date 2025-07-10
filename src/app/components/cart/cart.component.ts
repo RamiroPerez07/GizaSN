@@ -105,7 +105,7 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    const { nombre, apellido, documento, formaPago, horarioDeEntrega , direccion, tipoDireccion, localidad  } = this.form.value;
+    const { nombre, apellido, documento, formaPago , direccion, tipoDireccion, localidad  } = this.form.value;
 
     const pos = this.pointOfSaleSvc.getCurrentPointOfSale();
 
@@ -155,7 +155,6 @@ export class CartComponent implements OnInit {
       mensaje += `Documento: *${documento}*\n`;
     }
     mensaje += `Dirección de entrega: *${direccionFinal}* (${localidadFinal})\n`;
-    mensaje += `Horario de entrega: *${horarioDeEntrega}*\n\n`;
 
     mensaje += `Gracias!\nSaludos.`;
 
@@ -181,7 +180,6 @@ export class CartComponent implements OnInit {
       documento: [''],
       formaPago: ['Efectivo', Validators.required],
       tipoDireccion: ['estandar', Validators.required],
-      horarioDeEntrega: ['', Validators.required],
       direccion: [''],
       localidad: ["San Nicolás de los Arroyos"]
   });
