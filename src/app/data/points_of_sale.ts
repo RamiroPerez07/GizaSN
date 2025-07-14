@@ -33,12 +33,20 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     localidad: "San Nicolás de los Arroyos",
   },
-    {
+  {
     id:"matias-ledesma",
     puntoDeVenta: "Matias Ledesma",
     telefono: "3364358745",
     contacto: "Matias Ledesma",
     direccion: "Av. Falcón 391",
+    localidad: "San Nicolás de los Arroyos",
+  },
+  {
+    id:"iaf",
+    puntoDeVenta: "IAF",
+    telefono: "3364358745",
+    contacto: "Nicolás Cernadas",
+    direccion: "Maipú 144",
     localidad: "San Nicolás de los Arroyos",
   },
 ]
