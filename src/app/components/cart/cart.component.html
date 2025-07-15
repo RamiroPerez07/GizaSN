@@ -107,27 +107,24 @@
                 <label>
                     <input type="radio" formControlName="tipoDireccion" value="estandar" /> 
  
-                        <strong>{{pos?.puntoDeVenta}}</strong> <span class="direccion-det">{{"("+pos?.direccion + ", " + pos?.localidad + ")" }}</span>
+                    <strong>{{pos?.puntoDeVenta}}</strong> <span class="direccion-det">{{"("+pos?.direccion + ", " + pos?.localidad + ")" }}</span>
 
-                        <span class="info-icon-wrapper">
-                            <i class="fa-solid fa-info-circle"></i>
-                            <span class="tooltip-text">Retiras tu producto cuando esté listo.</span>
-                        </span>
-
-
+                    <span class="info-icon-wrapper">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <span class="tooltip-text">Retiras tu producto cuando esté listo.</span>
+                    </span>
                 </label>
                 
                 @if (pos && pos.id != "giza") {
 
                         <label>
-                        <input type="radio" formControlName="tipoDireccion" value="giza" />
-    
-                            <strong>{{ gizaPos?.puntoDeVenta }}</strong> <span class="direccion-det">{{"("+gizaPos?.direccion + ", " + gizaPos?.localidad +")"}} </span>
+                            <input type="radio" formControlName="tipoDireccion" value="giza" />
+                            <strong>{{ gizaPos?.puntoDeVenta }}</strong> 
+                            <span class="direccion-det">{{"("+gizaPos?.direccion + ", " + gizaPos?.localidad +")"}} </span>
                             <span class="info-icon-wrapper">
                                 <i class="fa-solid fa-info-circle"></i>
                                 <span class="tooltip-text">Retiras por nuestro local</span>
                             </span>
-                
                         </label>
 
                 }
