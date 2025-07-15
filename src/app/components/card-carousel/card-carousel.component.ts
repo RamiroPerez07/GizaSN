@@ -6,6 +6,8 @@ import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ProductCardComponent } from '../product-card/product-card.component';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
 
 @Component({
   selector: 'app-card-carousel',
@@ -34,6 +36,10 @@ export class CardCarouselComponent {
   readonly toastSvc = inject(ToastrService);
   readonly routerSvc = inject(Router);
 
+  private readonly platformId = inject(PLATFORM_ID);
+
+
+
   @ViewChildren(ProductCardComponent) productCards!: QueryList<ProductCardComponent>;
 
   ngOnInit(): void {
@@ -49,7 +55,9 @@ export class CardCarouselComponent {
   }
 
   ngAfterViewInit() {
-    this.startAutoScroll();
+    if (isPlatformBrowser(this.platformId)) {
+      this.startAutoScroll();
+    }
   }
 
   ngOnDestroy() {
@@ -57,6 +65,8 @@ export class CardCarouselComponent {
   }
 
   startAutoScroll() {
+    if (!isPlatformBrowser(this.platformId)) return;
+
     const step = () => {
       if (!this.isDragging) {
         this.currentTranslate -= this.speed;
@@ -74,6 +84,9 @@ export class CardCarouselComponent {
   }
 
   stopAutoScroll() {
+    
+    if (!isPlatformBrowser(this.platformId)) return;
+
     if (this.animationId) {
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
