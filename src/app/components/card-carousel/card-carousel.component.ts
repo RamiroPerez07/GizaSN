@@ -1,15 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../interfaces/products.interface';
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
   selector: 'app-card-carousel',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductCardComponent],
   templateUrl: './card-carousel.component.html',
   styleUrl: './card-carousel.component.css'
 })
@@ -32,6 +33,8 @@ export class CardCarouselComponent {
   readonly cartSvc = inject(CartService);
   readonly toastSvc = inject(ToastrService);
   readonly routerSvc = inject(Router);
+
+  @ViewChildren(ProductCardComponent) productCards!: QueryList<ProductCardComponent>;
 
   ngOnInit(): void {
     // Duplicamos las tarjetas para simular bucle infinito
@@ -105,28 +108,19 @@ export class CardCarouselComponent {
 
   // CLICK PROTEGIDO POR DRAG
 
-  onCardClick(event: MouseEvent, product: IProduct) {
+  onCardClick = (event: MouseEvent, product: IProduct) => {
     if (this.dragged) {
       event.preventDefault();
       event.stopPropagation();
-      return;  // NO navegamos si hubo drag
+      return;
     }
-    this.viewProductDetail(product);
+    const card = this.productCards.find(pc => pc.product.id === product.id);
+    if (card) {
+      card.viewProductDetail(product, product.idCategories[0]);
+    }
   }
 
-  addProduct(product: IProduct){
-    this.cartSvc.addProductToCart(product);
-    this.toastSvc.success(`${product.description} - ${product.brand}`, "Producto agregado al carrito");
-  }
 
-  viewProductDetail(product: IProduct){
-    if(product.idCategories[0]){
-    this.routerSvc.navigate(["products", "category", product.idCategories[0], "product", product.id]);
-  } else {
-    // fallback si no hay categoría en la URL
-    this.routerSvc.navigate(["products", product.id]);
-  }
-  }
 
   // Variables para mouse
   // MOUSE

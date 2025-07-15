@@ -127,6 +127,7 @@
     border: 1px solid gray;
     border-radius: 3px;
     cursor: pointer;
+    font-size: 0.8rem;
 }
 
 .send-order-cart-btn{
@@ -137,6 +138,7 @@
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 200ms ease;
+    font-size: 0.8rem;
 }
 
 .send-order-cart-btn i {
@@ -155,6 +157,7 @@
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 200ms ease;
+    font-size: 0.8rem;
 }
 
 .cart-title{

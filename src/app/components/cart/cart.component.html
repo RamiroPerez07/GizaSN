@@ -118,7 +118,7 @@
                 
                 <label>
                 <input type="radio" formControlName="tipoDireccion" value="personalizada" />
-                Especificar dirección
+                <strong>Mi dirección</strong>
                 </label>
             </div>
         </div>
@@ -132,7 +132,7 @@
                     formControlName="direccion"
                     required
                     [class.invalid]="form.get('direccion')?.invalid && form.get('direccion')?.touched" />
-                <label>Dirección personalizada*</label>
+                <label>Dirección*</label>
                 @if (form.get('direccion')?.invalid && form.get('direccion')?.touched) {
                 <small style="color: red;">La dirección es obligatoria</small>
                 }

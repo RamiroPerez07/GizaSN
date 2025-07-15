@@ -8,11 +8,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 import { ICategory } from '../../interfaces/categories.interface';
 import { combineLatest } from 'rxjs';
+import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, BreadcrumbComponent],
+  imports: [CommonModule, BreadcrumbComponent, ProductCardComponent],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
@@ -96,18 +97,6 @@ export class ProductsComponent implements OnInit {
     );
   }
 
-  addProduct(product: IProduct){
-    this.cartSvc.addProductToCart(product);
-    this.toastSvc.success(`${product.description} - ${product.brand}`, "Producto agregado al carrito");
-  }
 
-  viewProductDetail(product: IProduct){
-  if(this.categoryId){
-    this.routerSvc.navigate(["products", "category", this.categoryId, "product", product.id]);
-  } else {
-    // fallback si no hay categoría en la URL
-    this.routerSvc.navigate(["products", product.id]);
-  }
-}
 
 }

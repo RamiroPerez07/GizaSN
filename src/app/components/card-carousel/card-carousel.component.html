@@ -17,13 +17,7 @@
         #carouselTrack
       >
         @for (product of products; track $index ) {
-          <div class="product-card" >
-            <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" (click)="onCardClick($event, product)" />
-            <p class="product-card-description">{{product.description}}</p>
-            <p class="product-card-brand">{{product.brand}}</p>
-            <p class="product-card-price">{{product.price | currency:"ARS"}}</p>
-            <button class="add-product-btn" (click)="addProduct(product)">Agregar al pedido</button>
-          </div>
+          <app-product-card [product]="product" [categoryId]="product.idCategories[0]" [onCardClick]="onCardClick"></app-product-card>
         }
       </div>
     </div>
