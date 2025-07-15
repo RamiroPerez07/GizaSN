@@ -16,7 +16,7 @@ export const products: IProduct[] = [
     discount2: null,
     discount3: null,
     updatedAt: new Date("2025-07-01"),
-    urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751391684/WhatsApp_Image_2025-07-01_at_2.40.55_PM-Photoroom_tijs5k.png",   // Cambiar
+    urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1752544948/IMG_0594_oli3gj.png",   // Cambiar
     inStock: true,
     tags: ["suplementos","sport", "drink", "hydromax", "naranja","bebida","isotonica","bebida isotonica","hidratacion","sodio","electrolitos","potasio","cloruros"],
     showInHeroCarousel: true,
