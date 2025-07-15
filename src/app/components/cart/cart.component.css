@@ -314,3 +314,45 @@ label>strong{
 small{
     font-size: 0.7rem;
 }
+
+.direccion-det{
+    margin-left: 5px;
+    font-size: 0.8rem;
+}
+
+/* TOOLTIP */
+
+.radio-group>label {
+  position: relative;
+}
+
+.info-icon-wrapper {
+  position: relative;
+  display: inline-block;
+  color: #007BFF;
+  font-size: 14px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+.info-icon-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
