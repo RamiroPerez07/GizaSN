@@ -49,4 +49,20 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Maipú 144",
     localidad: "San Nicolás de los Arroyos",
   },
+  {
+    id:"segundo-tiempo",
+    puntoDeVenta: "Gimnasio Segundo Tiempo",
+    telefono: "3364358745",
+    contacto: "",
+    direccion: "Juan Manuel de Rosas 186",
+    localidad: "San Nicolás de los Arroyos",
+  },
+  {
+    id:"cefide",
+    puntoDeVenta: "Gimnasio CEFIDE",
+    telefono: "3364358745",
+    contacto: "",
+    direccion: "Pellegrini 508",
+    localidad: "San Nicolás de los Arroyos",
+  },
 ]
