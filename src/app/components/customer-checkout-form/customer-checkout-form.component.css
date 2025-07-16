@@ -1,0 +1,226 @@
+/* Modal */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 999;
+}
+
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 2rem 2rem 5px 2rem;
+  border-radius: 12px;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.input-group {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 8px 4px;
+  font-size: 1rem;
+  background: transparent;
+  outline: none;
+}
+
+.input-group label {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  color: #aaa;
+  font-size: 0.9rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown):valid + label,
+.input-group input.ng-dirty + label {
+  top: -12px;
+  left: 0;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+input.invalid {
+  border-bottom-color: red !important;
+}
+
+label.invalid{
+    color: red !important;
+}
+
+.radio-form{
+    margin-top: 25px;
+}
+
+.radio-form>label{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.select-form{
+    margin-top: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.select-form>label{
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.select-form>select{
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+.select-form>select>option{
+    font-size: 0.9rem;
+}
+
+
+.radio-group{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+}
+
+.radio-group>label{
+    margin-bottom: 5px;
+    margin-top: 5px;
+    font-size: 0.8rem;
+}
+
+label>strong{
+    margin-left: 5px;
+}
+
+small{
+    font-size: 0.7rem;
+}
+
+.direccion-det{
+    margin-left: 5px;
+    font-size: 0.75rem;
+}
+
+/* TOOLTIP */
+
+.radio-group>label {
+  position: relative;
+}
+
+.info-icon-wrapper {
+  position: relative;
+  display: inline-block;
+  color: #007BFF;
+  font-size: 14px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  background-color: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+.info-icon-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Botones */
+
+.clear-cart-btn{
+    padding: 10px 15px;
+    background-color: gray;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.send-order-cart-btn{
+    padding: 10px 15px;
+    background-color: var(--c_primary);
+    color: white;
+    border: 1px solid var(--c_primary);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+    font-size: 0.8rem;
+}
+
+.send-order-cart-btn i {
+  margin-right: 8px;
+}
+
+.send-order-cart-btn:hover{
+    background-color: var(--c_secondary);
+    transition: background-color 200ms ease;
+}
+
+.continue-btn{
+    padding: 10px 15px;
+    background-color: transparent;
+    border: 1px solid gray;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+    font-size: 0.8rem;
+}
+
+.cart-options{
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-size: 0.85rem;
+}
+
+.cart-options>*{
+    margin-left: 10px;
+}
