@@ -753,11 +753,12 @@ export const products: IProduct[] = [
       flavor: "Frutilla",
       packaging: "Envase plástico",
       services: "30"
-    }
+    },
+    relatedProductsIds: [28,27],
   },
   {
     id: 30,
-    description: "CARAMAÑOLA NX Naranja",
+    description: "CARAMAÑOLA NX 500cc Naranja",
     longDescription: "Polietileno, alta calidad. Sin olores. Pico de silicona flexible.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-accesorios"],
@@ -773,10 +774,14 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","caramañola","naranja","vaso","vaso deportivo"],
     showInHeroCarousel: true,
+    attributes: {
+      packaging: "Envase 500cc",
+    },
+    relatedProductsIds: [31],
   },
   {
     id: 31,
-    description: "SHAKER NX Negro y Naranja",
+    description: "SHAKER NX 750cc Negro y Naranja",
     longDescription: "Tapa a rosca, resina tritan, libre BPA.",
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-accesorios"],
@@ -792,5 +797,9 @@ export const products: IProduct[] = [
     inStock: true,
     tags: ["suplementos","shaker","naranja","negro","vaso","vaso deportivo"],
     showInHeroCarousel: true,
+    attributes: {
+      packaging: "Envase 750cc",
+    },
+    relatedProductsIds: [31],
   },
 ]

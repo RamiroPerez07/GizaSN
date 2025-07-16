@@ -25,5 +25,6 @@ export interface IProduct{
         colour?:string,
         performance?:string,
         textColor?: string,
-    }
+    },
+    relatedProductsIds?: number[]
 }

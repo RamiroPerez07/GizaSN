@@ -52,6 +52,10 @@ export class ProductsService {
     return this._dbProducts.find(p => p.id === id);
   }
 
+  getProductsByIds(productsIds: number[]): IProduct[] {
+    return this._dbProducts.filter(p => productsIds.includes(p.id) && p.visible === true );
+  }
+
   findCategoryById(id: string): ICategory | undefined {
     return categories.find(cat => cat.id === id);
   }

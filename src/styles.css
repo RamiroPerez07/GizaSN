@@ -49,3 +49,7 @@ li{
   font-weight: 600;
   text-align: center;
 }
+
+a{
+    text-decoration: none;
+}

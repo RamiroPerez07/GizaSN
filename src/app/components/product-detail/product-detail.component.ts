@@ -6,11 +6,12 @@ import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
+import { CardCarouselComponent } from "../card-carousel/card-carousel.component";
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, BreadcrumbComponent],
+  imports: [CommonModule, BreadcrumbComponent, CardCarouselComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
@@ -24,6 +25,8 @@ export class ProductDetailComponent {
   categoryId: string | null = null;
   
   product!: IProduct | undefined;
+
+  relatedProducts: IProduct[] = [];
 
   breadcrumbRoutes! : {name: string, redirectFx: Function}[] 
 
@@ -62,6 +65,11 @@ export class ProductDetailComponent {
             redirectFx: () => this.routerSvc.navigate(["products", this.product?.id])
           },
         ];
+
+        if(this.product.relatedProductsIds && this.product.relatedProductsIds.length>0){
+          this.relatedProducts = this.productsSvc.getProductsByIds(this.product.relatedProductsIds);
+        }
+
       }else{
         this.routerSvc.navigate(["products"]);
       }

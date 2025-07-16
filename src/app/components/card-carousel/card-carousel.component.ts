@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ProductsService } from '../../services/products.service';
+import { Component, ElementRef, inject, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { IProduct } from '../../interfaces/products.interface';
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
@@ -18,6 +17,10 @@ import { PLATFORM_ID } from '@angular/core';
 })
 export class CardCarouselComponent {
 
+  @Input() products! :IProduct[];
+
+  @Input() title!: string;
+
   @ViewChild('carouselTrack', { static: false }) carouselTrack!: ElementRef<HTMLDivElement>;
 
   animationId: number | null = null;
@@ -29,30 +32,14 @@ export class CardCarouselComponent {
   prevTranslate = 0;
   speed = 0.5; // px por frame (ajustalo)
 
-  products! :IProduct[];
-
-  readonly productsSvc = inject(ProductsService);
   readonly cartSvc = inject(CartService);
   readonly toastSvc = inject(ToastrService);
   readonly routerSvc = inject(Router);
 
   private readonly platformId = inject(PLATFORM_ID);
 
-
-
   @ViewChildren(ProductCardComponent) productCards!: QueryList<ProductCardComponent>;
 
-  ngOnInit(): void {
-    // Duplicamos las tarjetas para simular bucle infinito
-
-    this.productsSvc.getProductsForHeroCarousel()
-    
-    this.productsSvc.$products.subscribe({
-      next: (products: IProduct[]) => {
-        this.products = [...products, ...products ]
-      }
-    })
-  }
 
   ngAfterViewInit() {
     if (isPlatformBrowser(this.platformId)) {
