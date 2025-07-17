@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductsService } from '../../services/products.service';
 
@@ -10,7 +10,7 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './hero-carousel.component.html',
   styleUrl: './hero-carousel.component.css'
 })
-export class HeroCarouselComponent implements OnInit, OnDestroy {
+export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
 
   readonly routerSvc = inject(Router);
 
@@ -18,6 +18,14 @@ export class HeroCarouselComponent implements OnInit, OnDestroy {
 
   redirectTo(path: string){
     this.routerSvc.navigate([path])
+  }
+
+  @ViewChild('carousel', { static: false }) carouselRef!: ElementRef<HTMLElement>;
+
+  ngAfterViewInit(): void {
+    if (isPlatformBrowser(this.platformId)) {
+      setTimeout(() => this.updateTransform(), 0); // Espera al render completo
+    }
   }
 
   items! : {
@@ -120,7 +128,7 @@ export class HeroCarouselComponent implements OnInit, OnDestroy {
   }
 
   currentIndex = 0;
-  transformValue = 0;
+  transformValue: number = 0;
 
   private touchStartX = 0;
   private touchEndX = 0;
@@ -133,7 +141,10 @@ export class HeroCarouselComponent implements OnInit, OnDestroy {
 
   // Actualiza el valor de transformValue
   updateTransform(): void {
-    this.transformValue = -100 * this.currentIndex;
+    if (isPlatformBrowser(this.platformId) && this.carouselRef?.nativeElement) {
+        const width = this.carouselRef.nativeElement.offsetWidth;
+        this.transformValue = -this.currentIndex * width;
+      }
   }
 
   onTouchStart(event: TouchEvent): void {

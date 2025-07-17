@@ -71,21 +71,16 @@ a.go-to-products:hover{
   transition: background-color 200ms ease-out;
 }
 
-  
+  /*
   @media (max-width: 720px) {
     .dot{
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
     }
   }
-
+  */
 
   @media (max-width: 470px) {
-
-    .dot{
-      width: 8px;
-      height: 8px;
-    }
 
     a.go-to-products{
       bottom: 25%;
