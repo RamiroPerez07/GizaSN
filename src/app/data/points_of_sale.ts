@@ -53,7 +53,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     id:"segundo-tiempo",
     puntoDeVenta: "Gimnasio Segundo Tiempo",
     telefono: "3364358745",
-    contacto: "",
+    contacto: "Luciano Brassi",
     direccion: "Juan Manuel de Rosas 186",
     localidad: "San Nicolás de los Arroyos",
   },
@@ -63,6 +63,14 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     telefono: "3364358745",
     contacto: "",
     direccion: "Pellegrini 508",
+    localidad: "San Nicolás de los Arroyos",
+  },
+  {
+    id:"medio-cano",
+    puntoDeVenta: "Gimnasio Medio Caño",
+    telefono: "3364358745",
+    contacto: "Fernando Murialdo",
+    direccion: "",
     localidad: "San Nicolás de los Arroyos",
   },
 ]
