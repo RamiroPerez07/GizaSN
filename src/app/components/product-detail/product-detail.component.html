@@ -30,8 +30,7 @@
     </div>
   }
 </div>
-<!--
-  @if(product && product.relatedProductsIds && product.relatedProductsIds.length>0){
-    <app-card-carousel [products]="relatedProducts" [title]="'Productos relacionados'"></app-card-carousel>
-  }
--->
+
+@if(product && product.relatedProductsIds && product.relatedProductsIds.length>0){
+  <app-card-carousel [products]="relatedProducts" [title]="'Productos relacionados'" [autoScroll]="false" [alignLeft]="true"></app-card-carousel>
+}

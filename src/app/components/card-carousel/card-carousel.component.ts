@@ -21,6 +21,10 @@ export class CardCarouselComponent {
 
   @Input() title!: string;
 
+  @Input() alignLeft: boolean = false;
+
+  @Input() autoScroll: boolean = true;
+
   @ViewChild('carouselTrack', { static: false }) carouselTrack!: ElementRef<HTMLDivElement>;
 
   animationId: number | null = null;
@@ -42,7 +46,7 @@ export class CardCarouselComponent {
 
 
   ngAfterViewInit() {
-    if (isPlatformBrowser(this.platformId)) {
+    if (isPlatformBrowser(this.platformId) && this.autoScroll) {
       this.startAutoScroll();
     }
   }
@@ -52,7 +56,7 @@ export class CardCarouselComponent {
   }
 
   startAutoScroll() {
-    if (!isPlatformBrowser(this.platformId)) return;
+    if (!isPlatformBrowser(this.platformId) || !this.autoScroll) return;
 
     const step = () => {
       if (!this.isDragging) {

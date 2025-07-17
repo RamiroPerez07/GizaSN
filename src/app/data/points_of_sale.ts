@@ -70,7 +70,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     puntoDeVenta: "Gimnasio Medio Caño",
     telefono: "3364358745",
     contacto: "Fernando Murialdo",
-    direccion: "",
+    direccion: "Los Sauces y 32 oeste, Barrio Somisa",
     localidad: "San Nicolás de los Arroyos",
   },
 ]

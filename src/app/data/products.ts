@@ -27,7 +27,8 @@ export const products: IProduct[] = [
       packaging: "Envase plástico",
       performance: "1 Servicio/500ml",
       services: "18"
-    }
+    },
+    relatedProductsIds: [2,3],
   },
   {
     id: 2,
@@ -54,7 +55,8 @@ export const products: IProduct[] = [
       packaging: "Envase plástico",
       performance: "1 Servicio/500ml",
       services: "46",
-    }
+    },
+    relatedProductsIds: [1,3],
   },
   {
     id: 3,
@@ -81,7 +83,8 @@ export const products: IProduct[] = [
       packaging: "Display 20 sobres",
       performance: "33g/500ml",
       services: "20",
-    }
+    },
+    relatedProductsIds: [1,2],
   },
   {
     id: 4,
@@ -131,7 +134,8 @@ export const products: IProduct[] = [
       flavor: "Triberry",
       packaging: "Display 12 geles",
       textColor: "#ffffff",
-    }
+    },
+    relatedProductsIds: [6,7],
   },
   {
     id: 6,
@@ -156,7 +160,8 @@ export const products: IProduct[] = [
       content: "33g por gel",
       flavor: "Naranja",
       packaging: "Display 12 geles",
-    }
+    },
+    relatedProductsIds: [5,7],
   },
   {
     id: 7,
@@ -181,7 +186,8 @@ export const products: IProduct[] = [
       content: "33g por gel",
       flavor: "Caramelo salado",
       packaging: "Display 12 geles",
-    }
+    },
+    relatedProductsIds: [5,6],
   },
   {
     id: 8,
@@ -205,7 +211,8 @@ export const products: IProduct[] = [
       content: "28g",
       packaging: "Envase plástico 60 Cápsulas",
       services: "60 (1 Cápsula por servicio)",
-    }
+    },
+    relatedProductsIds: [9],
   },
   {
     id: 9,
@@ -229,7 +236,8 @@ export const products: IProduct[] = [
       content: "46g",
       packaging: "90 Cápsulas",
       services: "30 (3 Cápsulas por servicio)"
-    }
+    },
+    relatedProductsIds: [8],
   },
   {
     id: 10,
@@ -281,7 +289,8 @@ export const products: IProduct[] = [
       packaging: "Envase plástico",
       performance: "1 Servicio/500ml",
       services: "14"
-    }
+    },
+    relatedProductsIds: [12],
   },
   {
     id: 12,
@@ -308,7 +317,8 @@ export const products: IProduct[] = [
       packaging: "Display 20 sobres",
       performance: "1 sobre/500ml",
       services: "20"
-    }
+    },
+    relatedProductsIds: [11],
   },
   {
     id: 13,
@@ -335,7 +345,8 @@ export const products: IProduct[] = [
       packaging: "Display 10 sobres",
       performance: "1 sobre/500ml",
       services: "10"
-    }
+    },
+    relatedProductsIds: [14,15],
   },
   {
     id: 14,
@@ -361,7 +372,8 @@ export const products: IProduct[] = [
       flavor: "Naranja",
       packaging: "Envase plástico",
       services: "9",
-    }
+    },
+    relatedProductsIds: [13,15],
   },
   {
     id: 15,
@@ -387,7 +399,8 @@ export const products: IProduct[] = [
       flavor: "Naranja",
       packaging: "Envase plástico",
       services: "25"
-    }
+    },
+    relatedProductsIds: [13,14],
   },
   {
     id: 16,
@@ -465,7 +478,8 @@ export const products: IProduct[] = [
       flavor: "Vainilla",
       packaging: "Envase plástico 200 Comprimidos masticables",
       services: "25"
-    }
+    },
+    relatedProductsIds: [16,19,20],
   },
   {
     id: 19,
@@ -569,7 +583,8 @@ export const products: IProduct[] = [
       flavor: "Vainilla",
       packaging: "Envase plástico",
       services: "30"
-    }
+    },
+    relatedProductsIds: [23,24],
   },
   {
     id: 23,
@@ -596,7 +611,8 @@ export const products: IProduct[] = [
       packaging: "Envase plástico",
       services: "30",
       textColor: "#ffffff",
-    }
+    },
+    relatedProductsIds: [22,24],
   },
   {
     id: 24,
@@ -622,7 +638,8 @@ export const products: IProduct[] = [
       flavor: "Frutilla",
       packaging: "Envase plástico",
       services: "30"
-    }
+    },
+    relatedProductsIds: [22,23],
   },
   {
     id: 25,
@@ -700,7 +717,8 @@ export const products: IProduct[] = [
       flavor: "Vainilla",
       packaging: "Envase plástico",
       services: "30"
-    }
+    },
+    relatedProductsIds: [28,29],
   },
   {
     id: 28,
@@ -727,7 +745,8 @@ export const products: IProduct[] = [
       packaging: "Envase plástico",
       services: "30",
       textColor: "#ffffff",
-    }
+    },
+    relatedProductsIds: [27,29],
   },
   {
     id: 29,
