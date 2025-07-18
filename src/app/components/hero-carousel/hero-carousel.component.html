@@ -1,16 +1,16 @@
 <div class="hero-wrapper">
     <div class="hero-carousel" #carousel [style.transform]="'translateX(' + transformValue + 'px)'" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd()">
       @for (item of items; track $index) {
-        <img [src]="item.image" alt="Carousel item" (click)="item.redirectTo()" />
+        <img [src]="item.image" [alt]="item.caption" (click)="navigateTo(item.path)" />
       }
     </div>
   
     <div class="dots-container">
-      <span *ngFor="let item of desktopItems; let i = index"
+      <span *ngFor="let item of items; let i = index"
             class="dot"
             [class.active]="currentIndex === i"
             (click)="moveSlideTo(i)">
-      </span>
+    </span>
     </div>
-    <a class="go-to-products" (click)="redirectTo('products')">Hacenos tu pedido</a>
+    <a class="go-to-products" (click)="navigateToProducts()">Hacenos tu pedido</a>
 </div>

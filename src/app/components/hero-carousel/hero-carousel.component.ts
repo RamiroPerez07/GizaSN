@@ -1,7 +1,12 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductsService } from '../../services/products.service';
+
+interface CarouselItem {
+  image: string;
+  caption: string;
+  path: string[];
+}
 
 @Component({
   selector: 'app-hero-carousel',
@@ -12,139 +17,109 @@ import { ProductsService } from '../../services/products.service';
 })
 export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  readonly routerSvc = inject(Router);
-
-  readonly productsSvc = inject(ProductsService);
-
-  redirectTo(path: string){
-    this.routerSvc.navigate([path])
-  }
+  private readonly router = inject(Router);
+  private readonly platformId = inject(PLATFORM_ID);
 
   @ViewChild('carousel', { static: false }) carouselRef!: ElementRef<HTMLElement>;
 
-  ngAfterViewInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      setTimeout(() => this.updateTransform(), 0); // Espera al render completo
-    }
-  }
-
-  items! : {
-    image: string,
-    caption: string,
-    redirectTo: Function
-  }[]
-
-  desktopItems = [
-    { 
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_21.31.11_sgnyqc.jpg', 
-      caption: 'Running for fitness', 
-      redirectTo: () => {
-        this.routerSvc.navigate(["products/category", "nutremax"])
-      } 
-    },
-    { 
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_22.47.48_etffl4.jpg', 
-      caption: 'Supplements for strength', 
-      redirectTo: () => {} 
-    },
-    { 
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728519/WhatsApp_Image_2025-04-26_at_21.52.55_nedulp.jpg', 
-      caption: 'Training hard in the gym', 
-      redirectTo: () => {} 
-    },
-  ];
-
-  tabletItems = [
-    {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1748813291/WhatsApp_Image_2025-05-30_at_11.09.58_ydxyev.jpg',
-      caption: 'Aumenta tu energía',
-      redirectTo: () => {
-        this.routerSvc.navigate(["products/category", "nutremax"])
-      },
-    },
-    {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1748813291/WhatsApp_Image_2025-05-30_at_11.07.32_1_wa36b0.jpg',
-      caption: "Aumenta tu energia",
-      redirectTo: () => {
-        this.routerSvc.navigate(["products/category", "nutremax"])
-      },
-    },
-    {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1748813291/WhatsApp_Image_2025-05-30_at_11.07.32_jpsk0y.jpg',
-      caption: "Aumenta tu energia",
-      redirectTo: () => {
-        this.routerSvc.navigate(["products/category", "nutremax"])
-      },
-    },
-  ]
-
-  mobileItems = [
-    {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_2_u0fmr5.jpg',
-      caption: 'Aumenta tu energía',
-      redirectTo: () => {
-        this.routerSvc.navigate(["products/category", "nutremax"])
-      },
-    },
-    {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_1_b3yk0u.jpg',
-      caption: "Aumenta tu energia",
-      redirectTo: () => {
-        this.routerSvc.navigate(["products/category", "nutremax"])
-      },
-    },
-    {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_lvhuac.jpg',
-      caption: "Aumenta tu energia",
-      redirectTo: () => {
-        this.routerSvc.navigate(["products/category", "nutremax"])
-      },
-    },
-  ]
-
-  readonly platformId = inject(PLATFORM_ID);
-
-  ngOnInit(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      this.updateItemsForScreenSize();
-      window.addEventListener('resize', this.updateItemsForScreenSize.bind(this));
-    }
-  }
-
-  ngOnDestroy(): void {
-    if (isPlatformBrowser(this.platformId)) {
-      window.removeEventListener('resize', this.updateItemsForScreenSize.bind(this));
-    }
-  }
-
-  updateItemsForScreenSize(): void {
-    if (typeof window !== 'undefined') {
-      const isTablet = window.matchMedia('(max-width: 768px)').matches;
-      const isMobile = window.matchMedia('(max-width: 468px)').matches;
-      this.items = isMobile ? this.mobileItems : (isTablet ? this.tabletItems : this.desktopItems);
-      this.currentIndex = 0;
-      this.updateTransform();
-    }
-  }
+  items: CarouselItem[] = [];
 
   currentIndex = 0;
-  transformValue: number = 0;
+  transformValue = 0;
 
   private touchStartX = 0;
   private touchEndX = 0;
+  private resizeHandler = this.updateItemsForScreenSize.bind(this);
 
-  // Función para mover al slide directamente desde los puntos
+  readonly desktopItems: CarouselItem[] = [
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_21.31.11_sgnyqc.jpg',
+      caption: 'Running for fitness',
+      path: ['products/category', 'nutremax'],
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_22.47.48_etffl4.jpg',
+      caption: 'Supplements for strength',
+      path: [],
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728519/WhatsApp_Image_2025-04-26_at_21.52.55_nedulp.jpg',
+      caption: 'Training hard in the gym',
+      path: [],
+    },
+  ];
+
+  readonly tabletItems: CarouselItem[] = [
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1748813291/WhatsApp_Image_2025-05-30_at_11.09.58_ydxyev.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax'],
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1748813291/WhatsApp_Image_2025-05-30_at_11.07.32_1_wa36b0.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax'],
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1748813291/WhatsApp_Image_2025-05-30_at_11.07.32_jpsk0y.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax'],
+    },
+  ];
+
+  readonly mobileItems: CarouselItem[] = [
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_2_u0fmr5.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax'],
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_1_b3yk0u.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax'],
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_lvhuac.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax'],
+    },
+  ];
+
+  ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    this.updateItemsForScreenSize();
+    window.addEventListener('resize', this.resizeHandler);
+  }
+
+  ngAfterViewInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    requestAnimationFrame(() => {
+      this.updateTransform();
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
+    window.removeEventListener('resize', this.resizeHandler);
+  }
+
+  updateItemsForScreenSize(): void {
+    const isMobile = window.matchMedia('(max-width: 468px)').matches;
+    const isTablet = window.matchMedia('(max-width: 768px)').matches;
+    this.items = isMobile ? this.mobileItems : isTablet ? this.tabletItems : this.desktopItems;
+    this.currentIndex = 0;
+    this.updateTransform();
+  }
+
   moveSlideTo(index: number): void {
     this.currentIndex = index;
     this.updateTransform();
   }
 
-  // Actualiza el valor de transformValue
   updateTransform(): void {
-    if (isPlatformBrowser(this.platformId) && this.carouselRef?.nativeElement) {
-        const width = this.carouselRef.nativeElement.offsetWidth;
-        this.transformValue = -this.currentIndex * width;
-      }
+    if (!isPlatformBrowser(this.platformId)) return;
+    const width = this.carouselRef?.nativeElement?.offsetWidth || 0;
+    this.transformValue = -this.currentIndex * width;
   }
 
   onTouchStart(event: TouchEvent): void {
@@ -157,13 +132,8 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
 
   onTouchEnd(): void {
     const delta = this.touchEndX - this.touchStartX;
-
-    if (Math.abs(delta) > 50) { // umbral mínimo de swipe
-      if (delta < 0) {
-        this.nextSlide();
-      } else {
-        this.previousSlide();
-      }
+    if (Math.abs(delta) > 50) {
+      delta < 0 ? this.nextSlide() : this.previousSlide();
     }
   }
 
@@ -179,6 +149,16 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
       this.currentIndex--;
       this.updateTransform();
     }
+  }
+
+  navigateTo(path: string[] = []): void {
+    if (path.length > 0) {
+      this.router.navigate(path);
+    }
+  }
+
+  navigateToProducts(): void {
+    this.router.navigate(['products']);
   }
 
 }
