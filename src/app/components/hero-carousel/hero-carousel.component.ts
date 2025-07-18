@@ -40,12 +40,12 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
     {
       image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_22.47.48_etffl4.jpg',
       caption: 'Supplements for strength',
-      path: [],
+      path: ['products/category', 'nutremax'],
     },
     {
       image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728519/WhatsApp_Image_2025-04-26_at_21.52.55_nedulp.jpg',
       caption: 'Training hard in the gym',
-      path: [],
+      path: ['products/category', 'nutremax'],
     },
   ];
 
@@ -118,7 +118,7 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
 
   updateTransform(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    const width = this.carouselRef?.nativeElement?.offsetWidth || 0;
+    const width = this.carouselRef?.nativeElement?.getBoundingClientRect().width || 0;
     this.transformValue = -this.currentIndex * width;
   }
 
