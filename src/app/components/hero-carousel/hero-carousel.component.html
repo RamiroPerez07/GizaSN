@@ -1,16 +1,29 @@
-<div class="hero-wrapper">
-    <div class="hero-carousel" #carousel [style.transform]="'translateX(' + transformValue + 'px)'" (touchstart)="onTouchStart($event)" (touchmove)="onTouchMove($event)" (touchend)="onTouchEnd()">
-      @for (item of items; track $index) {
-        <img [src]="item.image" [alt]="item.caption" (click)="navigateTo(item.path)" />
-      }
-    </div>
-  
-    <div class="dots-container">
-      <span *ngFor="let item of items; let i = index"
-            class="dot"
-            [class.active]="currentIndex === i"
-            (click)="moveSlideTo(i)">
+<div class="hero-wrapper"
+     (touchstart)="onTouchStart($event)"
+     (touchmove)="onTouchMove($event)"
+     (touchend)="onTouchEnd()"
+     (mousedown)="onMouseDown($event)"
+     (mousemove)="onMouseMove($event)"
+     (mouseup)="onMouseUp()"
+     (mouseleave)="onMouseLeave()"
+     >
+
+  <div class="hero-carousel" #carousel>
+    @for (item of items; track $index) {
+      <img [src]="item.image"
+           [alt]="item.caption"
+           (click)="onImageClick($event, item.path)"
+           draggable="false" />
+    }
+  </div>
+
+  <div class="dots-container">
+    <span *ngFor="let item of items; let i = index"
+          class="dot"
+          [class.active]="currentIndex === i"
+          (click)="animateToIndex(i)">
     </span>
-    </div>
-    <a class="go-to-products" (click)="navigateToProducts()">Hacenos tu pedido</a>
+  </div>
+
+  <a class="go-to-products" (click)="navigateToProducts()">Hacenos tu pedido</a>
 </div>

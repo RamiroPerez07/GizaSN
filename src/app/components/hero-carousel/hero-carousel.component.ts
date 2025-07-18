@@ -24,13 +24,6 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
 
   items: CarouselItem[] = [];
 
-  currentIndex = 0;
-  transformValue = 0;
-
-  private touchStartX = 0;
-  private touchEndX = 0;
-  private resizeHandler = this.updateItemsForScreenSize.bind(this);
-
   readonly desktopItems: CarouselItem[] = [
     {
       image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_21.31.11_sgnyqc.jpg',
@@ -85,39 +78,38 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
     },
   ];
 
+  currentIndex = 0;
+  transformValue = 0;
+
+  private resizeHandler = this.updateItemsForScreenSize.bind(this);
+
+  // Drag vars
+  private isDragging = false;
+  private startX = 0;
+  private prevTranslate = 0;
+  private animationFrameId: number | null = null;
+
+  // Para detectar si hubo desplazamiento (drag)
+  private dragged = false;
+
+  // Guarda el total deltaX para decidir swipe
+  private totalDeltaX = 0;
+
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     this.updateItemsForScreenSize();
     window.addEventListener('resize', this.resizeHandler);
   }
 
-  private resizeObserver?: ResizeObserver;
-
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-
-    const images = this.carouselRef.nativeElement.querySelectorAll('img');
-    const loadPromises: Promise<void>[] = [];
-
-    images.forEach((img: HTMLImageElement) => {
-      if (img.complete) return; // Ya cargada
-      loadPromises.push(new Promise<void>((resolve) => {
-        img.onload = () => resolve();
-        img.onerror = () => resolve(); // Igual resolvemos en caso de error
-      }));
-    });
-
-    Promise.all(loadPromises).then(() => {
-      this.updateTransform();
-      this.resizeObserver = new ResizeObserver(() => this.updateTransform());
-      this.resizeObserver.observe(this.carouselRef.nativeElement);
-    });
+    this.setPositionByIndex();
   }
 
   ngOnDestroy(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     window.removeEventListener('resize', this.resizeHandler);
-    this.resizeObserver?.disconnect();
+    this.cancelAnimation();
   }
 
   updateItemsForScreenSize(): void {
@@ -125,56 +117,152 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
     const isTablet = window.matchMedia('(max-width: 768px)').matches;
     this.items = isMobile ? this.mobileItems : isTablet ? this.tabletItems : this.desktopItems;
     this.currentIndex = 0;
-    this.updateTransform();
+    this.setPositionByIndex();
   }
 
-  moveSlideTo(index: number): void {
-    this.currentIndex = index;
-    this.updateTransform();
+  onTouchStart(event: TouchEvent) {
+    this.isDragging = true;
+    this.dragged = false;
+    this.totalDeltaX = 0;
+    this.startX = event.touches[0].clientX;
+    this.prevTranslate = this.transformValue;
+    this.cancelAnimation();
+
+    // Al iniciar drag quitamos transición para que siga suave el dedo
+    this.setTransform(this.transformValue, false);
   }
 
-  updateTransform(): void {
-    if (!isPlatformBrowser(this.platformId)) return;
-    const width = this.carouselRef?.nativeElement?.getBoundingClientRect().width || 0;
+  onTouchMove(event: TouchEvent) {
+    if (!this.isDragging) return;
+    const currentX = event.touches[0].clientX;
+    const deltaX = currentX - this.startX;
+    this.totalDeltaX = deltaX;
+    if (Math.abs(deltaX) > 5) {
+      this.dragged = true;
+    }
+    this.transformValue = this.prevTranslate + deltaX;
+    this.setTransform(this.transformValue, false);
+  }
+
+  onTouchEnd() {
+    this.isDragging = false;
+    this.snapToClosestSlide();
+  }
+
+  onMouseDown(event: MouseEvent) {
+    this.isDragging = true;
+    this.dragged = false;
+    this.totalDeltaX = 0;
+    this.startX = event.clientX;
+    this.prevTranslate = this.transformValue;
+    this.cancelAnimation();
+    event.preventDefault();
+
+    this.setTransform(this.transformValue, false);
+  }
+
+  onMouseMove(event: MouseEvent) {
+    if (!this.isDragging) return;
+    const currentX = event.clientX;
+    const deltaX = currentX - this.startX;
+    this.totalDeltaX = deltaX;
+    if (Math.abs(deltaX) > 5) {
+      this.dragged = true;
+    }
+    this.transformValue = this.prevTranslate + deltaX;
+    this.setTransform(this.transformValue, false);
+  }
+
+  onMouseUp() {
+    if (!this.isDragging) return;
+    this.isDragging = false;
+    this.snapToClosestSlide();
+  }
+
+  onMouseLeave() {
+    if (this.isDragging) {
+      this.isDragging = false;
+      this.snapToClosestSlide();
+    }
+  }
+
+  private snapToClosestSlide() {
+    if (!this.carouselRef) return;
+    const width = this.carouselRef.nativeElement.getBoundingClientRect().width;
+    const swipeThreshold = width * 0.15; // 15% del ancho para cambiar slide
+
+    if (this.totalDeltaX > swipeThreshold) {
+      // Swipe a la derecha - ir slide anterior
+      this.currentIndex = Math.max(this.currentIndex - 1, 0);
+    } else if (this.totalDeltaX < -swipeThreshold) {
+      // Swipe a la izquierda - ir slide siguiente
+      this.currentIndex = Math.min(this.currentIndex + 1, this.items.length - 1);
+    }
+    // Si no supera umbral, queda en el mismo slide
+
+    this.animateToIndex(this.currentIndex);
+
+    this.totalDeltaX = 0; // reset
+  }
+
+  public animateToIndex(index: number) {
+    if (!this.carouselRef) return;
+    const width = this.carouselRef.nativeElement.getBoundingClientRect().width;
+    const target = -index * width;
+
+    this.currentIndex = index; // actualizo índice aquí para dots
+
+    // Aquí definís la duración que querés para la animación:
+    const durationMs = 700; // probá con 700ms, o el valor que prefieras
+
+    this.setTransformWithDuration(target, durationMs);
+  }
+
+  private setTransformWithDuration(value: number, durationMs: number) {
+    if (!this.carouselRef) return;
+    const el = this.carouselRef.nativeElement;
+    el.style.transition = `transform ${durationMs}ms ease-in-out`;
+    el.style.transform = `translateX(${value}px)`;
+    this.transformValue = value;
+  }
+
+  private setPositionByIndex() {
+    if (!this.carouselRef) return;
+    const width = this.carouselRef.nativeElement.getBoundingClientRect().width;
     this.transformValue = -this.currentIndex * width;
+    this.setTransform(this.transformValue, false);
   }
 
-  onTouchStart(event: TouchEvent): void {
-    this.touchStartX = event.touches[0].clientX;
+  private setTransform(value: number, withTransition: boolean = false) {
+    if (!this.carouselRef) return;
+    const el = this.carouselRef.nativeElement;
+    el.style.transition = withTransition ? 'transform 0.5s ease-in-out' : 'none';
+    el.style.transform = `translateX(${value}px)`;
+    this.transformValue = value;
   }
 
-  onTouchMove(event: TouchEvent): void {
-    this.touchEndX = event.touches[0].clientX;
-  }
-
-  onTouchEnd(): void {
-    const delta = this.touchEndX - this.touchStartX;
-    if (Math.abs(delta) > 50) {
-      delta < 0 ? this.nextSlide() : this.previousSlide();
+  private cancelAnimation() {
+    if (this.animationFrameId !== null) {
+      cancelAnimationFrame(this.animationFrameId);
+      this.animationFrameId = null;
     }
   }
 
-  nextSlide(): void {
-    if (this.currentIndex < this.items.length - 1) {
-      this.currentIndex++;
-      this.updateTransform();
+  // Bloqueo click si hubo drag para que no navegue al arrastrar
+  onImageClick(event: MouseEvent, path: string[]) {
+    if (this.dragged) {
+      event.preventDefault();
+      event.stopPropagation();
+      return;
     }
+    this.navigateTo(path);
   }
 
-  previousSlide(): void {
-    if (this.currentIndex > 0) {
-      this.currentIndex--;
-      this.updateTransform();
-    }
+  navigateTo(path: string[] = []) {
+    if (path.length) this.router.navigate(path);
   }
 
-  navigateTo(path: string[] = []): void {
-    if (path.length > 0) {
-      this.router.navigate(path);
-    }
-  }
-
-  navigateToProducts(): void {
+  navigateToProducts() {
     this.router.navigate(['products']);
   }
 
