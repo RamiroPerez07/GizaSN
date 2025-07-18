@@ -93,9 +93,8 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    requestAnimationFrame(() => {
-      this.updateTransform();
-    });
+    const observer = new ResizeObserver(() => this.updateTransform());
+    observer.observe(this.carouselRef.nativeElement);
   }
 
   ngOnDestroy(): void {
