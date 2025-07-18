@@ -91,15 +91,33 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
     window.addEventListener('resize', this.resizeHandler);
   }
 
+  private resizeObserver?: ResizeObserver;
+
   ngAfterViewInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
-    const observer = new ResizeObserver(() => this.updateTransform());
-    observer.observe(this.carouselRef.nativeElement);
+
+    const images = this.carouselRef.nativeElement.querySelectorAll('img');
+    const loadPromises: Promise<void>[] = [];
+
+    images.forEach((img: HTMLImageElement) => {
+      if (img.complete) return; // Ya cargada
+      loadPromises.push(new Promise<void>((resolve) => {
+        img.onload = () => resolve();
+        img.onerror = () => resolve(); // Igual resolvemos en caso de error
+      }));
+    });
+
+    Promise.all(loadPromises).then(() => {
+      this.updateTransform();
+      this.resizeObserver = new ResizeObserver(() => this.updateTransform());
+      this.resizeObserver.observe(this.carouselRef.nativeElement);
+    });
   }
 
   ngOnDestroy(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     window.removeEventListener('resize', this.resizeHandler);
+    this.resizeObserver?.disconnect();
   }
 
   updateItemsForScreenSize(): void {
