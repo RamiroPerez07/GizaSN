@@ -5,4 +5,5 @@ export interface PointOfSale {
   contacto: string;
   direccion: string;
   localidad: string;
+  imgLogoUrl?: string;
 }

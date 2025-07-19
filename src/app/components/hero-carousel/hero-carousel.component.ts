@@ -1,6 +1,8 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, PLATFORM_ID, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { PointOfSaleService } from '../../services/point-of-sale.service';
+import { PointOfSale } from '../../interfaces/pointofsale.interface';
 
 interface CarouselItem {
   image: string;
@@ -19,6 +21,7 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private readonly router = inject(Router);
   private readonly platformId = inject(PLATFORM_ID);
+  private readonly posSvc = inject(PointOfSaleService);
 
   @ViewChild('carousel', { static: false }) carouselRef!: ElementRef<HTMLElement>;
 
@@ -95,10 +98,13 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   // Guarda el total deltaX para decidir swipe
   private totalDeltaX = 0;
 
+  pos : PointOfSale | null = null;
+
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     this.updateItemsForScreenSize();
     window.addEventListener('resize', this.resizeHandler);
+    this.pos = this.posSvc.getCurrentPointOfSale();
   }
 
   ngAfterViewInit(): void {

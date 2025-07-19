@@ -82,6 +82,21 @@ a.go-to-products:hover{
   transition: background-color 200ms ease-out;
 }
 
+/* GYM LOGO */
+
+.customer-gym-logo-container{
+  position: absolute;
+  top: 25px ;
+  right: 25px;
+  display: grid;
+  place-items: center;
+}
+
+.customer-gym-logo{
+  width: 50px;
+}
+
+
   /*
   @media (max-width: 720px) {
     .dot{

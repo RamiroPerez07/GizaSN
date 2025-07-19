@@ -56,6 +56,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Luciano Brassi",
     direccion: "Juan Manuel de Rosas 186",
     localidad: "San Nicolás de los Arroyos",
+    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1752940591/5a21a5ca-5f1a-45d5-84a9-238eecb173c2-removebg-preview_e0a7il.png"
   },
   {
     id:"cefide",
