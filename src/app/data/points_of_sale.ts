@@ -74,4 +74,12 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Los Sauces y 32 oeste, Barrio Somisa",
     localidad: "San Nicolás de los Arroyos",
   },
+  {
+    id: "german-aseff",
+    puntoDeVenta: "German Aseff",
+    telefono: "3364358745",
+    contacto: "German Aseff",
+    direccion: "Dirección no especificada",
+    localidad: "San Nicolás de los Arroyos",
+  }
 ]
