@@ -4,3 +4,4 @@ export const BRAND_IMAGES = {
     logoHorizontalCompleto: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1752520328/Dise%C3%B1o_sin_t%C3%ADtulo_46_hiiqje.png",
 }
 
+export const businessAlias: string = "genericos.sn"

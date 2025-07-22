@@ -1,9 +1,11 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { PointOfSale } from '../../interfaces/pointofsale.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { PointOfSaleService } from '../../services/point-of-sale.service';
+import { ToastrService } from 'ngx-toastr';
+import { businessAlias } from '../../utils/constants';
 
 @Component({
   selector: 'app-customer-checkout-form',
@@ -21,11 +23,17 @@ export class CustomerCheckoutFormComponent implements OnInit {
 
   subtotal!: number;
 
+  businessAlias: string = businessAlias
+
   readonly fb = inject(FormBuilder);
 
   readonly pointOfSaleSvc = inject(PointOfSaleService);
 
   readonly cartSvc = inject(CartService);
+
+  readonly toastSvc = inject(ToastrService);
+
+  private readonly platformId = inject(PLATFORM_ID);
 
   form: FormGroup = this.fb.group({
     nombre: ['', Validators.required],
@@ -119,5 +127,15 @@ export class CustomerCheckoutFormComponent implements OnInit {
 
     this.closeModal(); //cierro el formulario
     this.form.reset();  //reinicio el formulario
+  }
+
+  copyAlias() {
+    if (!isPlatformBrowser(this.platformId)) return;
+    // traigo el alias desde las constantes.
+    navigator.clipboard.writeText(this.businessAlias).then(() => {
+      this.toastSvc.success(`Alias copiado al portapapeles`, "Copiado al clipboard");
+    }).catch(err => {
+      this.toastSvc.error("Error al copiar alias", "Error");
+    });
   }
 }

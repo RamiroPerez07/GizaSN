@@ -76,10 +76,11 @@ export const POINTS_OF_SALE : PointOfSale[] = [
   },
   {
     id: "german-aseff",
-    puntoDeVenta: "German Aseff",
+    puntoDeVenta: "Gimnasio Espacio Fitness",
     telefono: "3364358745",
-    contacto: "German Aseff",
-    direccion: "Dirección no especificada",
+    contacto: "Germán Aseff",
+    direccion: "Av. Pres. Juan Domingo Perón 835",
     localidad: "San Nicolás de los Arroyos",
+    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1753144025/305846137_503340691794421_2974097630317423424_n-removebg-preview_dqztje.png"
   }
 ]

@@ -1,10 +1,16 @@
 /* Modal */
 
+.custom-modal h3{
+  font-size: 1.05rem;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.4);
-  z-index: 999;
+  z-index: 10000;
 }
 
 .custom-modal {
@@ -15,11 +21,17 @@
   background: white;
   padding: 2rem 2rem 5px 2rem;
   border-radius: 12px;
-  z-index: 1000;
+  z-index: 10001;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   width: 90%;
   max-width: 400px;
+  max-height: 90%;
   animation: fadeIn 0.3s ease;
+}
+
+.modal-content{
+  max-height: 450px;
+  overflow-y: auto;
 }
 
 @keyframes fadeIn {
@@ -43,7 +55,7 @@
   border: none;
   border-bottom: 2px solid #ccc;
   padding: 8px 4px;
-  font-size: 1rem;
+  font-size: 0.85rem;
   background: transparent;
   outline: none;
 }
@@ -53,7 +65,7 @@
   top: 8px;
   left: 4px;
   color: #aaa;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   pointer-events: none;
   transition: 0.2s ease all;
 }
@@ -76,7 +88,8 @@ label.invalid{
 }
 
 .radio-form{
-    margin-top: 25px;
+    width: 100%;
+    margin-top: 15px;
 }
 
 .radio-form>label{
@@ -85,38 +98,50 @@ label.invalid{
 }
 
 .select-form{
-    margin-top: 25px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
 }
 
 .select-form>label{
-    font-size: 0.9rem;
+    font-size: 0.80rem;
     font-weight: 600;
 }
 
 .select-form>select{
     margin-top: 10px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    width: 100%;
+    max-width: 100%;
 }
 
 .select-form>select>option{
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 
 
 .radio-group{
-    margin-top: 5px;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
+    width: 100%;
+    margin-top: 8px;
+}
+
+.radio-group>label>div{
+  flex:1;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.radio-group>label>div>div{
+  flex:1;
 }
 
 .radio-group>label{
-    margin-bottom: 5px;
-    margin-top: 5px;
+    margin-bottom: 7px;
+    margin-top: 7px;
     font-size: 0.8rem;
+    display: flex;
+    align-items: center;
 }
 
 label>strong{
@@ -148,17 +173,20 @@ small{
 }
 
 .tooltip-text {
-  visibility: hidden;
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 8px); /* separa el tooltip hacia la izquierda */
+  transform: translateY(-50%);
   background-color: #333;
   color: #fff;
   font-size: 12px;
   padding: 6px 8px;
   border-radius: 6px;
-  position: absolute;
-  bottom: 125%;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
+  white-space: normal;
+  max-width: 150px;
+  width: max-content;
+  text-align: center;
+  visibility: hidden;
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 100;
@@ -223,4 +251,58 @@ small{
 
 .cart-options>*{
     margin-left: 10px;
+}
+
+/* Clipboard alias */
+
+.clipboard-container {
+  margin: 10px 0;
+}
+
+.clipboard-container>label{
+  display: block; 
+  font-size: 0.75rem;
+  color: #333;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.clipboard-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clipboard-content input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #f8f8f8;
+  font-weight: 300;
+  font-size: 0.8rem;
+  outline: none;
+}
+
+.clipboard-btn {
+  background: #ddd;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.clipboard-btn:hover {
+  background: #ccc;
+}
+
+.helper-container{
+  margin-top: 5px;
+}
+
+.clipboard-helper {
+  font-size: 0.65rem;
+  color: #555;
+  display: block;
 }
