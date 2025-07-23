@@ -1,10 +1,12 @@
-<h2 class="section-title">Línea Nutremax</h2>
-<div class="container">
-  @for (category of categories; track $index) {
-    <div class="category-card" [style.backgroundImage]="'url(' + category.urlImg + ')'" (click)="redirectTo(category)">
-      <div class="category-name">
-        {{category.title}}
+@if (categories) {
+  <h2 class="section-title">Línea Nutremax</h2>
+  <div class="container">
+    @for (category of categories; track $index) {
+      <div class="category-card" [style.backgroundImage]="'url(' + category.urlImg + ')'" (click)="redirectTo(category)">
+        <div class="category-name">
+          {{category.title}}
+        </div>
       </div>
-    </div>
-  }
-</div>
+    }
+  </div>
+}

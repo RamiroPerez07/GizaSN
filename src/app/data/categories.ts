@@ -3,7 +3,7 @@ import { ICategory } from "../interfaces/categories.interface";
 export const categories : ICategory[] = [
     {
         id: "suplementos",
-        title: "Suplementos",
+        title: "Suplementos Deportivos",
         level: 1,
         parentId: null,
         priority: 10,
@@ -97,5 +97,37 @@ export const categories : ICategory[] = [
         priority: 10,
         visible: true,
         urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751481263/Agregar_un_t%C3%ADtulo_13_sif5bf.png",
+    },
+    {
+        id: "suplementos-nutricionales",
+        title: "Suplementos Nutricionales",
+        level: 1,
+        parentId: null,
+        priority: 9,
+        visible: true,
+    },
+    {
+        id: "innovanaturals",
+        title: "InnovaNaturals",
+        level: 2,
+        parentId: "suplementos-nutricionales",
+        priority: 10,
+        visible: true,
+    },
+    {
+        id: "omega3",
+        title: "Omega 3",
+        level: 3,
+        parentId: "innovanaturals",
+        priority: 10,
+        visible: true,
+    },
+    {
+        id: "magnesiosyvit",
+        title: "Magnesios y Vitaminas",
+        level: 3,
+        parentId: "innovanaturals",
+        priority: 10,
+        visible: true,
     },
 ]

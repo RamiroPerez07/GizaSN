@@ -1,5 +1,26 @@
 import { PointOfSale } from "../interfaces/pointofsale.interface";
 
+const nutremaxCategories = [
+  "suplementos", 
+  "nutremax", 
+  "nutremax-hidratacion", 
+  "nutremax-energizantes", 
+  "nutremax-recuperadores",
+  "nutremax-aminoacidos",
+  "nutremax-proteinas",
+  "nutremax-colagenos",
+  "nutremax-descenso-de-peso",
+  "nutremax-construcciones-musculares",
+  "nutremax-accesorios"
+]
+
+const innovaCategories = [
+  "suplementos-nutricionales",
+  "innovanaturals",
+  "omega3",
+  "magnesiosyvit",
+]
+
 export const POINTS_OF_SALE : PointOfSale[] = [
   {
     id:"ironman",
@@ -8,6 +29,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Pablo Brunelli",
     direccion: "9 de Julio 127",
     localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories],
   },
   {
     id:"atenas",
@@ -16,6 +38,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Esteban",
     direccion: "Av. Savio 405",
     localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories],
   },
   {
     id:"giza",
@@ -24,6 +47,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Clari",
     direccion: "Av. Falcón 391",
     localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
   },
   {
     id:"eduardo-vinas",
@@ -32,6 +56,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Eduardo Viñas",
     direccion: "Av. Falcón 391",
     localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories],
   },
   {
     id:"matias-ledesma",
@@ -40,6 +65,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Matias Ledesma",
     direccion: "Av. Falcón 391",
     localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories],
   },
   {
     id:"iaf",
@@ -48,6 +74,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Nicolás Cernadas",
     direccion: "Maipú 144",
     localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories],
   },
   {
     id:"segundo-tiempo",
@@ -56,7 +83,8 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Luciano Brassi",
     direccion: "Juan Manuel de Rosas 186",
     localidad: "San Nicolás de los Arroyos",
-    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1752940591/5a21a5ca-5f1a-45d5-84a9-238eecb173c2-removebg-preview_e0a7il.png"
+    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1752940591/5a21a5ca-5f1a-45d5-84a9-238eecb173c2-removebg-preview_e0a7il.png",
+    allowedCategoryIds: [...nutremaxCategories],
   },
   {
     id:"cefide",
@@ -65,6 +93,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "",
     direccion: "Pellegrini 508",
     localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories],
   },
   {
     id:"medio-cano",
@@ -73,6 +102,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Fernando Murialdo",
     direccion: "Los Sauces y 32 oeste, Barrio Somisa",
     localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories],
   },
   {
     id: "german-aseff",
@@ -81,6 +111,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     contacto: "Germán Aseff",
     direccion: "Av. Pres. Juan Domingo Perón 835",
     localidad: "San Nicolás de los Arroyos",
-    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1753144025/305846137_503340691794421_2974097630317423424_n-removebg-preview_dqztje.png"
+    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1753144025/305846137_503340691794421_2974097630317423424_n-removebg-preview_dqztje.png",
+    allowedCategoryIds: [...nutremaxCategories],
   }
 ]

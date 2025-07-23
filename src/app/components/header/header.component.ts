@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { BRAND_IMAGES } from '../../utils/constants';
 import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
+import { PointOfSale } from '../../interfaces/pointofsale.interface';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
@@ -19,7 +21,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class HeaderComponent implements OnInit {
   
-  categories: ICategory[] = categories;
+  categories: ICategory[] = [];
 
   showTree!: boolean;
 
@@ -27,11 +29,15 @@ export class HeaderComponent implements OnInit {
 
   totalQuantity ! : number;
 
+  pos!: PointOfSale | null;
+
   readonly routerSvc = inject(Router);
 
   readonly categoryTreeSvc = inject(CategoryTreeService);
 
   readonly cartSvc = inject(CartService);
+
+  readonly productsSvc = inject(ProductsService);
 
   ngOnInit(): void {
     this.categoryTreeSvc.$showTree.subscribe({
@@ -45,7 +51,15 @@ export class HeaderComponent implements OnInit {
         this.totalQuantity = productsInCart.reduce((acc,p) => acc + (p.quantity ?? 0) ,0); 
       }
     })
+
+    this.productsSvc.$categories.subscribe({
+      next: (categories: ICategory[]) => {
+        this.categories = categories
+      }
+    })
+
   }
+
 
   toggleShowTree(){
     this.categoryTreeSvc.toggleShowTree();

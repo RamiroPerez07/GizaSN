@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/ro
 import { HeaderComponent } from "./components/header/header.component";
 import { PointOfSaleService } from './services/point-of-sale.service';
 import { FooterComponent } from "./components/footer/footer.component";
+import { ProductsService } from './services/products.service';
 
 @Component({
   selector: 'app-root',
@@ -20,20 +21,31 @@ export class AppComponent implements OnInit{
 
   readonly router = inject(Router);
 
-  ngOnInit(): void {
-  this.router.events.subscribe(event => {
-    if (event instanceof NavigationEnd) {
-      const pv = this.activatedRute.snapshot.queryParams['pv'];
+  readonly productsSvc = inject(ProductsService);
 
-      if (pv !== undefined) {
-        if (this.pointOfSaleSvc.isValidPv(pv)) {
-          this.pointOfSaleSvc.setPv(pv);
-        } else {
-          this.pointOfSaleSvc.clearPv();
+  ngOnInit(): void {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const pv = this.activatedRute.snapshot.queryParams['pv'];
+
+        if (pv !== undefined) {
+          if (this.pointOfSaleSvc.isValidPv(pv)) {
+            this.pointOfSaleSvc.setPv(pv);
+          } else {
+            this.pointOfSaleSvc.clearPv();
+          }
         }
       }
-    }
-  });
+    });
+
+    this.pointOfSaleSvc.pv$.subscribe({
+      next: () => {
+        const pos = this.pointOfSaleSvc.getCurrentPointOfSale();
+        if(pos && pos.allowedCategoryIds){
+          this.productsSvc.setAllowedCategories(pos.allowedCategoryIds);
+        }
+      }
+    })
   }
 
 

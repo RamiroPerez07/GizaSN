@@ -6,4 +6,5 @@ export interface PointOfSale {
   direccion: string;
   localidad: string;
   imgLogoUrl?: string;
+  allowedCategoryIds?: string[];
 }
