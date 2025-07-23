@@ -3,5 +3,6 @@
 <div class="btn-container">
   <button class="view-all-products-btn" (click)="redirectTo('products')">Ver Todos</button>
 </div>
-<app-categories-grid [parentCategoryId]="'nutremax'" />
+<app-categories-grid [title]="'Línea Nutremax'" [parentCategoryId]="'nutremax'" />
+<app-categories-grid [title]="'Línea InnovaNaturals'" [parentCategoryId]="'innovanaturals'" />
 <app-benefits />

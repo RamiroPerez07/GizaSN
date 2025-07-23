@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class CategoriesGridComponent implements OnInit {
   @Input() parentCategoryId!: string;
+  
+  @Input() title! : string;
 
   readonly productsSvc = inject(ProductsService);
 

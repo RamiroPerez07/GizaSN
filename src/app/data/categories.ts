@@ -121,6 +121,7 @@ export const categories : ICategory[] = [
         parentId: "innovanaturals",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753301910/Agregar_un_t%C3%ADtulo_14_iaaklg.png",
     },
     {
         id: "magnesiosyvit",
@@ -129,5 +130,6 @@ export const categories : ICategory[] = [
         parentId: "innovanaturals",
         priority: 10,
         visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753301834/11_nly7mx.png"
     },
 ]

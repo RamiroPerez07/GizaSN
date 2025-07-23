@@ -50,9 +50,10 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 0.8rem;
   transition: bottom 200ms ease;
-  padding: 3px;
+  padding: 5px;
+  text-align: center;
 }
 
 /* Al hacer hover, aparece */

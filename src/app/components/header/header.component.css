@@ -28,22 +28,36 @@ header{
 
 .category-btn{
     position: relative; 
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #444;
+    background: transparent;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: none; /* Sin sombra inicial */
 }
 
-.category-btn::after{
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0%;
-    height: 2px;
-    border-radius: 5px;
-    background-color: var(--c_primary);
-    transition: width 0.5s ease;
+.category-btn i {
+  font-size: 16px;
 }
 
-.category-btn:hover::after {
-    width: 100%;
+.dropdown-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Estado abierto: rotar flecha */
+.category-btn.open .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.category-btn:hover {
+    color: var(--c_primary, #0077cc); /* Cambio sutil de color del texto */
+    background-color: rgba(0, 0, 0, 0.04); /* Fondo muy leve */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra liviana */
 }
 
 /* Contenedor del árbol de categorías */
@@ -172,7 +186,7 @@ header{
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 20px;
     color: #444;
   }
 }

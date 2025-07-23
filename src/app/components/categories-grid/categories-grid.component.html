@@ -1,5 +1,5 @@
 @if (categories) {
-  <h2 class="section-title">Línea Nutremax</h2>
+  <h2 class="section-title">{{title}}</h2>
   <div class="container">
     @for (category of categories; track $index) {
       <div class="category-card" [style.backgroundImage]="'url(' + category.urlImg + ')'" (click)="redirectTo(category)">
