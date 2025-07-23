@@ -22,7 +22,7 @@ header{
 }
 
 .products-menu-header{
-    margin-left: 12px;
+    margin-left: 10px;
     cursor: pointer;
 }
 
@@ -177,6 +177,11 @@ header{
 
 /* Ocultar input en mobile, mostrar ícono */
 @media (max-width: 768px) {
+
+  .products-menu-header{
+    margin-left: 5px;
+  }
+
   .search-container {
     display: none;
   }
@@ -186,7 +191,7 @@ header{
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 6px;
     color: #444;
   }
 }
