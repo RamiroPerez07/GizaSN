@@ -33,8 +33,8 @@ header{
     gap: 8px;
     color: #444;
     background: transparent;
-    font-weight: 500;
-    padding: 8px 14px;
+    font-weight: 600;
+    padding: 8px 16px;
     border-radius: 6px;
     cursor: pointer;
     transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
@@ -186,7 +186,7 @@ header{
     background: none;
     border: none;
     cursor: pointer;
-    margin-left: 20px;
+    margin-left: 10px;
     color: #444;
   }
 }
