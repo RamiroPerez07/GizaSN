@@ -42,7 +42,7 @@ export class ProductsService {
 
   private isAllowed(product: IProduct): boolean {
     if (product.visible === false) return false;
-    if (this.allowedCategoryIds.value.length === 0) return false;
+    if (this.allowedCategoryIds.value.length === 0) return true;
     //El producto tiene que tener todas las categorias permitidas por el pos
     return product.idCategories.every(catId => this.allowedCategoryIds.value.includes(catId));
   }
@@ -90,7 +90,7 @@ export class ProductsService {
 
   private isAllowedCategory(cat: ICategory): boolean {
     if (!cat.visible) return false;
-    if (this.allowedCategoryIds.value.length === 0) return true;
+    if (this.allowedCategoryIds.value.length === 0) return false;
     return this.allowedCategoryIds.value.includes(cat.id);
   }
 
