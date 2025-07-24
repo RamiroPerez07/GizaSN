@@ -11,5 +11,4 @@ export const routes: Routes = [
     { path: "products/category/:categoryId/product/:id", component: ProductDetailComponent },
     {path: "products/:id", component: ProductDetailComponent},
     {path: "cart", component: CartComponent},
-    { path: '**', component: HeroComponent }
 ];
