@@ -25,27 +25,15 @@ export class AppComponent implements OnInit{
 
   ngOnInit(): void {
     this.activatedRute.queryParams.subscribe(params => {
-
       const pv = params['pv'];
-
-      if (pv !== undefined) {
-        if (this.pointOfSaleSvc.isValidPv(pv)) {
-          this.pointOfSaleSvc.setPv(pv);
-        } else {
-          this.pointOfSaleSvc.clearPv();
-        }
-      }
-
+      this.pointOfSaleSvc.setPv(pv);
     });
 
-    this.pointOfSaleSvc.pv$.subscribe({
-      next: () => {
-        const pos = this.pointOfSaleSvc.getCurrentPointOfSale();
-        if(pos && pos.allowedCategoryIds){
-          this.productsSvc.setAllowedCategories(pos.allowedCategoryIds);
-        }
+    this.pointOfSaleSvc.$pos.subscribe(pos => {
+      if (pos?.allowedCategoryIds?.length) {
+        this.productsSvc.setAllowedCategories(pos.allowedCategoryIds);
       }
-    })
+    });
   }
 
 

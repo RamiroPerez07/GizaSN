@@ -104,7 +104,11 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
     if (!isPlatformBrowser(this.platformId)) return;
     this.updateItemsForScreenSize();
     window.addEventListener('resize', this.resizeHandler);
-    this.pos = this.posSvc.getCurrentPointOfSale();
+    this.posSvc.$pos.subscribe({
+      next: (pos) => {
+        this.pos = pos;
+      }
+    })
   }
 
   ngAfterViewInit(): void {

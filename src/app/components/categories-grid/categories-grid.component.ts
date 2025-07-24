@@ -31,9 +31,7 @@ export class CategoriesGridComponent implements OnInit, OnDestroy {
       this.productsSvc.$categories,
       this.productsSvc.$allowedCategoryIds
     ]).subscribe(([categories, allowedIds]) => {
-      console.log("Las categorias son", categories)
-      console.log("Los CatID Permitidos son:", allowedIds)
-      if (categories.length && allowedIds.length) {
+      if (categories.length && allowedIds?.length) {
         // Filtra usando el método del servicio, que internamente ya respeta allowedIds
         this.updateCategories();
       }
@@ -46,7 +44,6 @@ export class CategoriesGridComponent implements OnInit, OnDestroy {
 
   updateCategories() {
     this.categories = this.productsSvc.getCategoriesByParent(this.parentCategoryId);
-    console.log("Las categorias actualizadas son:", this.categories)
   }
 
   redirectTo(category: ICategory){

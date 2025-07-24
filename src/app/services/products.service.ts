@@ -32,7 +32,7 @@ export class ProductsService {
 
   $categories = this.categories.asObservable();
 
-  allowedCategoryIds = new BehaviorSubject<string[]>([]);
+  allowedCategoryIds = new BehaviorSubject<string[] | null>(null);
 
   $allowedCategoryIds = this.allowedCategoryIds.asObservable();
 
@@ -42,9 +42,13 @@ export class ProductsService {
 
   private isAllowed(product: IProduct): boolean {
     if (product.visible === false) return false;
-    if (this.allowedCategoryIds.value.length === 0) return true;
-    //El producto tiene que tener todas las categorias permitidas por el pos
-    return product.idCategories.every(catId => this.allowedCategoryIds.value.includes(catId));
+
+    const allowedIds = this.allowedCategoryIds.value;
+
+    if (!allowedIds || allowedIds.length === 0) return true;
+
+    // El producto tiene que tener todas las categorías permitidas por el pos
+    return product.idCategories.every(catId => allowedIds.includes(catId));
   }
 
   getAllProducts(){
@@ -58,14 +62,12 @@ export class ProductsService {
   }
 
   getProductsForHeroCarousel() {
-  const heroProducts = this._dbProducts
+    return this._dbProducts
     .filter((product: IProduct) => 
       this.isAllowed(product) && product.showInHeroCarousel === true
     )
     .sort((a, b) => b.priority - a.priority); // orden descendente por prioridad
-
-  this.products.next(heroProducts);
-}
+  }
 
   filterProductsByCategory(categoryId: string) {
     const filtered = this._dbProducts.filter(product =>
@@ -89,9 +91,12 @@ export class ProductsService {
   }
 
   private isAllowedCategory(cat: ICategory): boolean {
+    const allowedIds = this.allowedCategoryIds.value;
+
     if (!cat.visible) return false;
-    if (this.allowedCategoryIds.value.length === 0) return false;
-    return this.allowedCategoryIds.value.includes(cat.id);
+    if (!allowedIds || allowedIds.length === 0) return false;
+
+    return allowedIds.includes(cat.id);
   }
 
   getCategoriesByParent(parentId: string | null): ICategory[] {

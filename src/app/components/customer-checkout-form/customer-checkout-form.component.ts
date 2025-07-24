@@ -49,7 +49,12 @@ export class CustomerCheckoutFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.pos = this.pointOfSaleSvc.getCurrentPointOfSale();
+    this.pointOfSaleSvc.$pos.subscribe({
+      next: (pos) => {
+        this.pos = pos;
+      }
+    })
+
     this.gizaPos = this.pointOfSaleSvc.getPointOfSaleById("giza");
 
     this.cartSvc.$showCustomerCheckoutModal.subscribe({
@@ -98,23 +103,21 @@ export class CustomerCheckoutFormComponent implements OnInit {
 
     const { nombre, apellido, documento, formaPago , direccion, tipoDireccion, localidad  } = this.form.value;
 
-    const pos = this.pointOfSaleSvc.getCurrentPointOfSale();
-
-    if (!pos) {
+    if (!this.pos) {
       console.warn('No se encontró un punto de venta válido');
       return;
     }
 
-    const telefono = pos.telefono;
+    const telefono = this.pos.telefono;
 
-    const puntoDeVenta = pos.puntoDeVenta;
+    const puntoDeVenta = this.pos.puntoDeVenta;
 
     let direccionFinal = '';
     let localidadFinal = '';
 
     if (tipoDireccion === 'estandar') {
-      direccionFinal = pos?.direccion ?? '';
-      localidadFinal = pos?.localidad ?? ''
+      direccionFinal = this.pos?.direccion ?? '';
+      localidadFinal = this.pos?.localidad ?? ''
     } else if (tipoDireccion === 'giza') {
       direccionFinal = this.pointOfSaleSvc.getPointOfSaleById("giza")?.direccion ?? '';
       localidadFinal = this.pointOfSaleSvc.getPointOfSaleById("giza")?.localidad ?? '';

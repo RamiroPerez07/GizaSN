@@ -28,15 +28,7 @@ export class HeroComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      // Duplicamos las tarjetas para simular bucle infinito
-  
-      this.productsSvc.getProductsForHeroCarousel()
-      
-      this.productsSvc.$products.subscribe({
-        next: (products: IProduct[]) => {
-          this.products = products
-        }
-      })
+      this.products = this.productsSvc.getProductsForHeroCarousel();
     }
 
 }
