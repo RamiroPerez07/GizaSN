@@ -24,7 +24,7 @@ export class CategoriesGridComponent implements OnInit {
   categories! : ICategory[];
 
   ngOnInit(): void {
-    this.productsSvc.$allowedCategoryIds.subscribe({
+    this.productsSvc.$categories.subscribe({
       next: () => {
         this.categories = this.productsSvc.getCategoriesByParent(this.parentCategoryId);
       }
