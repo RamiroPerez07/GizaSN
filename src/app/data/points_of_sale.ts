@@ -18,7 +18,8 @@ const innovaCategories = [
   "suplementos-nutricionales",
   "innovanaturals",
   "omega3",
-  "magnesiosyvit",
+  "magnesio",
+  "vitaminasyminerales",
 ]
 
 export const POINTS_OF_SALE : PointOfSale[] = [

@@ -124,12 +124,21 @@ export const categories : ICategory[] = [
         urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753301910/Agregar_un_t%C3%ADtulo_14_iaaklg.png",
     },
     {
-        id: "magnesiosyvit",
-        title: "Magnesios y Vitaminas",
+        id: "magnesio",
+        title: "Magnesios",
         level: 3,
         parentId: "innovanaturals",
         priority: 10,
         visible: true,
-        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753301834/11_nly7mx.png"
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753301833/12_fhjodp.png"
+    },
+    {
+        id: "vitaminasyminerales",
+        title: "Vitaminas y Minerales",
+        level: 3,
+        parentId: "innovanaturals",
+        priority: 10,
+        visible: true,
+        urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753316482/Agregar_un_t%C3%ADtulo_16_qfojbe.png"
     },
 ]
