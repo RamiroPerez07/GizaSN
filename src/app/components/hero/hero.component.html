@@ -3,6 +3,10 @@
 <div class="btn-container">
   <button class="view-all-products-btn" (click)="redirectTo('products')">Ver Todos</button>
 </div>
-<app-categories-grid [title]="'Línea Nutremax'" [parentCategoryId]="'nutremax'"></app-categories-grid>
-<app-categories-grid [title]="'Línea InnovaNaturals'" [parentCategoryId]="'innovanaturals'"></app-categories-grid>
+@if (nutremaxCategories && nutremaxCategories.length) {
+  <app-categories-grid [title]="'Línea Nutremax'" [categories]="nutremaxCategories"></app-categories-grid>
+}
+@if (innovaCategories && innovaCategories.length) {
+  <app-categories-grid [title]="'Línea InnovaNaturals'" [categories]="innovaCategories"></app-categories-grid>
+}
 <app-benefits></app-benefits>

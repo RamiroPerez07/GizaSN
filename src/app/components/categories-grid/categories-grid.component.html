@@ -1,12 +1,11 @@
-@if (categories.length) {
-  <h2 class="section-title">{{title}}</h2>
-  <div class="container">
-    @for (category of categories; track $index) {
-      <div class="category-card" [style.backgroundImage]="'url(' + category.urlImg + ')'" (click)="redirectTo(category)">
-        <div class="category-name">
-          {{category.title}}
-        </div>
+<h2 class="section-title">{{title}}</h2>
+<div class="container">
+  @for (category of categories; track $index) {
+    <div class="category-card" [style.backgroundImage]="'url(' + category.urlImg + ')'" (click)="redirectTo(category)">
+      <div class="category-name">
+        {{category.title}}
       </div>
-    }
-  </div>
-}
+    </div>
+  }
+</div>
+
