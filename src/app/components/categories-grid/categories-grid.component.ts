@@ -34,4 +34,5 @@ export class CategoriesGridComponent implements OnInit {
   redirectTo(category: ICategory){
     this.router.navigate(['products', 'category', category.id]);
   }
+  
 }
