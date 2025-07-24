@@ -1,8 +1,7 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ICategory } from '../../interfaces/categories.interface';
 import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-categories-grid',
@@ -11,7 +10,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './categories-grid.component.html',
   styleUrl: './categories-grid.component.css'
 })
-export class CategoriesGridComponent implements OnInit {
+export class CategoriesGridComponent implements OnInit, OnChanges {
 
   @Input() parentCategoryId!: string;
   
@@ -26,9 +25,20 @@ export class CategoriesGridComponent implements OnInit {
   ngOnInit(): void {
     this.productsSvc.$categories.subscribe({
       next: () => {
-        this.categories = this.productsSvc.getCategoriesByParent(this.parentCategoryId);
+        this.updateCategories();
+        //this.categories = this.productsSvc.getCategoriesByParent(this.parentCategoryId);
       }
     })
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['parentCategoryId']) {
+      this.updateCategories();
+    }
+  }
+
+  updateCategories() {
+    this.categories = this.productsSvc.getCategoriesByParent(this.parentCategoryId);
   }
 
   redirectTo(category: ICategory){
