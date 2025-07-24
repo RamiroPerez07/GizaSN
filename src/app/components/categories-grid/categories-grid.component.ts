@@ -2,6 +2,7 @@ import { Component, inject, Input, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ICategory } from '../../interfaces/categories.interface';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-categories-grid',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
   styleUrl: './categories-grid.component.css'
 })
 export class CategoriesGridComponent implements OnInit {
+
   @Input() parentCategoryId!: string;
   
   @Input() title! : string;
@@ -22,7 +24,11 @@ export class CategoriesGridComponent implements OnInit {
   categories! : ICategory[];
 
   ngOnInit(): void {
-    this.categories = this.productsSvc.getCategoriesByParent(this.parentCategoryId);
+    this.productsSvc.$allowedCategoryIds.subscribe({
+      next: () => {
+        this.categories = this.productsSvc.getCategoriesByParent(this.parentCategoryId);
+      }
+    })
   }
 
   redirectTo(category: ICategory){
