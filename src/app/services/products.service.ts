@@ -10,15 +10,7 @@ import { categories } from '../data/categories';
 })
 export class ProductsService {
 
-  constructor() { 
-    this.allowedCategoryIds.subscribe({
-      next: () => {
-        this.updateVisibleCategories();
-        this.getAllProducts();
-      }
-    })
-
-  }
+  constructor() {}
 
   private readonly _dbProducts = products;
 
@@ -38,6 +30,11 @@ export class ProductsService {
 
   setAllowedCategories(categoryIds: string[]) {
     this.allowedCategoryIds.next(categoryIds);
+    // recalcular y emitir categorías filtradas:
+    const filtered = this._dbCategories.filter(cat => categoryIds.includes(cat.id) && this.isAllowedCategory(cat));
+    this.categories.next(filtered);
+    // tambien filtro los productos:
+    this.getAllProducts();
   }
 
   private isAllowed(product: IProduct): boolean {
@@ -45,7 +42,7 @@ export class ProductsService {
 
     const allowedIds = this.allowedCategoryIds.value;
 
-    if (!allowedIds || allowedIds.length === 0) return true;
+    if (!allowedIds || allowedIds.length === 0) return false;
 
     // El producto tiene que tener todas las categorías permitidas por el pos
     return product.idCategories.every(catId => allowedIds.includes(catId));
@@ -56,10 +53,6 @@ export class ProductsService {
     this.products.next(visibleProducts);
   }
 
-  updateVisibleCategories() {
-    const visibleCats = this._dbCategories.filter(c => this.isAllowedCategory(c));
-    this.categories.next(visibleCats);
-  }
 
   getProductsForHeroCarousel() {
     return this._dbProducts

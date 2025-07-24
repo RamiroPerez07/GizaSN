@@ -3,11 +3,13 @@ import { ProductsService } from '../../services/products.service';
 import { ICategory } from '../../interfaces/categories.interface';
 import { Router } from '@angular/router';
 import { combineLatest, Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { PointOfSaleService } from '../../services/point-of-sale.service';
 
 @Component({
   selector: 'app-categories-grid',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './categories-grid.component.html',
   styleUrl: './categories-grid.component.css'
 })
@@ -21,20 +23,20 @@ export class CategoriesGridComponent implements OnInit, OnDestroy {
 
   readonly router = inject(Router);
 
+  readonly posSvc = inject(PointOfSaleService);
+
   categories! : ICategory[];
 
   private sub!: Subscription;
 
   ngOnInit(): void {
-    // Espera a que tanto las categorías como los allowed IDs estén listos
+    // Observa cambios tanto en la lista de categorías como en los allowedCategoryIds
     this.sub = combineLatest([
       this.productsSvc.$categories,
-      this.productsSvc.$allowedCategoryIds
-    ]).subscribe(([categories, allowedIds]) => {
-      if (categories.length && allowedIds?.length) {
-        // Filtra usando el método del servicio, que internamente ya respeta allowedIds
-        this.updateCategories();
-      }
+      this.productsSvc.$allowedCategoryIds,
+      this.posSvc.$pos
+    ]).subscribe(([categories, allowedIds, pos]) => {
+      this.updateCategories();
     });
   }
 
