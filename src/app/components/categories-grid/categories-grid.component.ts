@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, SimpleChanges } from '@angular/core';
+import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { ICategory } from '../../interfaces/categories.interface';
 import { Router } from '@angular/router';
