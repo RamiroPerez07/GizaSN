@@ -39,8 +39,8 @@ export class HeroComponent implements OnInit, OnDestroy {
 
     this.sub = this.productsSvc.$categories.subscribe({
       next: (categories) => {
-        this.nutremaxCategories = this.productsSvc.getCategoriesByParent('nutremax');
-        this.innovaCategories = this.productsSvc.getCategoriesByParent('innovanaturals');
+        this.nutremaxCategories = this.productsSvc.getCategoriesByParent(categories, 'nutremax');
+        this.innovaCategories = this.productsSvc.getCategoriesByParent(categories, 'innovanaturals');
       }
     })
   }

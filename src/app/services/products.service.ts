@@ -39,11 +39,8 @@ export class ProductsService {
 
   private isAllowed(product: IProduct): boolean {
     if (product.visible === false) return false;
-
     const allowedIds = this.allowedCategoryIds.value;
-
     if (!allowedIds || allowedIds.length === 0) return false;
-
     // El producto tiene que tener todas las categorías permitidas por el pos
     return product.idCategories.every(catId => allowedIds.includes(catId));
   }
@@ -92,9 +89,8 @@ export class ProductsService {
     return allowedIds.includes(cat.id);
   }
 
-  getCategoriesByParent(parentId: string | null): ICategory[] {
-    return this.categories.value.filter(cat => (cat.parentId === parentId) && this.isAllowedCategory(cat))
-    //antes this._dbCategories
+  getCategoriesByParent(categories: ICategory[], parentId: string | null): ICategory[] {
+    return categories.filter(cat => (cat.parentId === parentId) && this.isAllowedCategory(cat))
   }
 
   getCategoryPath(categoryId: string): ICategory[] {
