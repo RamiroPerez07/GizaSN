@@ -95,7 +95,8 @@ export class ProductsService {
   }
 
   getCategoriesByParent(parentId: string | null): ICategory[] {
-    return this._dbCategories.filter(cat => (cat.parentId === parentId) && this.isAllowedCategory(cat))
+    return this.categories.value.filter(cat => (cat.parentId === parentId) && this.isAllowedCategory(cat))
+    //antes this._dbCategories
   }
 
   getCategoryPath(categoryId: string): ICategory[] {
