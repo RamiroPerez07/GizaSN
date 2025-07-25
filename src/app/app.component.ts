@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
 import { PointOfSaleService } from './services/point-of-sale.service';
@@ -16,7 +16,14 @@ import { filter, map } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'gizaFront';
 
-  isInitialized = false;
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  hydrated!: boolean;
+
+  ngAfterViewInit() {
+    this.hydrated = true;
+    this.cdr.detectChanges();
+  }
 
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly pointOfSaleSvc = inject(PointOfSaleService);
@@ -36,7 +43,6 @@ export class AppComponent implements OnInit {
       )
       .subscribe(allowedIds => {
         this.productsSvc.setAllowedCategories(allowedIds);
-        this.isInitialized = true  // <- se activa cuando tenemos datos reales
       });
   }
 }

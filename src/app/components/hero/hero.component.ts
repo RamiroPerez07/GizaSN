@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { CommonModule, isPlatformServer } from '@angular/common';
+import { Component, Inject, inject, PLATFORM_ID } from '@angular/core';
 import { HeroCarouselComponent } from "../hero-carousel/hero-carousel.component";
 import { BenefitsComponent } from "../benefits/benefits.component";
 import { CardCarouselComponent } from "../card-carousel/card-carousel.component";
@@ -7,8 +7,7 @@ import { Router } from '@angular/router';
 import { CategoriesGridComponent } from "../categories-grid/categories-grid.component";
 import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../interfaces/products.interface';
-import { map, Observable, Subscription } from 'rxjs';
-import { ICategory } from '../../interfaces/categories.interface';
+import { map, Observable, take } from 'rxjs';
 
 @Component({
   selector: 'app-hero',
@@ -18,6 +17,14 @@ import { ICategory } from '../../interfaces/categories.interface';
   styleUrl: './hero.component.css'
 })
 export class HeroComponent {
+
+  allowedIdsLoaded = false;
+
+  ngOnInit() {
+    this.productsSvc.allowedCategoryIds$.pipe(take(1)).subscribe(ids => {
+      this.allowedIdsLoaded = ids.length > 0;
+    });
+  }
 
   private router = inject(Router);
   private productsSvc = inject(ProductsService);
@@ -39,6 +46,12 @@ export class HeroComponent {
       }))
     )
   );
+
+  constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+
+  get isServer(): boolean {
+    return isPlatformServer(this.platformId);
+  }
 
   redirectTo(path: string){
     this.router.navigate([path]);

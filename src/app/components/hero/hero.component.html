@@ -1,19 +1,21 @@
-<app-hero-carousel></app-hero-carousel>
-
-<!-- Productos destacados reactivo -->
-<app-card-carousel [products]="(heroProducts$ | async) || []" [title]="'Destacados'"></app-card-carousel>
-
-<div class="btn-container">
-  <button class="view-all-products-btn" (click)="redirectTo('products')">Ver Todos</button>
-</div>
-
-<!-- Grupos de categorías dinámicos -->
-@for (group of (categoriesGroups$ | async) ?? []; track group.title) {
-  <app-categories-grid 
-    *ngIf="group.categories.length" 
-    [title]="group.title" 
-    [categories]="group.categories">
-  </app-categories-grid>
+@if (!isServer && allowedIdsLoaded) {
+  <app-hero-carousel></app-hero-carousel>
+  
+  <!-- Productos destacados reactivo -->
+  <app-card-carousel [products]="(heroProducts$ | async) || []" [title]="'Destacados'"></app-card-carousel>
+  
+  <div class="btn-container">
+    <button class="view-all-products-btn" (click)="redirectTo('products')">Ver Todos</button>
+  </div>
+  
+  <!-- Grupos de categorías dinámicos -->
+  @for (group of (categoriesGroups$ | async) ?? []; track group.title) {
+    <app-categories-grid 
+      *ngIf="group.categories.length" 
+      [title]="group.title" 
+      [categories]="group.categories">
+    </app-categories-grid>
+  }
+  
+  <app-benefits></app-benefits>
 }
-
-<app-benefits></app-benefits>
