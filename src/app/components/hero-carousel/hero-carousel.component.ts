@@ -66,21 +66,46 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
 
   readonly mobileItems: CarouselItem[] = [
+    // {
+    //   image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_2_u0fmr5.jpg',
+    //   caption: 'Aumenta tu energía',
+    //   path: ['products/category', 'nutremax'],
+    // },
+    // {
+    //   image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_1_b3yk0u.jpg',
+    //   caption: 'Aumenta tu energía',
+    //   path: ['products/category', 'nutremax'],
+    // },
+    // {
+    //   image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_lvhuac.jpg',
+    //   caption: 'Aumenta tu energía',
+    //   path: ['products/category', 'nutremax'],
+    // },
     {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_2_u0fmr5.jpg',
-      caption: 'Aumenta tu energía',
-      path: ['products/category', 'nutremax'],
+      image: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753273013/9_zyphak.png",
+      caption: 'Aumenta tu energia',
+      path: ['products/category', 'nutremax-aminoacidos'],
     },
     {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_1_b3yk0u.jpg',
-      caption: 'Aumenta tu energía',
-      path: ['products/category', 'nutremax'],
+      image: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753273014/14_seq0gs.png",
+      caption: 'Aumenta tu energia',
+      path: ['products/category', 'nutremax-energizantes'],
     },
     {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_lvhuac.jpg',
-      caption: 'Aumenta tu energía',
-      path: ['products/category', 'nutremax'],
+      image: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753273014/11_taag8d.png",
+      caption: 'Aumenta tu energia',
+      path: ['products/category', 'nutremax-aminoacidos'],
     },
+    {
+      image: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753273014/12_jyqmmp.png",
+      caption: 'Aumenta tu energia',
+      path: ['products/category', 'nutremax-energizantes'],
+    },
+    {
+      image: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753273013/8_rguqka.png",
+      caption: 'Aumenta tu energia',
+      path: ['products/category', 'nutremax-energizantes'],
+    }
   ];
 
   currentIndex = 0;

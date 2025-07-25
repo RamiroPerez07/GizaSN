@@ -7,18 +7,13 @@
   <button class="view-all-products-btn" (click)="redirectTo('products')">Ver Todos</button>
 </div>
 
-<!-- Categorías Nutremax -->
-<ng-container *ngIf="nutremaxCategories$ | async as nutremaxCategories">
-  <app-categories-grid *ngIf="nutremaxCategories.length"
-    [title]="'Línea Nutremax'" [categories]="nutremaxCategories">
+<!-- Grupos de categorías dinámicos -->
+@for (group of (categoriesGroups$ | async) ?? []; track group.title) {
+  <app-categories-grid 
+    *ngIf="group.categories.length" 
+    [title]="group.title" 
+    [categories]="group.categories">
   </app-categories-grid>
-</ng-container>
-
-<!-- Categorías InnovaNaturals -->
-<ng-container *ngIf="innovaCategories$ | async as innovaCategories">
-  <app-categories-grid *ngIf="innovaCategories.length"
-    [title]="'Línea InnovaNaturals'" [categories]="innovaCategories">
-  </app-categories-grid>
-</ng-container>
+}
 
 <app-benefits></app-benefits>

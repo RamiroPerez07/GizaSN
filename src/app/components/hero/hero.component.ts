@@ -25,13 +25,19 @@ export class HeroComponent {
   // Observable de productos para el carousel (ya definido en el service)
   heroProducts$: Observable<IProduct[]> = this.productsSvc.heroProducts$;
 
-  // Observable de categorías padre para nutremax e innovanaturals
-  nutremaxCategories$: Observable<ICategory[]> = this.productsSvc.categories$.pipe(
-    map(categories => this.productsSvc.getCategoriesByParentSync(categories, 'nutremax'))
-  );
+  categoriesGroups = [
+    { title: 'Línea Nutremax', parentId: 'nutremax' },
+    { title: 'Línea InnovaNaturals', parentId: 'innovanaturals' }
+  ];
 
-  innovaCategories$: Observable<ICategory[]> = this.productsSvc.categories$.pipe(
-    map(categories => this.productsSvc.getCategoriesByParentSync(categories, 'innovanaturals'))
+  // Observable que retorna un array de grupos de categorías
+  categoriesGroups$ = this.productsSvc.categories$.pipe(
+    map(categories => 
+      this.categoriesGroups.map(group => ({
+        title: group.title,
+        categories: this.productsSvc.getCategoriesByParentSync(categories, group.parentId)
+      }))
+    )
   );
 
   redirectTo(path: string){
