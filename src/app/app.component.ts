@@ -16,6 +16,8 @@ import { filter, map } from 'rxjs';
 export class AppComponent implements OnInit {
   title = 'gizaFront';
 
+  isInitialized = false;
+
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly pointOfSaleSvc = inject(PointOfSaleService);
   private readonly productsSvc = inject(ProductsService);
@@ -34,6 +36,7 @@ export class AppComponent implements OnInit {
       )
       .subscribe(allowedIds => {
         this.productsSvc.setAllowedCategories(allowedIds);
+        this.isInitialized = true  // <- se activa cuando tenemos datos reales
       });
   }
 }

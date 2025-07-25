@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, Observable, of } from 'rxjs';
 import { products } from '../data/products';
 import { ICategory } from '../interfaces/categories.interface';
 import { IProduct } from '../interfaces/products.interface';
@@ -16,6 +16,7 @@ export class ProductsService {
   readonly selectedCategoryId$ = this.selectedCategoryIdSubject.asObservable();
 
   readonly categories$: Observable<ICategory[]> = this.allowedCategoryIds$.pipe(
+    filter(ids => ids.length > 0), // <-- evita emitir hasta tener algo
     map(ids => categories.filter(c => isAllowedCategory(c, ids)))
   );
 
