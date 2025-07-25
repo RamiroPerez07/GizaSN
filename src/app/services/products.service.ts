@@ -1,129 +1,117 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
 import { products } from '../data/products';
 import { ICategory } from '../interfaces/categories.interface';
 import { IProduct } from '../interfaces/products.interface';
 import { categories } from '../data/categories';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProductsService {
+  private allowedCategoryIdsSubject = new BehaviorSubject<string[]>([]);
+  private searchTermSubject = new BehaviorSubject<string>('');
+  private selectedCategoryIdSubject = new BehaviorSubject<string | null>(null);
+
+  readonly allowedCategoryIds$ = this.allowedCategoryIdsSubject.asObservable();
+  readonly searchTerm$ = this.searchTermSubject.asObservable();
+  readonly selectedCategoryId$ = this.selectedCategoryIdSubject.asObservable();
+
+  readonly categories$: Observable<ICategory[]> = this.allowedCategoryIds$.pipe(
+    map(ids => categories.filter(c => isAllowedCategory(c, ids)))
+  );
+
+  readonly products$: Observable<IProduct[]> = combineLatest([
+    this.allowedCategoryIds$,
+    this.searchTerm$,
+    this.selectedCategoryId$
+  ]).pipe(
+    map(([allowedIds, searchTerm, selectedCat]) =>
+      products.filter(p => {
+        if (!isAllowedProduct(p, allowedIds)) return false;
+        if (selectedCat && !p.idCategories.includes(selectedCat)) return false;
+        return matchesSearch(p, searchTerm);
+      })
+    )
+  );
+
+  readonly heroProducts$: Observable<IProduct[]> = this.allowedCategoryIds$.pipe(
+    map(allowedIds =>
+      products
+        .filter(p => isAllowedProduct(p, allowedIds) && p.showInHeroCarousel)
+        .sort((a, b) => b.priority - a.priority)
+    )
+  );
 
   constructor() {}
 
-  private readonly _dbProducts = products;
-
-  private readonly _dbCategories = categories;
-
-  categories = new BehaviorSubject<ICategory[]>([])
-
-  products = new BehaviorSubject<IProduct[]>([]);
-
-  $products = this.products.asObservable();
-
-  $categories = this.categories.asObservable();
-
-  allowedCategoryIds = new BehaviorSubject<string[] | null>(null);
-
-  $allowedCategoryIds = this.allowedCategoryIds.asObservable();
-
-  setAllowedCategories(categoryIds: string[]) {
-    this.allowedCategoryIds.next(categoryIds);
-    // recalcular y emitir categorías filtradas:
-    const filtered = this._dbCategories.filter(cat => categoryIds.includes(cat.id) && this.isAllowedCategory(cat));
-    this.categories.next(filtered);
-    // tambien filtro los productos:
-    this.getAllProducts();
+  // Entradas reactivas
+  setAllowedCategories(ids: string[]) {
+    this.allowedCategoryIdsSubject.next(ids);
   }
 
-  private isAllowed(product: IProduct): boolean {
-    if (product.visible === false) return false;
-    const allowedIds = this.allowedCategoryIds.value;
-    if (!allowedIds || allowedIds.length === 0) return false;
-    // El producto tiene que tener todas las categorías permitidas por el pos
-    return product.idCategories.every(catId => allowedIds.includes(catId));
+  setSearch(term: string) {
+    this.searchTermSubject.next(term);
   }
 
-  getAllProducts(){
-    const visibleProducts = this._dbProducts.filter((product: IProduct) => this.isAllowed(product))
-    this.products.next(visibleProducts);
+  filterByCategory(categoryId: string | null) {
+    this.selectedCategoryIdSubject.next(categoryId);
   }
 
-
-  getProductsForHeroCarousel() {
-    return this._dbProducts
-    .filter((product: IProduct) => 
-      this.isAllowed(product) && product.showInHeroCarousel === true
-    )
-    .sort((a, b) => b.priority - a.priority); // orden descendente por prioridad
-  }
-
-  filterProductsByCategory(categoryId: string) {
-    const filtered = this._dbProducts.filter(product =>
-      this.isAllowed(product) &&
-      product.idCategories.includes(categoryId)
+  getProductById(id: number): Observable<IProduct | undefined> {
+    return this.products$.pipe(
+      map(products => products.find(p => p.id === id))
     );
-
-    this.products.next(filtered);
   }
 
-  getProductById(id: number): IProduct | undefined{
-    return this._dbProducts.find(p => p.id === id);
+  getProductsByIds(ids: number[]): Observable<IProduct[]> {
+    return this.products$.pipe(
+      map(products => products.filter(p => ids.includes(p.id)))
+    );
   }
 
-  getProductsByIds(productsIds: number[]): IProduct[] {
-    return this._dbProducts.filter(p => productsIds.includes(p.id) && this.isAllowed(p) );
+  getCategoryPath(categoryId: string): Observable<ICategory[]> {
+    return this.categories$.pipe(
+      map(categories => {
+        const path: ICategory[] = [];
+        let current = categories.find(c => c.id === categoryId);
+        while (current) {
+          path.unshift(current);
+          if (!current.parentId) break;
+          current = categories.find(c => c.id === current!.parentId);
+        }
+        return path;
+      })
+    );
   }
 
-  findCategoryById(id: string): ICategory | undefined {
-    return this._dbCategories.find(cat => cat.id === id);
+  getCategoriesByParentSync(categories: ICategory[], parentId: string | null): ICategory[] {
+    return categories.filter(c => c.parentId === parentId);
   }
 
-  private isAllowedCategory(cat: ICategory): boolean {
-    const allowedIds = this.allowedCategoryIds.value;
-
-    if (!cat.visible) return false;
-    if (!allowedIds || allowedIds.length === 0) return false;
-
-    return allowedIds.includes(cat.id);
+  getCategoriesByParent(parentId: string | null): Observable<ICategory[]> {
+    return this.categories$.pipe(
+      map(cats => cats.filter(c => c.parentId === parentId))
+    );
   }
+}
 
-  getCategoriesByParent(categories: ICategory[], parentId: string | null): ICategory[] {
-    return categories.filter(cat => (cat.parentId === parentId) && this.isAllowedCategory(cat))
-  }
+/** FUNCIONES PURAS */
+function isAllowedProduct(product: IProduct, allowedIds: string[]): boolean {
+  return product.visible && allowedIds.length > 0 &&
+         product.idCategories.every(id => allowedIds.includes(id));
+}
 
-  getCategoryPath(categoryId: string): ICategory[] {
-    const path: ICategory[] = [];
-    let currentCategory = this.findCategoryById(categoryId);
+function isAllowedCategory(cat: ICategory, allowedIds: string[]): boolean {
+  return cat.visible && allowedIds.includes(cat.id);
+}
 
-    while (currentCategory) {
-      if (this.isAllowedCategory(currentCategory)) {
-        path.unshift(currentCategory); // Agrego al inicio para que quede raíz -> hijo
-      }
-      if (!currentCategory.parentId) break;
-      currentCategory = this.findCategoryById(currentCategory.parentId);
-    }
+function matchesSearch(product: IProduct, searchTerm: string): boolean {
+  const terms = searchTerm.toLowerCase().split(/\s+/).filter(Boolean);
+  if (terms.length === 0) return true;
 
-    return path;
-  }
-
-  filterProductsBySearch(searchTerm: string) {
-    const terms = searchTerm.toLowerCase().trim().split(/\s+/); // separa por espacios
-
-    const filtered = this._dbProducts.filter(product => {
-      if (!this.isAllowed(product)) return false;
-
-      return terms.some(term => {
-        const inDescription = product.description.toLowerCase().includes(term);
-        const inBrand = product.brand.toLowerCase().includes(term);
-        const inCategories = product.idCategories.some(cat => cat.toLowerCase().includes(term));
-        const inTags = product.tags.some(tag => tag.toLowerCase().includes(term));
-        return inDescription || inBrand || inCategories || inTags;
-      });
-    });
-
-    this.products.next(filtered);
-  }
-
+  return terms.some(term =>
+    product.description.toLowerCase().includes(term) ||
+    product.brand.toLowerCase().includes(term) ||
+    product.tags.some(tag => tag.toLowerCase().includes(term)) ||
+    product.idCategories.some(cat => cat.toLowerCase().includes(term))
+  );
 }

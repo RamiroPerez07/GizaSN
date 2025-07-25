@@ -1,102 +1,105 @@
 <header>
-    <div class="header-content">
-        <div class="h-stack">
-            <img class="header-logo" [src]="headerLogoUrl" alt="Logo Giza" (click)="routerSvc.navigate([''])" />
-            <nav class="products-menu-header">
-                <li (click)="toggleShowTree()" class="category-btn" [class.open]="showTree">
-                    Categorias
-                    <i class="fas fa-chevron-down dropdown-icon"></i>
-                </li>
-            </nav>
-            <div class="search-container">
-                <input
-                    type="search"
-                    name="search-product"
-                    [(ngModel)]="searchTerm"
-                    (keyup.enter)="onSearch()"
-                    placeholder="Buscar productos"
-                />
-                <button class="search-icon-btn" (click)="onSearch()" aria-label="Buscar">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        viewBox="0 0 16 16">
-                    <path
-                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 
-                        1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.156a5 
-                        5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
-                    </svg>
-                </button>
-            </div>
+  <div class="header-content">
+    <div class="h-stack">
+      <img
+        class="header-logo"
+        [src]="headerLogoUrl"
+        alt="Logo Giza"
+        (click)="routerSvc.navigate([''])"
+        style="cursor:pointer"
+      />
 
-            <!-- Solo visible en mobile -->
-            <button class="search-toggle-btn" (click)="openSearchModal()" aria-label="Buscar">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                viewBox="0 0 16 16">
-                <path
-                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 
-                    0 0 1.415-1.414l-3.85-3.85zM6.5 11a4.5 4.5 0 
-                    1 1 0-9 4.5 4.5 0 0 1 0 9z"/>
-            </svg>
-            </button>
-            <!-- Mobile -->
-        </div>
-        <div class="h-stack">
-            <span (click)="navigateToCart()" class="cart-btn">
-                <div class="icon-container">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        class="cart-icon"
-                        width="24"
-                        height="24"
-                        fill="currentColor"
-                        viewBox="0 0 24 24">
-                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 
-                                0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 
-                                14h9.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49a.996.996 0 
-                                0 0-.87-1.48H5.21l-.94-2H1v2h2l3.6 
-                                7.59-1.35 2.44C4.52 15.37 5.48 17 7 
-                                17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63z"/>
-                    </svg>
-                    @if(totalQuantity>0){
-                        <div class="counter">{{totalQuantity}}</div>
-                    }
-                </div>
-                <!--<span class="cart-text">Ver carrito</span> -->
-            </span>
-        </div>
+      <nav class="products-menu-header">
+        <li (click)="toggleShowTree()" class="category-btn" [class.open]="showTree$ | async">
+          Categorias
+          <i class="fas fa-chevron-down dropdown-icon"></i>
+        </li>
+      </nav>
+
+      <div class="search-container">
+        <input
+          type="search"
+          name="search-product"
+          [(ngModel)]="searchTerm"
+          (keyup.enter)="onSearch()"
+          placeholder="Buscar productos"
+        />
+        <button class="search-icon-btn" (click)="onSearch()" aria-label="Buscar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 
+              1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242 1.156a5 
+              5 0 1 1 0-10 5 5 0 0 1 0 10z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Solo visible en mobile -->
+      <button class="search-toggle-btn" (click)="openSearchModal()" aria-label="Buscar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+          <path
+            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398l3.85 3.85a1 1 0 
+            0 0 1.415-1.414l-3.85-3.85zM6.5 11a4.5 4.5 0 
+            1 1 0-9 4.5 4.5 0 0 1 0 9z"
+          />
+        </svg>
+      </button>
     </div>
-    
 
-    @if(showTree){
-        <nav class="categories-tree" [class.open]="showTree">
+    <div class="h-stack">
+      <span
+        class="cart-btn"
+        [class.disabled]="(totalQuantity() ?? 0) === 0"
+        (click)="(totalQuantity() ?? 0) > 0 && navigateToCart()"
+        style="cursor:pointer; position: relative;"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg"
+            class="cart-icon"
+            width="24"
+            height="24"
+            fill="currentColor"
+            viewBox="0 0 24 24">
+          <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 
+                  0c-1.1 0-1.99.9-1.99 2S15.9 22 17 22s2-.9 2-2-.9-2-2-2zM7.16 
+                  14h9.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49a.996.996 0 
+                  0 0-.87-1.48H5.21l-.94-2H1v2h2l3.6 
+                  7.59-1.35 2.44C4.52 15.37 5.48 17 7 
+                  17h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63z"/>
+        </svg>
 
-            <app-category-node [allCategories]="categories" [parentId]="null"></app-category-node>
-
-        </nav>
-    }
-
-    <!-- Modal de búsqueda para mobile -->
-    <div class="search-modal" *ngIf="isSearchModalOpen">
-        <div class="search-modal-backdrop" (click)="closeSearchModal()"></div>
-
-        <div class="search-modal-content">
-            <button class="close-btn" (click)="closeSearchModal()" aria-label="Cerrar">
-            &times;
-            </button>
-
-            <h2 class="modal-title">Buscar productos</h2>
-
-            <div class="modal-search-box">
-                <input
-                    type="search"
-                    [(ngModel)]="searchTerm"
-                    (keyup.enter)="onSearch(); closeSearchModal()"
-                    placeholder="Escribí el nombre del producto..."
-                    autofocus
-                />
-                <button (click)="onSearch(); closeSearchModal()">Buscar</button>
-            </div>
-        </div>
+        <span *ngIf="(totalQuantity() ?? 0) > 0" class="counter">
+          {{ totalQuantity() }}
+        </span>
+      </span>
     </div>
-    <!-- Fin Modal -->
+  </div>
+
+  @if(showTree$ | async) {
+    <nav class="categories-tree" [class.open]="true">
+      <app-category-node [allCategories]="(categories$ | async) || []" [parentId]="null"></app-category-node>
+    </nav>
+  }
+
+  <!-- Modal de búsqueda para mobile -->
+  @if(isSearchModalOpen) {
+    <div class="search-modal">
+      <div class="search-modal-backdrop" (click)="closeSearchModal()"></div>
+
+      <div class="search-modal-content">
+        <button class="close-btn" (click)="closeSearchModal()" aria-label="Cerrar">&times;</button>
+        <h2 class="modal-title">Buscar productos</h2>
+        <div class="modal-search-box">
+          <input
+            type="search"
+            [(ngModel)]="searchTerm"
+            (keyup.enter)="onSearch(); closeSearchModal()"
+            placeholder="Escribí el nombre del producto..."
+            autofocus
+          />
+          <button (click)="onSearch(); closeSearchModal()">Buscar</button>
+        </div>
+      </div>
+    </div>
+  }
 </header>
-
-

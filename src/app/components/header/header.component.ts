@@ -10,6 +10,8 @@ import { CartService } from '../../services/cart.service';
 import { FormsModule } from '@angular/forms';
 import { PointOfSale } from '../../interfaces/pointofsale.interface';
 import { ProductsService } from '../../services/products.service';
+import { map, Observable, startWith } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -19,67 +21,45 @@ import { ProductsService } from '../../services/products.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit {
-  
-  categories: ICategory[] = [];
-
-  showTree!: boolean;
-
-  headerLogoUrl : string = BRAND_IMAGES.logoHorizontalCompleto;
-
-  totalQuantity ! : number;
-
-  pos!: PointOfSale | null;
-
+export class HeaderComponent {
   readonly routerSvc = inject(Router);
-
   readonly categoryTreeSvc = inject(CategoryTreeService);
-
   readonly cartSvc = inject(CartService);
-
   readonly productsSvc = inject(ProductsService);
 
-  ngOnInit(): void {
-    this.categoryTreeSvc.$showTree.subscribe({
-      next: (showTree: boolean) => {
-        this.showTree = showTree;
-      }
-    })
+  headerLogoUrl: string = BRAND_IMAGES.logoHorizontalCompleto;
 
-    this.cartSvc.$productsInCart.subscribe({
-      next: (productsInCart) => {
-        this.totalQuantity = productsInCart.reduce((acc,p) => acc + (p.quantity ?? 0) ,0); 
-      }
-    })
+  // Reactividad para mostrar/ocultar árbol de categorías
+  showTree$ = this.categoryTreeSvc.showTree$;
 
-    this.productsSvc.$categories.subscribe({
-      next: (categories: ICategory[]) => {
-        this.categories = categories
-      }
-    })
+  categories$ = this.productsSvc.categories$;
 
-  }
+  totalQuantity = toSignal(
+    this.cartSvc.productsInCart$.pipe(
+      map(products => products.reduce((acc, p) => acc + (p.quantity ?? 0), 0)),
+      startWith(0)
+    )
+  );
 
+  searchTerm: string = '';
+  isSearchModalOpen = false;
 
-  toggleShowTree(){
+  toggleShowTree() {
     this.categoryTreeSvc.toggleShowTree();
   }
 
-  navigateToCart(){
-    if(this.totalQuantity>0){
-      this.routerSvc.navigate(['cart'])
+  navigateToCart() {
+    if ((this.totalQuantity() ?? 0) > 0) {
+      this.routerSvc.navigate(['cart']);
     }
   }
-
-  searchTerm: string = '';
 
   onSearch(): void {
     if (this.searchTerm.trim()) {
       this.routerSvc.navigate(['/products'], { queryParams: { search: this.searchTerm.trim() } });
+      this.closeSearchModal();
     }
   }
-
-  isSearchModalOpen = false;
 
   openSearchModal() {
     this.isSearchModalOpen = true;
@@ -88,5 +68,4 @@ export class HeaderComponent implements OnInit {
   closeSearchModal() {
     this.isSearchModalOpen = false;
   }
-  
 }

@@ -1,13 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
-import { IProduct } from '../../interfaces/products.interface';
 import { CommonModule } from '@angular/common';
-import { CartService } from '../../services/cart.service';
-import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
-import { ICategory } from '../../interfaces/categories.interface';
-import { combineLatest } from 'rxjs';
+import { combineLatest, map, switchMap, tap } from 'rxjs';
 import { ProductCardComponent } from '../product-card/product-card.component';
 
 @Component({
@@ -17,86 +13,72 @@ import { ProductCardComponent } from '../product-card/product-card.component';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent implements OnInit {
+export class ProductsComponent {
+  private readonly productsSvc = inject(ProductsService);
+  private readonly routerSvc = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
-  readonly productsSvc = inject(ProductsService);
+  // params$ reacciona a cambios de URL
+  readonly params$ = combineLatest([
+    this.route.paramMap,
+    this.route.queryParams
+  ]).pipe(
+    tap(([params, query]) => {
+      const categoryId = params.get('categoryId');
+      const search = (query['search'] || '').trim();
+      this.productsSvc.setSearch(search);
+      this.productsSvc.filterByCategory(categoryId);
+    })
+  );
 
-  readonly cartSvc = inject(CartService);
+  // view model reactivo
+  readonly vm$ = this.params$.pipe(
+    switchMap(([params, query]) => {
+      const categoryId = params.get('categoryId');
+      const search = (query['search'] || '').trim();
 
-  readonly toastSvc = inject(ToastrService);
+      return combineLatest([
+        this.productsSvc.products$,
+        categoryId
+          ? this.productsSvc.getCategoryPath(categoryId)
+          : this.productsSvc.getCategoryPath(''), // vacío si no hay categoría
+      ]).pipe(
+        map(([products, categoryPath]) => {
+          const subtitle = search
+            ? `Resultados para: "${search}"`
+            : categoryPath.length > 0
+            ? categoryPath.map(c => c.title).join(' - ')
+            : 'Catálogo de productos';
 
-  readonly routerSvc = inject(Router);
+          const breadcrumbRoutes = search
+            ? [
+                { name: 'Inicio', redirectFx: () => this.routerSvc.navigate(['']) },
+                { name: 'Productos', redirectFx: () => this.routerSvc.navigate(['products']) },
+                { name: `Buscar: "${search}"`, redirectFx: () => {} }
+              ]
+            : categoryPath.length > 0
+            ? [
+                { name: 'Inicio', redirectFx: () => this.routerSvc.navigate(['']) },
+                { name: 'Productos', redirectFx: () => this.routerSvc.navigate(['products']) },
+                ...categoryPath.map(cat => ({
+                  name: cat.title,
+                  redirectFx: () => this.routerSvc.navigate(['products', 'category', cat.id])
+                }))
+              ]
+            : [
+                { name: 'Inicio', redirectFx: () => this.routerSvc.navigate(['']) },
+                { name: 'Productos', redirectFx: () => this.routerSvc.navigate(['products']) }
+              ];
 
-  readonly router = inject(ActivatedRoute);
-
-  categoryId! : string | null;
-
-  products! : IProduct[];
-
-  breadcrumbRoutes : {name: string, redirectFx: Function}[] = [
-    {
-      name: "Inicio",
-      redirectFx: () => this.routerSvc.navigate([""])
-    },
-    {
-      name: "Productos",
-      redirectFx: () => this.routerSvc.navigate(["products"])
-    }
-  ]
-
-  category! :ICategory | undefined;
-
-  title : string = "Catálogo de productos"
-
-  subtitle!: string
-
-  ngOnInit(): void {
-    combineLatest([this.router.paramMap, this.router.queryParams])
-      .subscribe(([params, queryParams]) => {
-        const searchTerm = (queryParams['search'] || '').trim();
-        this.categoryId = params.get('categoryId');
-
-        if (searchTerm) {
-          // Filtrar solo por búsqueda
-          this.productsSvc.filterProductsBySearch(searchTerm);
-          this.subtitle = `Resultados para: "${searchTerm}"`;
-          this.breadcrumbRoutes = [
-            { name: "Inicio", redirectFx: () => this.routerSvc.navigate([""]) },
-            { name: "Productos", redirectFx: () => this.routerSvc.navigate(["products"]) },
-            { name: `Buscar: "${searchTerm}"`, redirectFx: () => {} }
-          ];
-        } else if (this.categoryId) {
-          // Filtrar solo por categoría
-          this.productsSvc.filterProductsByCategory(this.categoryId);
-          this.category = this.productsSvc.findCategoryById(this.categoryId);
-          if (this.category) {
-            this.subtitle = this.productsSvc.getCategoryPath(this.categoryId).map(cat => cat.title).join(" - ");
-            this.breadcrumbRoutes = [
-              { name: "Inicio", redirectFx: () => this.routerSvc.navigate([""]) },
-              { name: "Productos", redirectFx: () => this.routerSvc.navigate(["products"]) },
-              ...this.productsSvc.getCategoryPath(this.categoryId).map(cat => ({
-                name: cat.title,
-                redirectFx: () => this.routerSvc.navigate(['products', 'category', cat.id])
-              })),
-            ];
-          }
-        } else {
-          // Sin filtro, mostrar todo
-          this.productsSvc.getAllProducts();
-          this.subtitle = "Catálogo de productos";
-          this.breadcrumbRoutes = [
-            { name: "Inicio", redirectFx: () => this.routerSvc.navigate([""]) },
-            { name: "Productos", redirectFx: () => this.routerSvc.navigate(["products"]) }
-          ];
-        }
-
-        this.productsSvc.$products.subscribe({
-          next: (products: IProduct[]) => this.products = products
-        });
-      }
-    );
-  }
-
-
-
+          return {
+            products,
+            categoryId,
+            subtitle,
+            breadcrumbRoutes,
+            title: 'Catálogo de productos'
+          };
+        })
+      );
+    })
+  );
 }

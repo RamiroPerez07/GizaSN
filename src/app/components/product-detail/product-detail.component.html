@@ -1,36 +1,59 @@
-<app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
-<div class="wrapper">
-  @if (product) {
+<ng-container *ngIf="vm$ | async as vm">
+  <app-breadcrumb [breadcrumbRoutes]="vm.breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
+
+  <div class="wrapper">
     <div class="image-container">
-      <img [src]="product.urlImg" [alt]="product.description" class="image-detail">
+      <img [src]="vm.product.urlImg" [alt]="vm.product.description" class="image-detail">
     </div>
     <div class="product-info">
-      <p class="description">{{product.description}}</p>
-      <p class="brand">{{product.brand}}</p>
-      <p class="long-description">{{product.longDescription}}</p>
-      @if(product.attributes){
-        @if(product.attributes.flavor && product.attributes.colour){
-          <p class="flavor">Sabor: <span class="flavor-tag" [style.background-color]="product.attributes.colour" [style.color]="product.attributes.textColor ?? 'inherit'">{{product.attributes.flavor}}</span></p>
+      <p class="description">{{ vm.product.description }}</p>
+      <p class="brand">{{ vm.product.brand }}</p>
+      <p class="long-description">{{ vm.product.longDescription }}</p>
+
+      @if(vm.product.attributes){
+        @if(vm.product.attributes.flavor && vm.product.attributes.colour){
+          <p class="flavor">
+            Sabor:
+            <span class="flavor-tag"
+                  [style.background-color]="vm.product.attributes.colour"
+                  [style.color]="vm.product.attributes.textColor ?? 'inherit'">
+              {{ vm.product.attributes.flavor }}
+            </span>
+          </p>
         }
-        @if(product.attributes.packaging){
-          <p class="content">Presentación: <span class="content-tag">{{product.attributes.packaging}}</span></p>
+        @if(vm.product.attributes.packaging){
+          <p class="content">Presentación:
+            <span class="content-tag">{{ vm.product.attributes.packaging }}</span>
+          </p>
         }
-        @if(product.attributes.services){
-          <p class="content">Servicios: <span class="content-tag">{{product.attributes.services}}</span></p>
+        @if(vm.product.attributes.services){
+          <p class="content">Servicios:
+            <span class="content-tag">{{ vm.product.attributes.services }}</span>
+          </p>
         }
-        @if(product.attributes.performance){
-          <p class="content">Rendimiento: <span class="content-tag">{{product.attributes.performance}}</span></p>
+        @if(vm.product.attributes.performance){
+          <p class="content">Rendimiento:
+            <span class="content-tag">{{ vm.product.attributes.performance }}</span>
+          </p>
         }
-        @if(product.attributes.content){
-          <p class="content">Contenido: <span class="content-tag">{{product.attributes.content}}</span></p>
+        @if(vm.product.attributes.content){
+          <p class="content">Contenido:
+            <span class="content-tag">{{ vm.product.attributes.content }}</span>
+          </p>
         }
       }
-      <p class="price">{{product.price | currency: "ARS"}}</p>
-      <button class="add-product-btn" (click)="addProduct(product)">Agegar al carrito</button>
-    </div>
-  }
-</div>
 
-@if(product && product.relatedProductsIds && product.relatedProductsIds.length>0){
-  <app-card-carousel [products]="relatedProducts" [title]="'Productos relacionados'" [autoScroll]="false" [alignLeft]="true"></app-card-carousel>
-}
+      <p class="price">{{ vm.product.price | currency: 'ARS' }}</p>
+      <button class="add-product-btn" (click)="addProduct(vm.product)">Agregar al carrito</button>
+    </div>
+  </div>
+
+  @if(vm.relatedProducts.length > 0){
+    <app-card-carousel
+      [products]="vm.relatedProducts"
+      [title]="'Productos relacionados'"
+      [autoScroll]="false"
+      [alignLeft]="true">
+    </app-card-carousel>
+  }
+</ng-container>

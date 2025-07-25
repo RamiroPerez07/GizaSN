@@ -6,6 +6,7 @@ import { CartService } from '../../services/cart.service';
 import { PointOfSaleService } from '../../services/point-of-sale.service';
 import { ToastrService } from 'ngx-toastr';
 import { businessAlias } from '../../utils/constants';
+import { IProduct } from '../../interfaces/products.interface';
 
 @Component({
   selector: 'app-customer-checkout-form',
@@ -15,130 +16,103 @@ import { businessAlias } from '../../utils/constants';
   styleUrl: './customer-checkout-form.component.css'
 })
 export class CustomerCheckoutFormComponent implements OnInit {
-  @Input() showModal: boolean = false;
-
-  pos!: PointOfSale | null;
-
-  gizaPos!: PointOfSale | undefined;
-
-  subtotal!: number;
-
-  businessAlias: string = businessAlias
-
   readonly fb = inject(FormBuilder);
-
   readonly pointOfSaleSvc = inject(PointOfSaleService);
-
   readonly cartSvc = inject(CartService);
-
   readonly toastSvc = inject(ToastrService);
-
   private readonly platformId = inject(PLATFORM_ID);
 
-  form: FormGroup = this.fb.group({
+  businessAlias = businessAlias;
+
+  form = this.fb.group({
     nombre: ['', Validators.required],
     apellido: ['', Validators.required],
     documento: [''],
     formaPago: ['Efectivo', Validators.required],
     tipoDireccion: ['estandar', Validators.required],
     direccion: [''],
-    localidad: ["San Nicolás de los Arroyos"]
+    localidad: ['San Nicolás de los Arroyos']
   });
 
-  showCustomerCheckoutModal!: boolean;
+  // streams
+  pos$ = this.pointOfSaleSvc.pos$;
+  showModal$ = this.cartSvc.showCustomerCheckoutModal$;
+  gizaPos = this.pointOfSaleSvc.getPointOfSaleById('giza');
 
-  ngOnInit(): void {
-
-    this.pointOfSaleSvc.$pos.subscribe({
-      next: (pos) => {
-        this.pos = pos;
-      }
-    })
-
-    this.gizaPos = this.pointOfSaleSvc.getPointOfSaleById("giza");
-
-    this.cartSvc.$showCustomerCheckoutModal.subscribe({
-      next: (showCustomerCheckoutModal: boolean) => {
-        this.showCustomerCheckoutModal = showCustomerCheckoutModal
-      }
-    })
-
-    // Observa y cambia validadores dinámicamente
-    this.form.get('tipoDireccion')?.valueChanges.subscribe((value) => {
-      const direccionControl = this.form.get('direccion');
-      const localidadControl = this.form.get('localidad');
-      if (value === 'personalizada') {
-        direccionControl?.setValidators([Validators.required]);
-        localidadControl?.setValidators([Validators.required]);
-      } else {
-        direccionControl?.clearValidators();
-        localidadControl?.clearValidators();
-      }
-      direccionControl?.updateValueAndValidity();
-      localidadControl?.updateValueAndValidity();
+  ngOnInit() {
+    // cambia validadores de formaPago
+    this.form.get('formaPago')!.valueChanges.subscribe((value) => {
+      const doc = this.form.get('documento')!;
+      value !== 'Efectivo' ? doc.setValidators([Validators.required]) : doc.clearValidators();
+      doc.updateValueAndValidity();
     });
 
-    // Observa y cambia validadores dinámicamente
-    this.form.get('formaPago')?.valueChanges.subscribe((value) => {
-      const direccionControl = this.form.get('documento');
-      if (value !== 'Efectivo') {
-        direccionControl?.setValidators([Validators.required]);
+    // cambia validadores tipoDireccion
+    this.form.get('tipoDireccion')!.valueChanges.subscribe((value) => {
+      const dir = this.form.get('direccion')!;
+      const loc = this.form.get('localidad')!;
+      if (value === 'personalizada') {
+        dir.setValidators([Validators.required]);
+        loc.setValidators([Validators.required]);
       } else {
-        direccionControl?.clearValidators();
+        dir.clearValidators();
+        loc.clearValidators();
       }
-      direccionControl?.updateValueAndValidity();
+      dir.updateValueAndValidity();
+      loc.updateValueAndValidity();
     });
   }
 
   closeModal() {
-    this.cartSvc.closeCustomerCheckoutModal()
+    this.cartSvc.closeCustomerCheckoutModal();
   }
 
-  onSubmitForm(){
-
+  onSubmitForm(pos: PointOfSale | null, products: IProduct[], subtotal: number) {
     if (this.form.invalid) {
-      this.form.markAllAsTouched(); 
+      this.form.markAllAsTouched();
       return;
     }
 
-    const { nombre, apellido, documento, formaPago , direccion, tipoDireccion, localidad  } = this.form.value;
+    const { nombre, apellido, documento, formaPago, direccion, tipoDireccion, localidad } =
+      this.form.value;
 
-    if (!this.pos) {
-      console.warn('No se encontró un punto de venta válido');
-      return;
-    }
-
-    const telefono = this.pos.telefono;
-
-    const puntoDeVenta = this.pos.puntoDeVenta;
+    if (!pos) return;
 
     let direccionFinal = '';
     let localidadFinal = '';
 
     if (tipoDireccion === 'estandar') {
-      direccionFinal = this.pos?.direccion ?? '';
-      localidadFinal = this.pos?.localidad ?? ''
+      direccionFinal = pos.direccion ?? '';
+      localidadFinal = pos.localidad ?? '';
     } else if (tipoDireccion === 'giza') {
-      direccionFinal = this.pointOfSaleSvc.getPointOfSaleById("giza")?.direccion ?? '';
-      localidadFinal = this.pointOfSaleSvc.getPointOfSaleById("giza")?.localidad ?? '';
-    } else if (tipoDireccion === 'personalizada') {
-      direccionFinal = direccion;
-      localidadFinal = localidad;
+      direccionFinal = this.gizaPos?.direccion ?? '';
+      localidadFinal = this.gizaPos?.localidad ?? '';
+    } else {
+      direccionFinal = direccion ?? '';
+      localidadFinal = localidad ?? '';
     }
 
-    this.cartSvc.generateOrderMessage(puntoDeVenta, nombre,apellido,formaPago,documento,direccionFinal,localidadFinal,telefono)
+    this.cartSvc.generateOrderMessage(
+      pos.puntoDeVenta,
+      nombre!,
+      apellido!,
+      formaPago!,
+      documento!,
+      direccionFinal,
+      localidadFinal,
+      pos.telefono,
+      products,
+      subtotal
+    );
 
-    this.closeModal(); //cierro el formulario
-    this.form.reset();  //reinicio el formulario
+    this.closeModal();
+    this.form.reset();
   }
 
   copyAlias() {
     if (!isPlatformBrowser(this.platformId)) return;
-    // traigo el alias desde las constantes.
     navigator.clipboard.writeText(this.businessAlias).then(() => {
-      this.toastSvc.success(`Alias copiado al portapapeles`, "Copiado al clipboard");
-    }).catch(err => {
-      this.toastSvc.error("Error al copiar alias", "Error");
+      this.toastSvc.success('Alias copiado al portapapeles', 'Copiado');
     });
   }
 }

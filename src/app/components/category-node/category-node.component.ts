@@ -3,6 +3,7 @@ import { ICategory } from '../../interfaces/categories.interface';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { CategoryTreeService } from '../../services/category-tree.service';
+import { ProductsService } from '../../services/products.service';
 
 
 @Component({
@@ -16,30 +17,27 @@ export class CategoryNodeComponent {
   @Input() allCategories: ICategory[] = [];
   @Input() parentId: string | null = null;
 
-  readonly router = inject(Router);
+  private router = inject(Router);
+  private categoryTreeSvc = inject(CategoryTreeService);
 
-  readonly categoryTreeSvc = inject(CategoryTreeService)
-
-  toggleCategory(category: ICategory & { showChildren?: boolean }) {
-    const hasChild = this.hasChildren(category);
-
-    if (hasChild) {
-      // Solo expande/colapsa
-      category.showChildren = !category.showChildren;
-    } else {
-      // Si no tiene hijos, navega
-      this.router.navigate(['products', 'category', category.id]);
-      this.categoryTreeSvc.toggleShowTree()
-    }
-  }
+  constructor(private productsSvc: ProductsService) {}
 
   getChildren(parentId: string | null): ICategory[] {
-    return this.allCategories
-      .filter(cat => cat.parentId === parentId)
-      .sort((a, b) => a.priority - b.priority);
+    return this.productsSvc.getCategoriesByParentSync(this.allCategories, parentId);
   }
 
   hasChildren(category: ICategory): boolean {
-    return this.allCategories.some(cat => cat.parentId === category.id);
+    return this.getChildren(category.id).length > 0;
+  }
+
+  toggleCategory(category: ICategory & { showChildren?: boolean }) {
+    if (this.hasChildren(category)) {
+      category.showChildren = !category.showChildren;
+    } else {
+      // Navegar al detalle de categoría
+      this.router.navigate(['products', 'category', category.id]);
+      // Cerrar árbol de categorías
+      this.categoryTreeSvc.toggleShowTree();
+    }
   }
 }

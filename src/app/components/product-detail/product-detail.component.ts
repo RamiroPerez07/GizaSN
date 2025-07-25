@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 import { CardCarouselComponent } from "../card-carousel/card-carousel.component";
+import { combineLatest, map, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-product-detail',
@@ -16,73 +17,53 @@ import { CardCarouselComponent } from "../card-carousel/card-carousel.component"
   styleUrl: './product-detail.component.css'
 })
 export class ProductDetailComponent {
+  private readonly productsSvc = inject(ProductsService);
+  private readonly cartSvc = inject(CartService);
+  private readonly toastSvc = inject(ToastrService);
+  private readonly router = inject(Router);
+  private readonly route = inject(ActivatedRoute);
 
-  
-  readonly routerSvc = inject(Router)
-  
-  productId: string | null = null;
+  readonly vm$ = this.route.paramMap.pipe(
+    switchMap(params => {
+      const id = Number(params.get('id'));
+      const categoryId = params.get('categoryId');
 
-  categoryId: string | null = null;
-  
-  product!: IProduct | undefined;
+      return this.productsSvc.getProductById(id).pipe(
+        switchMap(product => {
+          if (!product) {
+            this.router.navigate(['products']);
+            return of(null);
+          }
 
-  relatedProducts: IProduct[] = [];
+          const path$ = this.productsSvc.getCategoryPath(categoryId ?? product.idCategories[0]);
+          const related$ = product.relatedProductsIds?.length
+            ? this.productsSvc.getProductsByIds(product.relatedProductsIds)
+            : of([]);
 
-  breadcrumbRoutes! : {name: string, redirectFx: Function}[] 
+          return combineLatest([path$, related$]).pipe(
+            map(([path, relatedProducts]) => ({
+              product,
+              relatedProducts,
+              breadcrumbRoutes: [
+                { name: 'Inicio', redirectFx: () => this.router.navigate(['']) },
+                { name: 'Productos', redirectFx: () => this.router.navigate(['products']) },
+                ...path.map(cat => ({
+                  name: cat.title,
+                  redirectFx: () => this.router.navigate(['products/category', cat.id])
+                })),
+                { name: product.description, redirectFx: () => {} }
+              ]
+            }))
+          );
+        })
+      );
+    })
+  );
 
-  readonly productsSvc = inject(ProductsService);
-
-  readonly cartSvc = inject(CartService);
-
-  readonly toastSvc = inject(ToastrService);
-
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.productId = params.get('id');
-      this.categoryId = params.get('categoryId');
-      this.product = this.productsSvc.getProductById(Number(this.productId));
-      if(this.product){
-
-        const categoriesPath = this.productsSvc.getCategoryPath(this.categoryId ?? this.product.idCategories[0]); // asumo que usas la primera categoría
-
-        this.breadcrumbRoutes = [
-          {
-            name: "Inicio",
-            redirectFx: () => this.routerSvc.navigate([""])
-          },
-          {
-            name: "Productos",
-            redirectFx: () => this.routerSvc.navigate(["products"])
-          },
-          ...categoriesPath.map(cat => ({
-          name: cat.title,
-          redirectFx: () => this.routerSvc.navigate(['products/category', cat.id])
-          })),
-          {
-            name: this.product.description,
-            redirectFx: () => this.routerSvc.navigate(["products", this.product?.id])
-          },
-        ];
-
-        if(this.product.relatedProductsIds && this.product.relatedProductsIds.length>0){
-          this.relatedProducts = this.productsSvc.getProductsByIds(this.product.relatedProductsIds);
-        }
-
-      }else{
-        this.routerSvc.navigate(["products"]);
-      }
-    });
-
-  }
-
-  addProduct(product: IProduct){
+  addProduct(product: IProduct) {
     this.cartSvc.addProductToCart(product);
     this.toastSvc.success(`${product.description} - ${product.brand}`, "Producto agregado al carrito");
   }
-
-
 }
 
 

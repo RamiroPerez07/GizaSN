@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, inject, Input, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, Input, OnDestroy, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { IProduct } from '../../interfaces/products.interface';
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ProductCardComponent } from '../product-card/product-card.component';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
+import { fromEvent, merge, Subject, takeUntil, tap } from 'rxjs';
 
 @Component({
   selector: 'app-card-carousel',
@@ -26,6 +27,10 @@ export class CardCarouselComponent {
   @Input() autoScroll: boolean = true;
 
   @ViewChild('carouselTrack', { static: false }) carouselTrack!: ElementRef<HTMLDivElement>;
+
+  get duplicatedProducts(): IProduct[] {
+    return this.autoScroll ? [...this.products, ...this.products] : [...this.products];
+  }
 
   animationId: number | null = null;
 

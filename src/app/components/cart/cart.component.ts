@@ -1,10 +1,10 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { IProduct } from '../../interfaces/products.interface';
+import { Component, inject } from '@angular/core';
 import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { PointOfSaleService } from '../../services/point-of-sale.service';
 import { CustomerCheckoutFormComponent } from "../customer-checkout-form/customer-checkout-form.component";
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -13,62 +13,46 @@ import { CustomerCheckoutFormComponent } from "../customer-checkout-form/custome
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.css'
 })
-export class CartComponent implements OnInit {
-
-  productsInCart !: IProduct[];
+export class CartComponent {
 
   readonly cartSvc = inject(CartService);
-
   readonly routerSvc = inject(Router);
-
   readonly pointOfSaleSvc = inject(PointOfSaleService);
 
-  subtotal!: number;
-
-  showCustomerCheckoutModal! : boolean;
-
-  ngOnInit(): void {
-    this.cartSvc.$productsInCart.subscribe({
-      next: (productsInCart: IProduct[]) => {
-        this.productsInCart = productsInCart
-        if(productsInCart.length <= 0){
-          this.routerSvc.navigate(['products'])
-          return
-        }
-        this.subtotal = this.cartSvc.getSubtotal();
+  // Observables directamente del servicio
+  readonly productsInCart$ = this.cartSvc.productsInCart$.pipe(
+    tap(products => {
+      if (products.length === 0) {
+        this.routerSvc.navigate(['products']);
       }
     })
+  );
 
-    this.cartSvc.$showCustomerCheckoutModal.subscribe({
-      next: (showCustomerCheckoutModal: boolean) => {
-        this.showCustomerCheckoutModal = showCustomerCheckoutModal;
-      }
-    })
+  readonly subtotal$ = this.cartSvc.subtotal$;
+  readonly showCustomerCheckoutModal$ = this.cartSvc.showCustomerCheckoutModal$;
 
-  }
-
-  addProductToCart(product: IProduct){
+  addProductToCart(product: any) {
     this.cartSvc.addProductToCart(product);
   }
 
-  decreaseProductFromCart(product: IProduct){
+  decreaseProductFromCart(product: any) {
     this.cartSvc.decreaseProductFromCart(product);
   }
 
-  removeItemFromCart(product: IProduct){
+  removeItemFromCart(product: any) {
     this.cartSvc.removeItemFromCart(product);
   }
 
-  cleanCart(){
-    this.productsInCart.forEach((product) => this.cartSvc.removeItemFromCart(product) )
-    this.routerSvc.navigate(['products'])
+  cleanCart(products: any[]) {
+    products.forEach(p => this.cartSvc.removeItemFromCart(p));
+    this.routerSvc.navigate(['products']);
   }
 
-  openForm(){
-    this.cartSvc.openCustomerCheckoutModal();   //abrimos el modal
+  openForm() {
+    this.cartSvc.openCustomerCheckoutModal();
   }
 
-  viewProductDetail(id: number){
+  viewProductDetail(id: number) {
     this.routerSvc.navigate(["products", id]);
   }
 

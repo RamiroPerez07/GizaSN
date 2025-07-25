@@ -1,9 +1,8 @@
-import { Component, inject, Input} from '@angular/core';
-import { ProductsService } from '../../services/products.service';
+import { Component, Input} from '@angular/core';
 import { ICategory } from '../../interfaces/categories.interface';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { PointOfSaleService } from '../../services/point-of-sale.service';
+
 
 @Component({
   selector: 'app-categories-grid',
@@ -13,19 +12,12 @@ import { PointOfSaleService } from '../../services/point-of-sale.service';
   styleUrl: './categories-grid.component.css'
 })
 export class CategoriesGridComponent {
+  @Input({ required: true }) title!: string;
+  @Input({ required: true }) categories!: ICategory[];
 
-  @Input() categories!: ICategory[];
-  
-  @Input() title! : string;
+  constructor(private readonly router: Router) {}
 
-  readonly productsSvc = inject(ProductsService);
-
-  readonly router = inject(Router);
-
-  readonly posSvc = inject(PointOfSaleService);
-
-  redirectTo(category: ICategory){
-    this.router.navigate(['products', 'category', category.id]);
+  redirectTo(categoryId: string) {
+    this.router.navigate(['products', 'category', categoryId]);
   }
-  
 }

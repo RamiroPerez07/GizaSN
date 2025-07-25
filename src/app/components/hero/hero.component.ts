@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { CategoriesGridComponent } from "../categories-grid/categories-grid.component";
 import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../interfaces/products.interface';
-import { Subscription } from 'rxjs';
+import { map, Observable, Subscription } from 'rxjs';
 import { ICategory } from '../../interfaces/categories.interface';
 
 @Component({
@@ -17,36 +17,24 @@ import { ICategory } from '../../interfaces/categories.interface';
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })
-export class HeroComponent implements OnInit, OnDestroy {
+export class HeroComponent {
 
-  readonly routerSvc = inject(Router);
+  private router = inject(Router);
+  private productsSvc = inject(ProductsService);
 
-  readonly productsSvc = inject(ProductsService);
+  // Observable de productos para el carousel (ya definido en el service)
+  heroProducts$: Observable<IProduct[]> = this.productsSvc.heroProducts$;
 
-  products! :IProduct[];
+  // Observable de categorías padre para nutremax e innovanaturals
+  nutremaxCategories$: Observable<ICategory[]> = this.productsSvc.categories$.pipe(
+    map(categories => this.productsSvc.getCategoriesByParentSync(categories, 'nutremax'))
+  );
+
+  innovaCategories$: Observable<ICategory[]> = this.productsSvc.categories$.pipe(
+    map(categories => this.productsSvc.getCategoriesByParentSync(categories, 'innovanaturals'))
+  );
 
   redirectTo(path: string){
-    this.routerSvc.navigate([path])
+    this.router.navigate([path]);
   }
-
-  sub! : Subscription;
-
-  nutremaxCategories! : ICategory[];
-  innovaCategories! : ICategory[];
-
-  ngOnInit(): void {
-    this.products = this.productsSvc.getProductsForHeroCarousel();
-
-    this.sub = this.productsSvc.$categories.subscribe({
-      next: (categories) => {
-        this.nutremaxCategories = this.productsSvc.getCategoriesByParent(categories, 'nutremax');
-        this.innovaCategories = this.productsSvc.getCategoriesByParent(categories, 'innovanaturals');
-      }
-    })
-  }
-
-  ngOnDestroy(): void {
-    this.sub?.unsubscribe();
-  }
-
 }

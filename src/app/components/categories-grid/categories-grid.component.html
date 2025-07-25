@@ -1,11 +1,11 @@
-<h2 class="section-title">{{title}}</h2>
+<h2 class="section-title">{{ title }}</h2>
 <div class="container">
-  @for (category of categories; track $index) {
-    <div class="category-card" [style.backgroundImage]="'url(' + category.urlImg + ')'" (click)="redirectTo(category)">
-      <div class="category-name">
-        {{category.title}}
-      </div>
+  @for (category of categories; track category.id) {
+    <div 
+      class="category-card" 
+      [style.backgroundImage]="'url(' + category.urlImg + ')'" 
+      (click)="redirectTo(category.id)">
+      <div class="category-name">{{ category.title }}</div>
     </div>
   }
 </div>
-

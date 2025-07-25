@@ -89,3 +89,9 @@ p.flavor > span{
   border-radius: 5px;
   border: none;
 }
+
+@media (max-width: 770px) {
+  .wrapper{
+    justify-content: center;
+  }
+}

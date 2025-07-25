@@ -27,6 +27,8 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
 
   items: CarouselItem[] = [];
 
+  readonly pos$ = this.posSvc.pos$; // <-- ahora observable, sin subscribe manual
+
   readonly desktopItems: CarouselItem[] = [
     {
       image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1745728518/WhatsApp_Image_2025-04-26_at_21.31.11_sgnyqc.jpg',
@@ -98,17 +100,10 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   // Guarda el total deltaX para decidir swipe
   private totalDeltaX = 0;
 
-  pos : PointOfSale | null = null;
-
   ngOnInit(): void {
     if (!isPlatformBrowser(this.platformId)) return;
     this.updateItemsForScreenSize();
     window.addEventListener('resize', this.resizeHandler);
-    this.posSvc.$pos.subscribe({
-      next: (pos) => {
-        this.pos = pos;
-      }
-    })
   }
 
   ngAfterViewInit(): void {
@@ -137,8 +132,6 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
     this.startX = event.touches[0].clientX;
     this.prevTranslate = this.transformValue;
     this.cancelAnimation();
-
-    // Al iniciar drag quitamos transición para que siga suave el dedo
     this.setTransform(this.transformValue, false);
   }
 
@@ -167,7 +160,6 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
     this.prevTranslate = this.transformValue;
     this.cancelAnimation();
     event.preventDefault();
-
     this.setTransform(this.transformValue, false);
   }
 
@@ -199,32 +191,23 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   private snapToClosestSlide() {
     if (!this.carouselRef) return;
     const width = this.carouselRef.nativeElement.getBoundingClientRect().width;
-    const swipeThreshold = width * 0.15; // 15% del ancho para cambiar slide
+    const swipeThreshold = width * 0.15;
 
     if (this.totalDeltaX > swipeThreshold) {
-      // Swipe a la derecha - ir slide anterior
       this.currentIndex = Math.max(this.currentIndex - 1, 0);
     } else if (this.totalDeltaX < -swipeThreshold) {
-      // Swipe a la izquierda - ir slide siguiente
       this.currentIndex = Math.min(this.currentIndex + 1, this.items.length - 1);
     }
-    // Si no supera umbral, queda en el mismo slide
-
     this.animateToIndex(this.currentIndex);
-
-    this.totalDeltaX = 0; // reset
+    this.totalDeltaX = 0;
   }
 
   public animateToIndex(index: number) {
     if (!this.carouselRef) return;
     const width = this.carouselRef.nativeElement.getBoundingClientRect().width;
     const target = -index * width;
-
-    this.currentIndex = index; // actualizo índice aquí para dots
-
-    // Aquí definís la duración que querés para la animación:
-    const durationMs = 700; // probá con 700ms, o el valor que prefieras
-
+    this.currentIndex = index;
+    const durationMs = 700;
     this.setTransformWithDuration(target, durationMs);
   }
 
@@ -258,7 +241,6 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  // Bloqueo click si hubo drag para que no navegue al arrastrar
   onImageClick(event: MouseEvent, path: string[]) {
     if (this.dragged) {
       event.preventDefault();
@@ -275,5 +257,4 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   navigateToProducts() {
     this.router.navigate(['products']);
   }
-
 }

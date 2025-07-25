@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, shareReplay, startWith } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class CategoryTreeService {
+  // ---- Eventos de toggle
+  private toggleSubject = new BehaviorSubject<boolean>(false);
 
-  showTree = new BehaviorSubject<boolean>(false)
+  // ---- Estado derivado
+  readonly showTree$ = this.toggleSubject.pipe(
+    startWith(false),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
 
-  $showTree = this.showTree.asObservable()
+  constructor() {}
 
-  toggleShowTree(){
-    this.showTree.next(!this.showTree.value)
+  toggleShowTree() {
+    this.toggleSubject.next(!this.toggleSubject.value);
   }
-
-  constructor() { }
 }

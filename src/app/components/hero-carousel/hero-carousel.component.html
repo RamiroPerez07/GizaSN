@@ -25,11 +25,11 @@
     </span>
   </div>
 
-  @if (pos && pos.imgLogoUrl) {
-    <div class="customer-gym-logo-container">
+  <ng-container *ngIf="pos$ | async as pos">
+    <div *ngIf="pos.imgLogoUrl" class="customer-gym-logo-container">
       <img class="customer-gym-logo" [src]="pos.imgLogoUrl" [alt]="pos.puntoDeVenta" />
     </div>
-  }
+  </ng-container>
 
   <a class="go-to-products" (click)="navigateToProducts()">Hacenos tu pedido</a>
 </div>

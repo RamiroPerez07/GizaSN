@@ -1,13 +1,12 @@
-<app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes"></app-breadcrumb>
-<section class="products-wrapper">
-
-    <h2 class="products-title">{{title}}</h2>
-
-    <p class="products-subtitle">{{subtitle}}</p>
-    
+<ng-container *ngIf="vm$ | async as vm">
+  <app-breadcrumb [breadcrumbRoutes]="vm.breadcrumbRoutes"></app-breadcrumb>
+  <section class="products-wrapper">
+    <h2 class="products-title">{{ vm.title }}</h2>
+    <p class="products-subtitle">{{ vm.subtitle }}</p>
     <div class="flex-wrapper">
-        @for(product of products; track product.id){
-            <app-product-card [product]="product" [categoryId]="categoryId" ></app-product-card>
-        }
+      @for(product of vm.products; track product.id){
+        <app-product-card [product]="product" [categoryId]="vm.categoryId"></app-product-card>
+      }
     </div>
-</section>
+  </section>
+</ng-container>

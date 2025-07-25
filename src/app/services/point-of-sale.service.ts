@@ -1,66 +1,58 @@
 import { inject, Injectable, PLATFORM_ID } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, distinctUntilChanged, map, startWith, tap } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { PointOfSale } from '../interfaces/pointofsale.interface';
 import { POINTS_OF_SALE } from '../data/points_of_sale';
 
 const PV_STORAGE_KEY = 'point-of-sale-id';
+const DEFAULT_PV_ID = 'giza';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class PointOfSaleService {
-
-  pos = new BehaviorSubject<PointOfSale | null>(POINTS_OF_SALE.find(pos => pos.id === 'giza') ?? null);
-
-  $pos = this.pos.asObservable();
-
   private readonly platformId = inject(PLATFORM_ID);
 
-  // Setter
-  setPv(pvId: string | null) {
+  /** Fuente reactiva: PV que viene de la URL o de alguna otra parte */
+  private pvFromUrlSubject = new BehaviorSubject<string | null>(null);
 
-    const fallbackId = 'giza';
+  /** Observable de PV final (con fallback y persistencia) */
+  readonly pos$ = this.pvFromUrlSubject.pipe(
+    map(pvId => {
+      // 1) Si vino de la URL y es válido, se usa
+      if (pvId && this.isValidPv(pvId)) {
+        return this.getPointOfSaleById(pvId) ?? null;
+      }
 
-    if (!pvId) {
-      // Si no paso pvId, intento leer de localStorage
+      // 2) Si no hay pvId de URL, leer localStorage
       if (isPlatformBrowser(this.platformId)) {
-        const storedPvId = localStorage.getItem(PV_STORAGE_KEY);
-        if (storedPvId && this.isValidPv(storedPvId)) {
-          this.pos.next(this.getPointOfSaleById(storedPvId) ?? null);
-          return;
+        const stored = localStorage.getItem(PV_STORAGE_KEY);
+        if (stored && this.isValidPv(stored)) {
+          return this.getPointOfSaleById(stored) ?? null;
         }
       }
-      // Si no hay nada en localStorage o no es válido, fallback
-      this.pos.next(this.getPointOfSaleById(fallbackId) ?? null);
-      return;
-    }
 
-    // Si paso pvId, validarlo y setear
-    if (this.isValidPv(pvId)) {
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.setItem(PV_STORAGE_KEY, pvId);
+      // 3) Fallback (giza)
+      return this.getPointOfSaleById(DEFAULT_PV_ID) ?? null;
+    }),
+    distinctUntilChanged((a, b) => a?.id === b?.id),
+    tap(pos => {
+      if (isPlatformBrowser(this.platformId) && pos) {
+        localStorage.setItem(PV_STORAGE_KEY, pos.id);
       }
-      this.pos.next(this.getPointOfSaleById(pvId) ?? null);
-    } else {
-      // pvId inválido, limpiar localStorage y fallback
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.removeItem(PV_STORAGE_KEY);
-      }
-      this.pos.next(this.getPointOfSaleById(fallbackId) ?? null);
-    }
+    }),
+    startWith(this.getPointOfSaleById(DEFAULT_PV_ID) ?? null)
+  );
+
+  /** Método reactivo para setear pv (ej: desde router param) */
+  setPvFromUrl(pvId: string | null) {
+    this.pvFromUrlSubject.next(pvId);
   }
 
-  getPointOfSaleById(pvId: string): PointOfSale | undefined {
-    return POINTS_OF_SALE.find(pos => pos.id === pvId)
-  }
-
-  clearPv() {
-    this.setPv(null);
-  }
-
-  isValidPv(pvId: string): boolean {
+  /** Helpers */
+  private isValidPv(pvId: string): boolean {
     return POINTS_OF_SALE.some(pos => pos.id === pvId);
   }
 
+  public getPointOfSaleById(pvId: string): PointOfSale | undefined {
+    return POINTS_OF_SALE.find(pos => pos.id === pvId);
+  }
 }
