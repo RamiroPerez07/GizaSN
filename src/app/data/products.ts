@@ -426,7 +426,8 @@ export const products: IProduct[] = [
       flavor: "Neutro",
       packaging: "Envase plástico",
       services: "40"
-    }
+    },
+    relatedProductsIds: [17,18,19,20,21]
   },
   {
     id: 17,
@@ -452,7 +453,8 @@ export const products: IProduct[] = [
       flavor: "Neutro",
       packaging: "Envase plástico",
       services: "40"
-    }
+    },
+    relatedProductsIds: [18,19,20,21,16]
   },
   {
     id: 18,
@@ -479,7 +481,7 @@ export const products: IProduct[] = [
       packaging: "Envase plástico 200 Comprimidos masticables",
       services: "25"
     },
-    relatedProductsIds: [16,19,20],
+    relatedProductsIds: [16,19,20,16],
   },
   {
     id: 19,
@@ -505,7 +507,8 @@ export const products: IProduct[] = [
       flavor: "Neutro",
       packaging: "Envase plástico 120 Comprimidos",
       services: "30"
-    }
+    },
+    relatedProductsIds: [20,21,17,16]
   },
   {
     id: 20,
@@ -531,7 +534,8 @@ export const products: IProduct[] = [
       flavor: "Neutro",
       packaging: "Envase plástico 120 Comprimidos",
       services: "60"
-    }
+    },
+    relatedProductsIds: [21,19,17,16]
   },
   {
     id: 21,
@@ -557,7 +561,8 @@ export const products: IProduct[] = [
       flavor: "Citrus",
       packaging: "Envase plástico",
       services: "25",
-    }
+    },
+    relatedProductsIds: [20,19,16]
   },
   {
     id: 22,
@@ -819,7 +824,7 @@ export const products: IProduct[] = [
     attributes: {
       packaging: "Envase 750cc",
     },
-    relatedProductsIds: [31],
+    relatedProductsIds: [30],
   },
   {
     id: 32,
@@ -842,7 +847,8 @@ export const products: IProduct[] = [
     attributes: {
       packaging: "Frasco Plástico 30 Cápsulas",
       services: "15 (2 Cáps x día)",
-    }
+    },
+    relatedProductsIds: [33,34,35,45],
   },
   {
     id: 33,
@@ -865,11 +871,12 @@ export const products: IProduct[] = [
     attributes: {
       packaging: "Frasco Plástico 60 Cápsulas",
       services: "30 (2 Cáps x día)",
-    }
+    },
+    relatedProductsIds: [32,34,35,45],
   },
   {
     id: 34,
-    description: "Omega 3 Max (1000 EPA + 500 DHA) 60 Cáps.",
+    description: "Omega 3 Max (1000 EPA + 500 DHA) 60 Cáps. Blandas",
     longDescription: "",
     brand: "InnovaNaturals",
     idCategories: ["suplementos-nutricionales","innovanaturals","omega3"],
@@ -886,9 +893,10 @@ export const products: IProduct[] = [
     tags: ["omega3","nutricion","pescado","aceite","omega","salud"],
     showInHeroCarousel: false,
     attributes: {
-      packaging: "Frasco Plástico 60 Cápsulas",
+      packaging: "Frasco Plástico 60 Cápsulas Blandas",
       services: "30 (2 Cáps x día)",
-    }
+    },
+    relatedProductsIds: [32,33,35,45],
   },
   {
     id: 35,
@@ -910,7 +918,8 @@ export const products: IProduct[] = [
     showInHeroCarousel: false,
     attributes: {
       packaging: "Frasco Plástico 60 Cápsulas",
-    }
+    },
+    relatedProductsIds: [32,33,34,45],
   },
   {
     id: 36,
@@ -933,7 +942,8 @@ export const products: IProduct[] = [
     attributes: {
       packaging: "Frasco Plástico 60 Cápsulas",
       content: "400 mg",
-    }
+    },
+    relatedProductsIds: [37,38],
   },
   {
     id: 37,
@@ -957,7 +967,8 @@ export const products: IProduct[] = [
       packaging: "Frasco Plástico 60 Cápsulas",
       services: "30 (2 Cáps. x día)",
       content: "400 mg",
-    }
+    },
+    relatedProductsIds: [36,38],
   },
   {
     id: 38,
@@ -981,7 +992,8 @@ export const products: IProduct[] = [
       packaging: "Frasco Plástico 60 Cápsulas",
       services: "30 (2 Cáps. x día)",
       content: "1000 mg",
-    }
+    },
+    relatedProductsIds: [36,37],
   },
   {
     id: 39,
@@ -1003,7 +1015,8 @@ export const products: IProduct[] = [
     showInHeroCarousel: false,
     attributes: {
       packaging: "Frasco Plástico 30 Cápsulas",
-    }
+    },
+    relatedProductsIds: [40,41,42,43,44],
   },
   {
     id: 40,
@@ -1025,7 +1038,8 @@ export const products: IProduct[] = [
     showInHeroCarousel: false,
     attributes: {
       packaging: "Frasco Plástico 30 Cápsulas",
-    }
+    },
+    relatedProductsIds: [39,41,42,43,44],
   },
   {
     id: 41,
@@ -1047,7 +1061,8 @@ export const products: IProduct[] = [
     showInHeroCarousel: false,
     attributes: {
       packaging: "Frasco Plástico 30 Cápsulas",
-    }
+    },
+    relatedProductsIds: [39,40,42,43,44],
   },
   {
     id: 42,
@@ -1069,7 +1084,8 @@ export const products: IProduct[] = [
     showInHeroCarousel: false,
     attributes: {
       packaging: "Frasco Plástico 30 Cápsulas",
-    }
+    },
+    relatedProductsIds: [39,40,41,43,44],
   },
   {
     id: 43,
@@ -1092,7 +1108,8 @@ export const products: IProduct[] = [
     attributes: {
       packaging: "Frasco Plástico 30 Cápsulas",
       content: "200 mcg"
-    }
+    },
+    relatedProductsIds: [39,40,41,42,44],
   },
   {
     id: 44,
@@ -1114,6 +1131,30 @@ export const products: IProduct[] = [
     showInHeroCarousel: false,
     attributes: {
       packaging: "Frasco Plástico 30 Cápsulas",
-    }
-  }
+    },
+    relatedProductsIds: [39,40,41,42,43],
+  },
+    {
+    id: 45,
+    description: "Omega 3 Triglicéridos (1440 EPA + 960 DHA) 60 Cáps. Blandas",
+    longDescription: "Suplemento dietario a base de lípidos en cápsulas para personas adultas. Libre de gluten.",
+    brand: "InnovaNaturals",
+    idCategories: ["suplementos-nutricionales","innovanaturals","omega3"],
+    priority: 1,
+    visible: true,
+    price: 85000,
+    iva: 0,
+    discount1: null,
+    discount2: null,
+    discount3: null,
+    updatedAt: new Date("2024-04-05"),
+    urlImg: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1753669857/OMEGA_3_TG_-_PRODUCTO-removebg-preview_s9niwe.png",
+    inStock: true,
+    tags: ["omega3","nutricion","pescado","aceite","omega","salud","trigliceridos"],
+    showInHeroCarousel: false,
+    attributes: {
+      packaging: "Frasco Plástico 60 Cápsulas Blandas",
+    },
+    relatedProductsIds: [32,33,34,35],
+  },
 ]
