@@ -123,5 +123,14 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "San José 348",
     localidad: "San Nicolás de los Arroyos",
     allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
+  },
+    {
+    id: "ailen-bellettieri",
+    puntoDeVenta: "Ailen Belletieri",
+    telefono: "3364358745",
+    contacto: "Ailen Belletieri",
+    direccion: "Av. Falcón 391",
+    localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
   }
 ]
