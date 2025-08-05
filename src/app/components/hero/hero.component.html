@@ -1,5 +1,7 @@
 @if (!isServer && allowedIdsLoaded) {
   <app-hero-carousel></app-hero-carousel>
+
+  <app-banner></app-banner>
   
   <!-- Productos destacados reactivo -->
   <app-card-carousel [products]="(heroProducts$ | async) || []" [title]="'Destacados'"></app-card-carousel>

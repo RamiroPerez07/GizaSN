@@ -8,11 +8,12 @@ import { CategoriesGridComponent } from "../categories-grid/categories-grid.comp
 import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../interfaces/products.interface';
 import { map, Observable, take } from 'rxjs';
+import { BannerComponent } from "../banner/banner.component";
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, HeroCarouselComponent, BenefitsComponent, CardCarouselComponent, CategoriesGridComponent],
+  imports: [CommonModule, HeroCarouselComponent, BenefitsComponent, CardCarouselComponent, CategoriesGridComponent, BannerComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })

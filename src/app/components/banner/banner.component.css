@@ -1,0 +1,29 @@
+.typing-container {
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: #e6f7ff; /* celeste suave */
+  color: #333;              /* texto oscuro para contraste */
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;           /* ocupa todo el ancho */
+  position: relative;    /* opcional si luego quieres fijarlo arriba */
+  top: 0;
+  left: 0;
+  font-family: monospace; /* para el efecto de máquina */
+  min-height: 2.5rem; /* ajusta según tamaño de fuente + padding */
+}
+
+.cursor {
+  display: inline-block;
+  width: 5px;
+  background: white;
+  margin-left: 2px;
+  animation: blink 0.7s infinite;
+}
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
