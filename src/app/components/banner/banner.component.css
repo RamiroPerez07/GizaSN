@@ -1,9 +1,9 @@
 .typing-container {
-  font-size: 1rem;
+  font-size: 1rem;   /*tamaño de fuente*/
   font-weight: bold;
   background-color: #e6f7ff; /* celeste suave */
   color: #333;              /* texto oscuro para contraste */
-  padding: 10px;
+  padding: 10px;   
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,6 +22,7 @@
   margin-left: 2px;
   animation: blink 0.7s infinite;
 }
+
 @keyframes blink {
   0% { opacity: 1; }
   50% { opacity: 0; }
