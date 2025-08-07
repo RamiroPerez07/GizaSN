@@ -116,6 +116,16 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     allowedCategoryIds: [...nutremaxCategories],
   },
   {
+    id: "luca-moreira",
+    puntoDeVenta: "Gimnasio Belgrano",
+    telefono: "3364358745",
+    contacto: "Luca Moreira",
+    direccion: "Pellegrini 476",
+    localidad: "San Nicolás de los Arroyos",
+    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1754527426/images-removebg-preview_vz5lxz.png",
+    allowedCategoryIds: [...nutremaxCategories],
+  },
+  {
     id: "erika-serrano",
     puntoDeVenta: "Erika Serrano",
     telefono: "3364358745",
