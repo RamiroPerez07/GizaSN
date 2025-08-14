@@ -1,4 +1,4 @@
-import { Component, inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { PointOfSale } from '../../interfaces/pointofsale.interface';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
@@ -7,7 +7,7 @@ import { PointOfSaleService } from '../../services/point-of-sale.service';
 import { ToastrService } from 'ngx-toastr';
 import { businessAlias } from '../../utils/constants';
 import { IProduct } from '../../interfaces/products.interface';
-import { take } from 'rxjs';
+import { Subscription, take } from 'rxjs';
 
 @Component({
   selector: 'app-customer-checkout-form',
@@ -16,7 +16,7 @@ import { take } from 'rxjs';
   templateUrl: './customer-checkout-form.component.html',
   styleUrl: './customer-checkout-form.component.css'
 })
-export class CustomerCheckoutFormComponent implements OnInit {
+export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
   readonly fb = inject(FormBuilder);
   readonly pointOfSaleSvc = inject(PointOfSaleService);
   readonly cartSvc = inject(CartService);
@@ -40,9 +40,15 @@ export class CustomerCheckoutFormComponent implements OnInit {
   showModal$ = this.cartSvc.showCustomerCheckoutModal$;
   gizaPos = this.pointOfSaleSvc.getPointOfSaleById('giza');
 
+  subPos: Subscription | undefined;
+
+  ngOnDestroy() {
+    this.subPos?.unsubscribe();
+  }
+
   ngOnInit() {
 
-    this.pos$.pipe(take(1)).subscribe(pos => {
+    this.subPos = this.pos$.subscribe(pos => {
       if (pos?.ofreceRetiro) {
         this.form.get('tipoDireccion')?.setValue('estandar');
       } else if (pos && !pos.ofreceRetiro && this.gizaPos) {
