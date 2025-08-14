@@ -67,7 +67,7 @@
               <div class="radio-form">
                 <label>Lugar de entrega</label>
                 <div class="radio-group">
-                  <label>
+                  <label *ngIf="pos && pos.ofreceRetiro">
                     <input type="radio" formControlName="tipoDireccion" value="estandar" />
                     <div>
                       <div>
@@ -81,12 +81,12 @@
                     </div>
                   </label>
 
-                  <label *ngIf="pos && pos.id != 'giza'">
+                  <label *ngIf="gizaPos">
                     <input type="radio" formControlName="tipoDireccion" value="giza" />
                     <div>
                       <div>
-                        <strong>{{ gizaPos?.puntoDeVenta }}</strong>
-                        <span class="direccion-det">({{gizaPos?.direccion}}, {{gizaPos?.localidad}})</span>
+                        <strong>{{ gizaPos.puntoDeVenta }}</strong>
+                        <span class="direccion-det">({{gizaPos.direccion}}, {{gizaPos.localidad}})</span>
                       </div>
                       <span class="info-icon-wrapper">
                         <i class="fa-solid fa-info-circle"></i>
