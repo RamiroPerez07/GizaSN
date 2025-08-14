@@ -7,6 +7,7 @@ import { PointOfSaleService } from '../../services/point-of-sale.service';
 import { ToastrService } from 'ngx-toastr';
 import { businessAlias } from '../../utils/constants';
 import { IProduct } from '../../interfaces/products.interface';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-customer-checkout-form',
@@ -40,6 +41,17 @@ export class CustomerCheckoutFormComponent implements OnInit {
   gizaPos = this.pointOfSaleSvc.getPointOfSaleById('giza');
 
   ngOnInit() {
+
+    this.pos$.pipe(take(1)).subscribe(pos => {
+      if (pos?.ofreceRetiro) {
+        this.form.get('tipoDireccion')?.setValue('estandar');
+      } else if (this.gizaPos) {
+        this.form.get('tipoDireccion')?.setValue('giza');
+      } else {
+        this.form.get('tipoDireccion')?.setValue('personalizada');
+      }
+    });
+
     // cambia validadores de formaPago
     this.form.get('formaPago')!.valueChanges.subscribe((value) => {
       const doc = this.form.get('documento')!;
