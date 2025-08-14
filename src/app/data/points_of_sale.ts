@@ -144,10 +144,10 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
   },
   {
-    id: "club",
-    puntoDeVenta: "Club",
+    id: "somisa",
+    puntoDeVenta: "Somisa",
     telefono: "3364358745",
-    contacto: "Club Somisa",
+    contacto: "Somisa",
     direccion: "Av. Falcón 391",
     localidad: "San Nicolás de los Arroyos",
     allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
