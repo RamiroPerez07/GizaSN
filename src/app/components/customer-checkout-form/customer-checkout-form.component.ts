@@ -45,7 +45,7 @@ export class CustomerCheckoutFormComponent implements OnInit {
     this.pos$.pipe(take(1)).subscribe(pos => {
       if (pos?.ofreceRetiro) {
         this.form.get('tipoDireccion')?.setValue('estandar');
-      } else if (this.gizaPos) {
+      } else if (pos && !pos.ofreceRetiro && this.gizaPos) {
         this.form.get('tipoDireccion')?.setValue('giza');
       } else {
         this.form.get('tipoDireccion')?.setValue('personalizada');
