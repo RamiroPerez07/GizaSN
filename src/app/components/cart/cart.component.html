@@ -12,7 +12,16 @@
         </button>
         <p>{{product.description}}</p>
         <p>{{product.brand}}</p>
-        <p class="cart-product-price">{{product.price | currency:"ARS"}}</p>
+        <p class="cart-product-price">
+          @if(product.discount && product.discount > 0) {
+            <span class="original-price">{{ product.price | currency:"ARS" }}</span>
+            <span class="discounted-price">
+              {{ roundTo100(product.price * (1 - product.discount / 100)) | currency:"ARS" }}
+            </span>
+          } @else {
+            {{ product.price | currency:"ARS" }}
+          }
+        </p>
         <div class="cart-product-footer">
           <div class="btns-container">
             @if(product.quantity && product.quantity>1){
@@ -33,7 +42,7 @@
             <p style="font-size: 0.85rem;">
               Subtotal 
               <span class="cart-product-subtotal">
-                {{(product.price * product.quantity * (1-(product.discount1??0)/100) * (1-(product.discount2??0)/100) * (1-(product.discount3??0)/100)) | currency:"ARS"}}
+                {{ roundTo100(product.price * (1 - (product.discount ?? 0)/100)) * product.quantity | currency:"ARS" }}
               </span>
             </p>
           }

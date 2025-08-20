@@ -6,6 +6,15 @@
   @if (product.attributes && product.attributes.colour && product.attributes.flavor) {
   <span class="flavor-tag" [style.background-color]="product.attributes.colour" [style.color]="product.attributes.textColor ?? 'inherit'">{{product.attributes.flavor}}</span>
   }
-  <p class="product-card-price">{{product.price | currency:"ARS"}}</p>
+  <p class="product-card-price">
+    @if (product.discount && product.discount > 0) {
+      <span class="original-price">{{ product.price | currency:"ARS" }}</span>
+      <span class="discounted-price">
+        {{ roundTo100(product.price * (1 - (product.discount) / 100)) | currency:"ARS" }}
+      </span>
+    } @else {
+      {{ product.price | currency:"ARS" }}
+    }
+  </p>
   <button class="add-product-btn" (click)="addProduct(product)">Agregar al pedido</button>
 </div>

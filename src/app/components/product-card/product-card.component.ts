@@ -21,6 +21,8 @@ export class ProductCardComponent {
     this.viewProductDetail(this.product, this.categoryId);
   };
 
+  roundTo100 = (value: number) => Math.ceil(value / 100) * 100;
+
   readonly routerSvc = inject(Router);
   
   readonly cartSvc = inject(CartService);

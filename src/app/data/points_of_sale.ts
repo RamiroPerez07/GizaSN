@@ -175,5 +175,20 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
     allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
+  },
+  {
+    id: "mauri-dorado",
+    puntoDeVenta: "Mauricio Dorado",
+    telefono: "3364358745",
+    contacto: "Mauricio Dorado",
+    direccion: "Av. Falcón 391",
+    ofreceRetiro: false,
+    localidad: "San Nicolás de los Arroyos",
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],  
+    descuento: {
+      porcentaje: 5,
+      categoryIds: ["nutremax"],
+      productsIds: [],
+    }
   }
 ]

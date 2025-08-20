@@ -8,4 +8,9 @@ export interface PointOfSale {
   localidad: string;
   imgLogoUrl?: string;
   allowedCategoryIds?: string[];
+  descuento?: {
+    porcentaje: number,
+    categoryIds: string[],
+    productsIds: number[],
+  }
 }

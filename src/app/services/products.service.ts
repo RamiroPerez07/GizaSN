@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, filter, map, Observable, of } from 'rxjs';
 import { products } from '../data/products';
 import { ICategory } from '../interfaces/categories.interface';
 import { IProduct } from '../interfaces/products.interface';
 import { categories } from '../data/categories';
+import { PointOfSaleService } from './point-of-sale.service';
+import { PointOfSale } from '../interfaces/pointofsale.interface';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
@@ -15,6 +17,10 @@ export class ProductsService {
   readonly searchTerm$ = this.searchTermSubject.asObservable();
   readonly selectedCategoryId$ = this.selectedCategoryIdSubject.asObservable();
 
+  readonly posSvc = inject(PointOfSaleService);
+
+  constructor() {}
+
   readonly categories$: Observable<ICategory[]> = this.allowedCategoryIds$.pipe(
     filter(ids => ids.length > 0), // <-- evita emitir hasta tener algo
     map(ids => categories.filter(c => isAllowedCategory(c, ids)))
@@ -23,26 +29,30 @@ export class ProductsService {
   readonly products$: Observable<IProduct[]> = combineLatest([
     this.allowedCategoryIds$,
     this.searchTerm$,
-    this.selectedCategoryId$
+    this.selectedCategoryId$,
+    this.posSvc.pos$,
   ]).pipe(
-    map(([allowedIds, searchTerm, selectedCat]) =>
+    map(([allowedIds, searchTerm, selectedCat, pos]) =>
       products.filter(p => {
         if (!isAllowedProduct(p, allowedIds)) return false;
         if (selectedCat && !p.idCategories.includes(selectedCat)) return false;
         return matchesSearch(p, searchTerm);
       })
+      .map(p => applyPosDiscount(p, pos))
     )
   );
 
-  readonly heroProducts$: Observable<IProduct[]> = this.allowedCategoryIds$.pipe(
-    map(allowedIds =>
+  readonly heroProducts$: Observable<IProduct[]> = combineLatest([
+    this.allowedCategoryIds$,
+    this.posSvc.pos$
+  ]).pipe(
+    map(([allowedIds, pos]) =>
       products
         .filter(p => isAllowedProduct(p, allowedIds) && p.showInHeroCarousel)
+        .map(p => applyPosDiscount(p, pos))
         .sort((a, b) => b.priority - a.priority)
     )
   );
-
-  constructor() {}
 
   // Entradas reactivas
   setAllowedCategories(ids: string[]) {
@@ -115,4 +125,19 @@ function matchesSearch(product: IProduct, searchTerm: string): boolean {
     product.tags.some(tag => tag.toLowerCase().includes(term)) ||
     product.idCategories.some(cat => cat.toLowerCase().includes(term))
   );
+}
+
+/** FUNCIÓN PURA */
+function applyPosDiscount(p: IProduct, pos?: PointOfSale | null): IProduct {
+  if (!pos?.descuento) return { ...p, discount: null };
+
+  const appliesByCategory = pos.descuento.categoryIds?.some(catId =>
+    p.idCategories.includes(catId)
+  );
+
+  const appliesByProduct = pos.descuento.productsIds?.includes(p.id);
+
+  const discount = (appliesByCategory || appliesByProduct) ? pos.descuento.porcentaje : null;
+
+  return { ...p, discount };
 }

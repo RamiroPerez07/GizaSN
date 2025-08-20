@@ -23,6 +23,8 @@ export class ProductDetailComponent {
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
+  roundTo100 = (value: number) => Math.ceil(value / 100) * 100;
+
   readonly vm$ = this.route.paramMap.pipe(
     switchMap(params => {
       const id = Number(params.get('id'));

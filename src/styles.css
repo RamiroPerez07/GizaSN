@@ -53,3 +53,14 @@ li{
 a{
     text-decoration: none;
 }
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+  margin-right: 0.5rem;
+}
+
+.discounted-price {
+  color: #006400;
+  font-weight: bold;
+}

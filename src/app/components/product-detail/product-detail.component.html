@@ -43,7 +43,16 @@
         }
       }
 
-      <p class="price">{{ vm.product.price | currency: 'ARS' }}</p>
+      <p class="price">
+        @if (vm.product.discount && vm.product.discount > 0) {
+          <span class="original-price">{{ vm.product.price | currency:"ARS" }}</span>
+          <span class="discounted-price">
+            {{ roundTo100(vm.product.price * (1 - vm.product.discount / 100)) | currency:"ARS" }}
+          </span>
+        } @else {
+          {{ vm.product.price | currency:"ARS" }}
+        }
+      </p>
       <button class="add-product-btn" (click)="addProduct(vm.product)">Agregar al carrito</button>
     </div>
   </div>

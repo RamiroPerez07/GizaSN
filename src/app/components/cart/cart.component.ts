@@ -28,6 +28,8 @@ export class CartComponent {
     })
   );
 
+  roundTo100 = (value: number) => Math.ceil(value / 100) * 100;
+
   readonly subtotal$ = this.cartSvc.subtotal$;
   readonly showCustomerCheckoutModal$ = this.cartSvc.showCustomerCheckoutModal$;
 

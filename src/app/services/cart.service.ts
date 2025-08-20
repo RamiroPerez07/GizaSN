@@ -79,16 +79,25 @@ export class CartService {
     mensaje += `Punto de venta: *${puntoDeVenta}*\n\n`;
 
     products.forEach(p => {
-      mensaje += `- ${p.description}\nMarca: ${p.brand}\nCantidad: ${p.quantity}\nPrecio Unitario: $${p.price}\n\n`;
+      const unitPrice = p.price * (1 - (p.discount ?? 0) / 100);
+      const roundedPrice = Math.ceil(unitPrice / 100) * 100; // redondea a múltiplos de 100 hacia arriba
+
+      mensaje += `- ${p.description}\nMarca: ${p.brand}\nCantidad: ${p.quantity}\nPrecio Unitario: $${roundedPrice}`;
+
+      if (p.discount && p.discount > 0) {
+        mensaje += ` (descuento ${p.discount}%)`;
+      }
+
+      mensaje += `\n\n`;
     });
 
     mensaje += `🧾 Total *$${subtotal}*\n\n`;
     mensaje += `ID del pedido: *${this.generateOrderId()}*\n`;
-    mensaje += `Comprador: *${nombre} ${apellido}*\nForma de pago: *${formaPago}*\n`;
+    mensaje += `Comprador: *${nombre.trim()} ${apellido.trim()}*\nForma de pago: *${formaPago}*\n`;
 
     if (documento) mensaje += `Documento: *${documento}*\n`;
 
-    mensaje += `Dirección de entrega: *${direccionFinal}* (${localidadFinal})\nGracias!\nSaludos.`;
+    mensaje += `Dirección de entrega: *${direccionFinal.trim()}* (${localidadFinal})\nGracias!\nSaludos.`;
 
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(mensaje)}`;
     window.open(url, '_blank');
@@ -133,11 +142,9 @@ export class CartService {
   private calculateSubtotal(products: IProduct[]): number {
     return products.reduce((acc, p) => {
       const q = p.quantity ?? 0;
-      const price = p.price * q;
-      const d1 = 1 - (p.discount1 ?? 0) / 100;
-      const d2 = 1 - (p.discount2 ?? 0) / 100;
-      const d3 = 1 - (p.discount3 ?? 0) / 100;
-      return acc + price * d1 * d2 * d3;
+      const unitPrice = p.price * (1 - (p.discount ?? 0) / 100);
+      const roundedUnitPrice = Math.ceil(unitPrice / 100) * 100;
+      return acc + roundedUnitPrice * q;
     }, 0);
   }
 }
