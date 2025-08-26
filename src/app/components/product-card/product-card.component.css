@@ -16,9 +16,15 @@
 }
 
 .product-card-description{
-    min-height: 36px;
-    display: block;
+    min-height: 1.8rem;
+    overflow: hidden;
+    /*display: block;*/
     font-size: 0.8rem;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;       /* Número de líneas que quieres mostrar */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }
 
 .product-card-price{
@@ -77,7 +83,7 @@
 @media (max-width: 510px){
 
     .small-card.product-card{
-        max-width: 150px;
+        width: 140px;
         padding: 7px;
     }
 
