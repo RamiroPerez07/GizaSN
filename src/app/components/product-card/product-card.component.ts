@@ -3,12 +3,12 @@ import { IProduct } from '../../interfaces/products.interface';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from '../../services/cart.service';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-product-card',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, NgClass],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.css'
 })
@@ -16,6 +16,8 @@ export class ProductCardComponent {
   @Input() product!: IProduct;
 
   @Input() categoryId!: string | null;
+
+  @Input() smallCard: boolean = false;
 
   @Input() onCardClick: Function = () => {
     this.viewProductDetail(this.product, this.categoryId);

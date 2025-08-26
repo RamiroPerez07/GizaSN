@@ -1,11 +1,17 @@
 <ng-container *ngIf="vm$ | async as vm">
   <app-breadcrumb [breadcrumbRoutes]="vm.breadcrumbRoutes"></app-breadcrumb>
   <section class="products-wrapper">
-    <h2 class="products-title">{{ vm.title }}</h2>
+    <div class="title-container">
+      <h2 class="products-title">{{ vm.title }}</h2>
+      <button class="toggle-btn" (click)="toggleView()">
+        <i class="fa-solid" 
+          [ngClass]="isSmallView ? 'fa-table-cells-large' : 'fa-table-cells'"></i>
+      </button>
+    </div>
     <p class="products-subtitle">{{ vm.subtitle }}</p>
     <div class="flex-wrapper">
       @for(product of vm.products; track product.id){
-        <app-product-card [product]="product" [categoryId]="vm.categoryId"></app-product-card>
+        <app-product-card [product]="product" [categoryId]="vm.categoryId" [smallCard]="isSmallView"></app-product-card>
       }
     </div>
   </section>

@@ -19,9 +19,27 @@
     max-width: 1800px;
 }
 
+.title-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-btn{
+    display: none;
+    width: auto;
+    cursor: pointer;
+    padding: 3px;
+    margin-left: 10px;
+    font-weight: 300;
+    border: 1px solid #d1d5db; /* gris suave */
+    background: white;
+    border-radius: 6px;
+    font-size: 1rem;
+}
 
 .products-title{
-    margin: 10px auto 5px;
+    margin: 10px 5px;
     text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
@@ -35,3 +53,19 @@
     color: gray;
 }
 
+
+@media (max-width: 550px) {
+
+    .flex-wrapper{
+        padding: 20px 5px;
+    }
+
+}
+
+@media (max-width: 510px) {
+
+    .toggle-btn{
+        display: grid;
+        place-items: center;
+    }
+}

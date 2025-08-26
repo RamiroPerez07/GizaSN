@@ -1,4 +1,4 @@
-<div class="product-card">
+<div class="product-card" [ngClass]="{ 'small-card': smallCard }">
   <img class="product-card-img" [src]="product.urlImg" [alt]="product.description"
     (click)="onCardClick($event, product)" />
   <p class="product-card-description">{{product.description}}</p>

@@ -18,6 +18,12 @@ export class ProductsComponent {
   private readonly routerSvc = inject(Router);
   private readonly route = inject(ActivatedRoute);
 
+  isSmallView = true;
+
+  toggleView() {
+    this.isSmallView = !this.isSmallView;
+  }
+
   // params$ reacciona a cambios de URL
   readonly params$ = combineLatest([
     this.route.paramMap,
