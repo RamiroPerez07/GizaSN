@@ -164,6 +164,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
+    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1756487979/WhatsApp_Image_2025-08-29_at_14.00.41_1_dvoror.png",
     allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
   },
   {
