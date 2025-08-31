@@ -1,8 +1,7 @@
 .product-card{
     padding: 10px;
     box-shadow: 2px 2px 3px -2px;
-    width: 100%;
-    max-width: 220px;
+    width: 220px;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -16,7 +15,8 @@
 }
 
 .product-card-description{
-    min-height: 1.8rem;
+    line-height: 1.4;
+    min-height: calc(1.4em * 2); /* asegura altura mínima para 3 líneas */
     overflow: hidden;
     /*display: block;*/
     font-size: 0.8rem;

@@ -66,6 +66,23 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   ];
 
   readonly mobileItems: CarouselItem[] = [
+
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1756681157/Imagen_de_WhatsApp_2025-08-31_a_las_18.40.20_d1241ef2_phnqbz.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax-hidratacion']
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1756681157/Imagen_de_WhatsApp_2025-08-31_a_las_18.40.13_4178ada1_gknwjn.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax-energizantes']
+    },
+    {
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1756681157/Imagen_de_WhatsApp_2025-08-31_a_las_18.40.08_935d83f0_st8iq4.jpg',
+      caption: 'Aumenta tu energía',
+      path: ['products/category', 'nutremax-recuperadores']
+    },
+    /*
     {
       image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1751242659/WhatsApp_Image_2025-06-29_at_21.14.37_2_u0fmr5.jpg',
       caption: 'Aumenta tu energía',
@@ -91,6 +108,7 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
       caption: 'Aumenta tu energia',
       path: ['products/category', 'nutremax-energizantes'],
     },
+    */
     // {
     //   image: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753273014/11_taag8d.png",
     //   caption: 'Aumenta tu energia',

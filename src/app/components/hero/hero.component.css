@@ -12,7 +12,7 @@
   color: white;
   transition: background-color 200ms ease-in;
   cursor: pointer;
-  margin: 8px auto 0px;
+  margin: 0px auto;
   border: var(--c_primary) 1px solid;
 }
 

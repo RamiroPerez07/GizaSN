@@ -17,7 +17,7 @@
         #carouselTrack
       >
         @for (product of duplicatedProducts; track $index ) {
-          <app-product-card [product]="product" [categoryId]="product.idCategories[0]" [onCardClick]="onCardClick"></app-product-card>
+          <app-product-card [product]="product" [categoryId]="product.idCategories[0]" [onCardClick]="onCardClick" [smallCard]="true"></app-product-card>
         }
       </div>
     </div>

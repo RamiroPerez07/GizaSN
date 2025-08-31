@@ -238,7 +238,7 @@ export const products: IProduct[] = [
     tags: ["suplementos","sport","fuel","carbohidratos","electrolitos","energia","resistencia","potasio","sodio","magnesio","calcio"],
     showInHeroCarousel: true,
     attributes: {
-      colour: "#D8A368",
+      colour: "#FDE910",
       flavor: "Limón",
       content: "84g por sobre",
       packaging: "Display 10 sobres",
@@ -591,6 +591,7 @@ export const products: IProduct[] = [
     showInHeroCarousel: true,
     attributes: {
       colour: "#E94B6E",
+      textColor: "#ffffff",
       content: "1000g",
       flavor: "Frutilla",
       packaging: "Envase plástico",
@@ -715,6 +716,7 @@ export const products: IProduct[] = [
     showInHeroCarousel: true,
     attributes: {
       colour: "#E94B6E",
+      textColor: "#ffffff",
       content: "1500g",
       flavor: "Frutilla",
       packaging: "Envase plástico",
