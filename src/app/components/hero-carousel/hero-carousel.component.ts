@@ -68,7 +68,7 @@ export class HeroCarouselComponent implements OnInit, OnDestroy, AfterViewInit {
   readonly mobileItems: CarouselItem[] = [
 
     {
-      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1756681157/Imagen_de_WhatsApp_2025-08-31_a_las_18.40.20_d1241ef2_phnqbz.jpg',
+      image: 'https://res.cloudinary.com/dhnicvwkw/image/upload/v1756773792/WhatsApp_Image_2025-09-01_at_20.34.25_x1txz0.jpg',
       caption: 'Aumenta tu energía',
       path: ['products/category', 'nutremax-hidratacion']
     },

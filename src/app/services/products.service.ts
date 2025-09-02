@@ -39,6 +39,7 @@ export class ProductsService {
         return matchesSearch(p, searchTerm);
       })
       .map(p => applyPosDiscount(p, pos))
+      .sort((a, b) => b.priority - a.priority)
     )
   );
 

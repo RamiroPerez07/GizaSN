@@ -79,6 +79,7 @@
     <nav class="categories-tree" [class.open]="true">
       <app-category-node [allCategories]="(categories$ | async) || []" [parentId]="null"></app-category-node>
     </nav>
+    <div class="overlay" (click)="toggleShowTree()"></div>
   }
 
   <!-- Modal de búsqueda para mobile -->

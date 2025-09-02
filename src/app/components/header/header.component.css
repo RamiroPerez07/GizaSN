@@ -62,8 +62,8 @@ header{
 
 /* Contenedor del árbol de categorías */
 .categories-tree {
-    width: 100%;
-    max-width: 1800px;
+    width: 100vw;
+    /*max-width: 1800px;*/
     list-style: none;
     padding: 0;
     margin: 0 auto;
@@ -72,6 +72,10 @@ header{
     opacity: 0;  /* Inicialmente invisible */
     transform-origin: top;  /* La animación comienza desde el borde superior */
     transition: transform 0.3s ease, opacity 0.3s ease;  /* Transición suave para la expansión */
+    position: fixed;       /* en lugar de relative */
+    top: 60px;             /* justo debajo del header */
+    z-index: 1001;         /* mayor que el overlay */
+    background: #fff;      /* para que el contenido sea legible */
 }
 
 
@@ -304,4 +308,14 @@ header{
     transform: translateY(0);
     opacity: 1;
   }
+}
+
+.overlay {
+  position: fixed;
+  top: 60px; /* altura de tu header fijo */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000; /* menor que tu menú lateral o dropdown */
 }

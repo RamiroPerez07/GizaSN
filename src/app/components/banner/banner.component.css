@@ -28,3 +28,9 @@
   50% { opacity: 0; }
   100% { opacity: 1; }
 }
+
+@media (max-width: 475px) {
+  .typing-container{
+    font-size: 0.75rem;
+  }
+}
