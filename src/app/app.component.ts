@@ -5,11 +5,12 @@ import { PointOfSaleService } from './services/point-of-sale.service';
 import { FooterComponent } from "./components/footer/footer.component";
 import { ProductsService } from './services/products.service';
 import { filter, map } from 'rxjs';
+import { WpButtonComponent } from './components/wp-button/wp-button.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, WpButtonComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

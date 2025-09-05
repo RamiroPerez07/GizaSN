@@ -1,0 +1,60 @@
+.wa-fab {
+    position: fixed;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    width: 56px;
+    height: 56px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #25D366;
+    box-shadow: 0 6px 18px rgba(0,0,0,.18);
+    text-decoration: none;
+    z-index: 9999;
+    transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+    outline: none;
+  }
+
+  .wa-fab svg {
+    width: 28px;
+    height: 28px;
+    fill: #fff;
+    display: block;
+  }
+
+  .wa-fab:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0,0,0,.22);
+  }
+
+  .wa-fab:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+  }
+
+  .wa-fab:focus-visible {
+    outline: 3px solid rgba(37, 211, 102, 0.35);
+    outline-offset: 4px;
+  }
+
+  /* Versión más chica en pantallas móviles */
+  @media (max-width: 480px) {
+    .wa-fab {
+      width: 52px;
+      height: 52px;
+      right: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom));
+    }
+
+    .wa-fab svg {
+      width: 26px;
+      height: 26px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wa-fab {
+      transition: none;
+    }
+  }
