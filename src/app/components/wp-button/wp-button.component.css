@@ -43,8 +43,8 @@
     .wa-fab {
       width: 52px;
       height: 52px;
-      right: 12px;
-      bottom: calc(12px + env(safe-area-inset-bottom));
+      right: 14px;
+      bottom: calc(14px + env(safe-area-inset-bottom));
     }
 
     .wa-fab svg {

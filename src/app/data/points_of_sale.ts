@@ -22,6 +22,12 @@ const innovaCategories = [
   "vitaminasyminerales",
 ]
 
+const isaCategories = [
+  "suplementos-nutricionales",
+  "isa-laboratorios",
+  "antioxidantes-memoria-emergia"
+]
+
 export const POINTS_OF_SALE : PointOfSale[] = [
   {
     id:"ironman",
@@ -51,7 +57,12 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
+    descuento: {
+      porcentaje: 5,
+      categoryIds: ["nutremax"],
+      productsIds: [],
+    }
   },
   {
     id:"eduardo-vinas",
@@ -144,7 +155,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "San José 348",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
   },
   {
     id: "ailen-bellettieri",
@@ -154,7 +165,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
   },
   {
     id: "somisa",
@@ -165,7 +176,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
     imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1756487979/WhatsApp_Image_2025-08-29_at_14.00.41_1_dvoror.png",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
   },
   {
     id: "flor-correa",
@@ -175,7 +186,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
   },
   {
     id: "mauri-dorado",
@@ -185,7 +196,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories],  
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],  
     descuento: {
       porcentaje: 5,
       categoryIds: ["nutremax"],

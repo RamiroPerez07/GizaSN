@@ -115,6 +115,14 @@ export const categories : ICategory[] = [
         visible: true,
     },
     {
+        id: "isa-laboratorios",
+        title: "ISA Laboratorios",
+        level: 2,
+        parentId: "suplementos-nutricionales",
+        priority: 9,
+        visible: true,
+    },
+    {
         id: "omega3",
         title: "Omega 3",
         level: 3,
@@ -140,5 +148,13 @@ export const categories : ICategory[] = [
         priority: 10,
         visible: true,
         urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1753316482/Agregar_un_t%C3%ADtulo_16_qfojbe.png"
+    },
+    {
+        id: "antioxidantes-memoria-emergia",
+        title: "Multivitaminicos y antioxidantes",
+        level: 3,
+        parentId: "isa-laboratorios",
+        priority: 10,
+        visible: true,
     },
 ]
