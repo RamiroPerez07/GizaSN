@@ -12,5 +12,10 @@ export interface PointOfSale {
     porcentaje: number,
     categoryIds: string[],
     productsIds: number[],
+  },
+  descuentoEfectivo?: {
+    porcentaje: number,
+    categoryIds: string[],
+    productsIds: number[],
   }
 }

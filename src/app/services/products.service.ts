@@ -38,7 +38,11 @@ export class ProductsService {
         if (selectedCat && !p.idCategories.includes(selectedCat)) return false;
         return matchesSearch(p, searchTerm);
       })
-      .map(p => applyPosDiscount(p, pos))
+      .map(p => {
+          let prod = applyPosDiscount(p, pos);
+          prod = applyPosCashDiscount(prod, pos);
+          return prod;
+        })
       .sort((a, b) => b.priority - a.priority)
     )
   );
@@ -50,7 +54,11 @@ export class ProductsService {
     map(([allowedIds, pos]) =>
       products
         .filter(p => isAllowedProduct(p, allowedIds) && p.showInHeroCarousel)
-        .map(p => applyPosDiscount(p, pos))
+        .map(p => {
+          let prod = applyPosDiscount(p, pos);
+          prod = applyPosCashDiscount(prod, pos);
+          return prod;
+        })
         .sort((a, b) => b.priority - a.priority)
     )
   );
@@ -141,4 +149,19 @@ function applyPosDiscount(p: IProduct, pos?: PointOfSale | null): IProduct {
   const discount = (appliesByCategory || appliesByProduct) ? pos.descuento.porcentaje : null;
 
   return { ...p, discount };
+}
+
+/** FUNCIÓN PURA */
+function applyPosCashDiscount(p: IProduct, pos?: PointOfSale | null): IProduct {
+  if (!pos?.descuentoEfectivo) return { ...p, cashDiscount: undefined };
+
+  const appliesByCategory = pos.descuentoEfectivo.categoryIds?.some(catId =>
+    p.idCategories.includes(catId)
+  );
+
+  const appliesByProduct = pos.descuentoEfectivo.productsIds?.includes(p.id);
+
+  const cashDiscount = (appliesByCategory || appliesByProduct) ? pos.descuentoEfectivo.porcentaje : undefined;
+
+  return { ...p, cashDiscount };
 }

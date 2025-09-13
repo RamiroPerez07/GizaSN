@@ -7,7 +7,8 @@ import { PointOfSaleService } from '../../services/point-of-sale.service';
 import { ToastrService } from 'ngx-toastr';
 import { businessAlias } from '../../utils/constants';
 import { IProduct } from '../../interfaces/products.interface';
-import { Subscription, take } from 'rxjs';
+import { map, Subscription, take } from 'rxjs';
+import { unsubscribe } from 'node:diagnostics_channel';
 
 @Component({
   selector: 'app-customer-checkout-form',
@@ -38,12 +39,21 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
   // streams
   pos$ = this.pointOfSaleSvc.pos$;
   showModal$ = this.cartSvc.showCustomerCheckoutModal$;
+  subtotal$ = this.cartSvc.subtotal$;
+  subtotalWithCashDiscount$ = this.cartSvc.subtotalWithCashDiscount$;
+  hasCashDiscount! : boolean;
+  hasCashDiscount$ = this.cartSvc.productsInCart$.pipe(
+    map(products => products.some(p => !!p.cashDiscount))
+  );
   gizaPos = this.pointOfSaleSvc.getPointOfSaleById('giza');
 
   subPos: Subscription | undefined;
 
+  subHasCashDiscount: Subscription | undefined;
+
   ngOnDestroy() {
     this.subPos?.unsubscribe();
+    this.subHasCashDiscount?.unsubscribe();
   }
 
   ngOnInit() {
@@ -57,6 +67,12 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
         this.form.get('tipoDireccion')?.setValue('personalizada');
       }
     });
+
+    this.subHasCashDiscount = this.cartSvc.productsInCart$.subscribe({
+      next: (products) => {
+        this.hasCashDiscount = products.some(p => !!p.cashDiscount)
+      }
+    })
 
     // cambia validadores de formaPago
     this.form.get('formaPago')!.valueChanges.subscribe((value) => {
@@ -85,7 +101,7 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
     this.cartSvc.closeCustomerCheckoutModal();
   }
 
-  onSubmitForm(pos: PointOfSale | null, products: IProduct[], subtotal: number) {
+  onSubmitForm(pos: PointOfSale | null, products: IProduct[], subtotal: number, subtotalWithCashDiscount: number) {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -120,7 +136,9 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
       localidadFinal,
       pos.telefono,
       products,
-      subtotal
+      subtotal,
+      subtotalWithCashDiscount,
+      this.hasCashDiscount,
     );
 
     this.closeModal();

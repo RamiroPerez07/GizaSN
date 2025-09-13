@@ -80,6 +80,25 @@
   left: 5px;
 }
 
+.discount-tag{
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: none;
+  width: min-content;
+  font-size: 0.7rem;
+  display: grid;
+  place-items: center;
+  background-color: green;
+  color: white;
+  align-self: start;
+  margin: 5px 0px;
+  font-weight: 800;
+  position: absolute;
+  text-align: center;
+  top: 5px;
+  right: 5px;
+}
+
 @media (max-width: 510px){
 
     .small-card.product-card{

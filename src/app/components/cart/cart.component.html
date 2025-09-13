@@ -3,6 +3,9 @@
   @for(product of productsInCart; track product.id){
     <!-- Tarjeta producto -->
     <div class="cart-product-card">
+      @if (product.cashDiscount) {
+        <span class="discount-tag">-{{product.cashDiscount}}% Efectivo</span>
+      }
       <div class="img-container" (click)="viewProductDetail(product.id)">
         <img class="product-image" [src]="product.urlImg" [alt]="product.description">
       </div>

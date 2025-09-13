@@ -19,9 +19,19 @@ export class CartService {
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
+  hasCashDiscount$ = this.productsInCart$.pipe(
+    map(products => products.some(p => !!p.cashDiscount))
+  );
+
   // ---- Subtotal derivado
   readonly subtotal$ = this.productsInCart$.pipe(
     map(products => this.calculateSubtotal(products)),
+    shareReplay({ bufferSize: 1, refCount: true })
+  );
+
+  // ---- Subtotal derivado
+  readonly subtotalWithCashDiscount$ = this.productsInCart$.pipe(
+    map(products => this.calculateSubtotalCash(products)),
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
@@ -73,7 +83,9 @@ export class CartService {
     localidadFinal: string,
     telefono: string,
     products: IProduct[],
-    subtotal: number
+    subtotal: number,
+    subtotalConDescEfectivo: number,
+    tieneDescuentoEfectivo: boolean,
   ) {
     let mensaje = `Hola! 👋\n\nTe hago un nuevo pedido:\n\n`;
     mensaje += `Punto de venta: *${puntoDeVenta}*\n\n`;
@@ -88,10 +100,19 @@ export class CartService {
         mensaje += ` (descuento ${p.discount}%)`;
       }
 
+      if (p.cashDiscount && formaPago == "Efectivo") {
+        mensaje += ` (Desc. Efvo ${p.cashDiscount}%)`;
+      }
+
       mensaje += `\n\n`;
     });
 
-    mensaje += `🧾 Total *$${subtotal}*\n\n`;
+    if (! tieneDescuentoEfectivo){
+      mensaje += `🧾 Total *$${subtotal}*\n\n`;
+    }
+    else {
+      mensaje += `🧾 Total *$${subtotalConDescEfectivo}*\n\n`;
+    }
     mensaje += `ID del pedido: *${this.generateOrderId()}*\n`;
     mensaje += `Comprador: *${nombre.trim()} ${apellido.trim()}*\nForma de pago: *${formaPago}*\n`;
 
@@ -143,6 +164,16 @@ export class CartService {
     return products.reduce((acc, p) => {
       const q = p.quantity ?? 0;
       const unitPrice = p.price * (1 - (p.discount ?? 0) / 100);
+      const roundedUnitPrice = Math.ceil(unitPrice / 100) * 100;
+      return acc + roundedUnitPrice * q;
+    }, 0);
+  }
+
+  // ---- Subtotal cálculo
+  private calculateSubtotalCash(products: IProduct[]): number {
+    return products.reduce((acc, p) => {
+      const q = p.quantity ?? 0;
+      const unitPrice = p.price * (1 - (p.discount ?? 0) / 100) * (1 - (p.cashDiscount ?? 0) / 100);
       const roundedUnitPrice = Math.ceil(unitPrice / 100) * 100;
       return acc + roundedUnitPrice * q;
     }, 0);

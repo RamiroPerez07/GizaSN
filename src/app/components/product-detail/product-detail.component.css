@@ -90,6 +90,24 @@ p.flavor > span{
   border: none;
 }
 
+.discount-tag{
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: none;
+  width: max-content;
+  font-size: 0.7rem;
+  display: grid;
+  place-items: center;
+  background-color: green;
+  color: white;
+  align-self: start;
+  margin: 7px 0px;
+  font-weight: 800;
+  text-align: start;
+  top: 45px;
+  right: 5px;
+}
+
 @media (max-width: 770px) {
   .wrapper{
     justify-content: center;

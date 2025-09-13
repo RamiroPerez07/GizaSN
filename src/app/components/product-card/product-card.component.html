@@ -4,7 +4,10 @@
   <p class="product-card-description">{{product.description}}</p>
   <p class="product-card-brand">{{product.brand}}</p>
   @if (product.attributes && product.attributes.colour && product.attributes.flavor) {
-  <span class="flavor-tag" [style.background-color]="product.attributes.colour" [style.color]="product.attributes.textColor ?? 'inherit'">{{product.attributes.flavor}}</span>
+    <span class="flavor-tag" [style.background-color]="product.attributes.colour" [style.color]="product.attributes.textColor ?? 'inherit'">{{product.attributes.flavor}}</span>
+  }
+  @if (product.cashDiscount) {
+    <span class="discount-tag">-{{product.cashDiscount}}% Efectivo</span>
   }
   <p class="product-card-price">
     @if (product.discount && product.discount > 0) {

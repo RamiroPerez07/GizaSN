@@ -4,8 +4,9 @@
     <ng-container *ngIf="pos$ | async as pos">
       <ng-container *ngIf="cartSvc.productsInCart$ | async as products">
         <ng-container *ngIf="cartSvc.subtotal$ | async as subtotal">
+          <ng-container *ngIf="cartSvc.subtotalWithCashDiscount$ | async as subtotalWithCashDiscount">
 
-          <form [formGroup]="form" (ngSubmit)="onSubmitForm(pos, products, subtotal)">
+          <form [formGroup]="form" (ngSubmit)="onSubmitForm(pos, products, subtotal, subtotalWithCashDiscount)">
             <h3>Datos del cliente</h3>
 
             <div class="modal-content">
@@ -37,6 +38,16 @@
                 <small *ngIf="form.get('formaPago')?.invalid && form.get('formaPago')?.touched" style="color: red; margin-top: 4px;">
                   La forma de pago es obligatoria
                 </small>
+              </div>
+              <div class="subtotal-tag">
+                
+                @if(form.get('formaPago')?.value == 'Efectivo' && (hasCashDiscount$ | async)){
+                  <strong>Subtotal: <span>{{subtotalWithCashDiscount$ | async | currency:"ARS"}}</span></strong>
+                  <p>*Ciertos productos tienen descuento adicional pagando en efectivo</p>
+                }
+                @else {
+                  <strong>Subtotal: <span>{{subtotal$ | async | currency:"ARS"}}</span></strong>
+                }
               </div>
 
               <div *ngIf="form.get('formaPago')?.value !== 'Efectivo'">
@@ -138,6 +149,7 @@
 
         </ng-container>
       </ng-container>
+    </ng-container>
     </ng-container>
   </div>
 </div>

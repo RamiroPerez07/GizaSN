@@ -58,8 +58,8 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
     allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
-    descuento: {
-      porcentaje: 5,
+    descuentoEfectivo: {
+      porcentaje: 10,
       categoryIds: ["nutremax"],
       productsIds: [],
     }

@@ -24,5 +24,6 @@ export interface IProduct{
         performance?:string,
         textColor?: string,
     },
-    relatedProductsIds?: number[]
+    relatedProductsIds?: number[],
+    cashDiscount? : number,
 }

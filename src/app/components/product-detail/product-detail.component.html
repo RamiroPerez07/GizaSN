@@ -53,6 +53,9 @@
           {{ vm.product.price | currency:"ARS" }}
         }
       </p>
+      @if(vm.product.cashDiscount){
+        <p class="discount-tag">Además, -{{vm.product.cashDiscount}}% OFF pagando en efectivo!</p>
+      }
       <button class="add-product-btn" (click)="addProduct(vm.product)">Agregar al carrito</button>
     </div>
   </div>
