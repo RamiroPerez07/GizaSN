@@ -9,11 +9,12 @@ import { ProductsService } from '../../services/products.service';
 import { IProduct } from '../../interfaces/products.interface';
 import { map, Observable, take } from 'rxjs';
 import { BannerComponent } from "../banner/banner.component";
+import { ConsultingSectionComponent } from "../consulting-section/consulting-section.component";
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [CommonModule, HeroCarouselComponent, BenefitsComponent, CardCarouselComponent, CategoriesGridComponent, BannerComponent],
+  imports: [CommonModule, HeroCarouselComponent, BenefitsComponent, CardCarouselComponent, CategoriesGridComponent, BannerComponent, ConsultingSectionComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css'
 })

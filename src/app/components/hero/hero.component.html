@@ -9,6 +9,8 @@
   <div class="btn-container">
     <button class="view-all-products-btn" (click)="redirectTo('products')">Ver Todos</button>
   </div>
+
+  <app-consulting-section></app-consulting-section>
   
   <!-- Grupos de categorías dinámicos -->
   @for (group of (categoriesGroups$ | async) ?? []; track group.title) {

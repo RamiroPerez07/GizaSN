@@ -8,11 +8,12 @@ import { CommonModule } from '@angular/common';
 import { BreadcrumbComponent } from "../breadcrumb/breadcrumb.component";
 import { CardCarouselComponent } from "../card-carousel/card-carousel.component";
 import { combineLatest, map, of, switchMap } from 'rxjs';
+import { ConsultingSectionComponent } from "../consulting-section/consulting-section.component";
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, BreadcrumbComponent, CardCarouselComponent],
+  imports: [CommonModule, BreadcrumbComponent, CardCarouselComponent, ConsultingSectionComponent],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.css'
 })
