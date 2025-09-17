@@ -28,6 +28,11 @@ const isaCategories = [
   "antioxidantes-memoria-emergia"
 ]
 
+const mosqutCategories = [
+  "repelentes",
+  "mosqut",
+]
+
 export const POINTS_OF_SALE : PointOfSale[] = [
   {
     id:"ironman",
@@ -37,7 +42,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "9 de Julio 127",
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id:"atenas",
@@ -47,7 +52,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Savio 405",
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id:"giza",
@@ -57,7 +62,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
     descuentoEfectivo: {
       porcentaje: 10,
       categoryIds: ["nutremax"],
@@ -72,7 +77,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id:"matias-ledesma",
@@ -82,7 +87,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id:"iaf",
@@ -92,7 +97,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Maipú 144",
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id:"segundo-tiempo",
@@ -103,7 +108,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
     imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1752940591/5a21a5ca-5f1a-45d5-84a9-238eecb173c2-removebg-preview_e0a7il.png",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id:"cefide",
@@ -113,7 +118,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Pellegrini 508",
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id:"medio-cano",
@@ -123,7 +128,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Los Sauces y 32 oeste, Barrio Somisa",
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id: "german-aseff",
@@ -134,7 +139,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
     imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1753144025/305846137_503340691794421_2974097630317423424_n-removebg-preview_dqztje.png",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id: "luca-moreira",
@@ -145,7 +150,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
     imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1754527426/images-removebg-preview_vz5lxz.png",
-    allowedCategoryIds: [...nutremaxCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id: "erika-serrano",
@@ -155,7 +160,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "San José 348",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id: "ailen-bellettieri",
@@ -165,7 +170,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id: "somisa",
@@ -176,7 +181,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
     imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1756487979/WhatsApp_Image_2025-08-29_at_14.00.41_1_dvoror.png",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id: "flor-correa",
@@ -186,7 +191,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
   {
     id: "mauri-dorado",
@@ -196,7 +201,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     direccion: "Av. Falcón 391",
     ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
-    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories],  
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],  
     descuento: {
       porcentaje: 5,
       categoryIds: ["nutremax"],

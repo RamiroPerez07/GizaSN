@@ -157,4 +157,20 @@ export const categories : ICategory[] = [
         priority: 10,
         visible: true,
     },
+    {
+        id: "repelentes",
+        title: "Repelentes de Insectos",
+        level: 1,
+        parentId: null,
+        priority: 5,
+        visible: true,
+    },
+    {
+        id: "mosqut",
+        title: "Mosqut",
+        level: 2,
+        parentId: "repelentes",
+        priority: 5,
+        visible: true,
+    },
 ]
