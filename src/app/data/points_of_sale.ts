@@ -75,7 +75,7 @@ export const POINTS_OF_SALE : PointOfSale[] = [
     telefono: "3364358745",
     contacto: "Eduardo Viñas",
     direccion: "Av. Falcón 391",
-    ofreceRetiro: true,
+    ofreceRetiro: false,
     localidad: "San Nicolás de los Arroyos",
     allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
   },
@@ -207,5 +207,16 @@ export const POINTS_OF_SALE : PointOfSale[] = [
       categoryIds: ["nutremax"],
       productsIds: [],
     }
-  }
+  },
+  {
+    id: "monarcas",
+    puntoDeVenta: "Monarcas Running Team",
+    telefono: "3364358745",
+    contacto: "Santiago Ojeda",
+    direccion: "Av. Falcón 391",
+    ofreceRetiro: false,
+    localidad: "San Nicolás de los Arroyos",
+    imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1758769824/3ff172c5-1f49-4888-9dd1-fcc29c228ff3-removebg-preview_g5rrhe.png",
+    allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
+  },
 ]
