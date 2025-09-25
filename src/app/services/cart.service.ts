@@ -107,11 +107,11 @@ export class CartService {
       mensaje += `\n\n`;
     });
 
-    if (! tieneDescuentoEfectivo){
-      mensaje += `🧾 Total *$${subtotal}*\n\n`;
+    if (tieneDescuentoEfectivo && formaPago == "Efectivo"){
+      mensaje += `🧾 Total *$${subtotalConDescEfectivo}*\n\n`;
     }
     else {
-      mensaje += `🧾 Total *$${subtotalConDescEfectivo}*\n\n`;
+      mensaje += `🧾 Total *$${subtotal}*\n\n`;
     }
     mensaje += `ID del pedido: *${this.generateOrderId()}*\n`;
     mensaje += `Comprador: *${nombre.trim()} ${apellido.trim()}*\nForma de pago: *${formaPago}*\n`;

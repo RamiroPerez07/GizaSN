@@ -211,10 +211,10 @@ export const POINTS_OF_SALE : PointOfSale[] = [
   {
     id: "monarcas",
     puntoDeVenta: "Monarcas Running Team",
-    telefono: "3364358745",
+    telefono: "3364304389",
     contacto: "Santiago Ojeda",
-    direccion: "Av. Falcón 391",
-    ofreceRetiro: false,
+    direccion: "Gazebo Monarcas",
+    ofreceRetiro: true,
     localidad: "San Nicolás de los Arroyos",
     imgLogoUrl: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1758769824/3ff172c5-1f49-4888-9dd1-fcc29c228ff3-removebg-preview_g5rrhe.png",
     allowedCategoryIds: [...nutremaxCategories,...innovaCategories, ...isaCategories, ...mosqutCategories],
