@@ -251,7 +251,7 @@ export const products: IProduct[] = [
     brand: "Nutremax",
     idCategories: ["suplementos","nutremax","nutremax-energizantes"],
     priority: 1,
-    visible: false,
+    visible: true,
     price: 13400,
     iva: 0,
     discount: null,

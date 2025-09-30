@@ -1,5 +1,8 @@
 <div class="product-card" [ngClass]="{ 'small-card': smallCard }">
-  <img class="product-card-img" [src]="product.urlImg" [alt]="product.description"
+  @if(!product.inStock){
+    <div class="out-of-stock-img" (click)="onCardClick($event, product)"></div>
+  }
+  <img class="product-card-img" [src]="product.urlImg" [alt]="product.description" [ngClass]="{ 'out-of-stock': !product.inStock }"
     (click)="onCardClick($event, product)" />
   <p class="product-card-description">{{product.description}}</p>
   <p class="product-card-brand">{{product.brand}}</p>
@@ -19,5 +22,5 @@
       {{ product.price | currency:"ARS" }}
     }
   </p>
-  <button class="add-product-btn" (click)="addProduct(product)">Agregar al pedido</button>
+  <button class="add-product-btn" [disabled]="!product.inStock" (click)="addProduct(product)">Agregar al pedido</button>
 </div>

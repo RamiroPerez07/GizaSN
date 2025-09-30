@@ -56,7 +56,10 @@
       @if(vm.product.cashDiscount){
         <p class="discount-tag">Además, -{{vm.product.cashDiscount}}% OFF pagando en efectivo!</p>
       }
-      <button class="add-product-btn" (click)="addProduct(vm.product)">Agregar al carrito</button>
+      <button class="add-product-btn" (click)="addProduct(vm.product)" [disabled]="!vm.product.inStock">Agregar al carrito</button>
+      @if(!vm.product.inStock){
+        <div class="out-of-stock"></div>
+      }
     </div>
   </div>
 
