@@ -67,7 +67,7 @@ export const products: IProduct[] = [
     discount: null,
     updatedAt: new Date("2024-03-20"),
     urlImg: "https://res.cloudinary.com/dr0rbyqrk/image/upload/v1751383166/Copia_de_Hydromax_gdi24b.png",
-    inStock: false,
+    inStock: true,
     tags: ["suplementos","sport", "drink", "hydromax", "naranja","bebida","isotonica","bebida isotonica","hidratacion","sodio","electrolitos","potasio","cloruros"],
     showInHeroCarousel: true,
     attributes: {
