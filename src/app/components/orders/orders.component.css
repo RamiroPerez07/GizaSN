@@ -1,0 +1,52 @@
+.orders-wrapper{
+    width: 100% ;
+    max-width: 1800px;
+    margin: 15px auto;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+.title-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.orders-title{
+    margin: 5px 5px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+.filter-panel{
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.filter-tag{
+    border-radius: 5px;
+    padding: 4px 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    margin: 0px 10px;
+    font-weight: 500;
+    transition: color 0.25s ease, background-color 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: none; /* Sin sombra inicial */
+}
+
+.filter-tag:hover{
+    color: var(--c_primary, #0077cc); /* Cambio sutil de color del texto */
+    background-color: rgba(0, 0, 0, 0.04); /* Fondo muy leve */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra liviana */
+    /*background-color: var(--c_primary);
+    color: white;
+    transition: background-color 150ms ease-in;*/
+}

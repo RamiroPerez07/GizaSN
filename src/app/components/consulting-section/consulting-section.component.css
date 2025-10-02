@@ -17,7 +17,7 @@
 
 .container{
   display: flex;
-  margin: 10px auto 0px;
+  margin: 10px auto 15px;
   flex-direction: row;
   padding: 10px;
 }

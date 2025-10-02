@@ -1,0 +1,14 @@
+<ng-container>
+    <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
+    <section class="orders-wrapper">
+        <div class="title-container"></div>
+        <h2 class="orders-title">Pedidos</h2>
+    </section>
+    <div class="filter-panel">
+        <div class="filter-tag" (click)="setFilter('Pendientes')">Pendientes</div>
+        <div class="filter-tag" (click)="setFilter('Entregados')">Entregados</div>
+        <div class="filter-tag" (click)="setFilter('Anulados')">Anulados</div>
+    </div>
+    {{filter}}
+
+</ng-container>
