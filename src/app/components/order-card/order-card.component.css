@@ -1,0 +1,32 @@
+.order-card{
+    padding: 10px;
+    box-shadow: 2px 2px 3px -2px;
+    width: auto;
+    max-width: 350px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 15px;
+    border-left: 6px solid #FFC107;
+}
+
+span, strong {
+    font-size: 0.7rem;
+}
+
+p{
+    line-height: 1.1;
+}
+
+.status-tag{
+    content: "";
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+    border-radius: 8px;
+    color: #FFC107;
+    font-size: 0.6rem;
+    font-weight: 600;
+    border: 1px solid #FFC107;
+}
