@@ -1,6 +1,6 @@
 .order-card{
     padding: 10px;
-    box-shadow: 2px 2px 3px -2px;
+    box-shadow: 2px 2px 3px -2px rgba(0,0,0,0.3);
     width: auto;
     max-width: 350px;
     display: flex;
@@ -29,4 +29,47 @@ p{
     font-size: 0.6rem;
     font-weight: 600;
     border: 1px solid #FFC107;
+}
+
+.cb-container{
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.card-cb{
+    cursor: pointer;
+}
+
+.card-cb~label{
+    font-size: 0.6rem;
+    cursor: pointer;
+    margin-right: 8px;
+    margin-left: 5px;
+}
+
+.view-order-btn{
+    padding: 3px 6px;
+    border-radius: 3px;
+    background-color: var(--c_primary);
+    color: white;
+    transition: background-color 200ms ease-in;
+    cursor: pointer;
+    margin: 0px 0px 0px auto;
+    border: var(--c_primary) 1px solid;
+    font-size: 0.7rem;
+}
+
+.view-order-btn:hover{
+    background-color: var(--c_secondary);
+    transition: background-color 200ms ease-out;
+    border: var(--c_primary) 1px solid;
+}
+
+.view-order-btn:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  opacity: 0.6;
+  border: gray 1px solid;
 }

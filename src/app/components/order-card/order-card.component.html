@@ -7,4 +7,13 @@
     <p><strong>Localidad: </strong><span>{{order.localidad}}</span></p>
     <p><strong>Forma de Pago: </strong><span>{{order.formaPago}}</span></p>
     <p><strong>Monto: </strong><span>{{order.monto | currency:"ARS" }}</span></p>
+    <div class="cb-container">
+        <input class="card-cb" type="checkbox" id="entregado-{{order.id}}">
+        <label for="entregado-{{order.id}}">Entregado</label>
+
+        <input class="card-cb" type="checkbox" id="cobrado-{{order.id}}">
+        <label for="cobrado-{{order.id}}">Cobrado</label>
+
+        <button class="view-order-btn" >Ver</button>
+  </div>
 </div>

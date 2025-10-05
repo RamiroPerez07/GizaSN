@@ -1,0 +1,241 @@
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+}
+
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1.5rem 1.5rem 2px 1.5rem;
+  border-radius: 12px;
+  z-index: 10001;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  max-height: 90%;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content{
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.input-group {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 8px 4px;
+  font-size: 0.85rem;
+  background: transparent;
+  outline: none;
+}
+
+.input-group label {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  color: #aaa;
+  font-size: 0.85rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown):valid + label,
+.input-group input.ng-dirty + label {
+  top: -12px;
+  left: 0;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+input.invalid {
+  border-bottom-color: red !important;
+}
+
+label.invalid{
+    color: red !important;
+}
+
+.radio-form{
+    width: 100%;
+    margin-top: 8px;
+}
+
+.radio-form>label{
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.select-form{
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.select-form>label{
+    font-size: 0.80rem;
+    font-weight: 600;
+}
+
+.select-form>select{
+    margin-top: 10px;
+    font-size: 0.85rem;
+    width: 100%;
+    max-width: 100%;
+}
+
+.select-form>select>option{
+    font-size: 0.85rem;
+}
+
+
+.radio-group{
+    width: 100%;
+    margin-top: 8px;
+}
+
+.radio-group>label>div{
+  flex:1;
+  display: flex;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.radio-group>label>div>div{
+  flex:1;
+}
+
+.radio-group>label{
+    margin-bottom: 7px;
+    margin-top: 7px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+}
+
+label>strong{
+    margin-left: 5px;
+}
+
+small{
+    font-size: 0.7rem;
+}
+
+.direccion-det{
+    margin-left: 5px;
+    font-size: 0.75rem;
+}
+
+.tit-label{
+  font-size: 0.80rem;
+  font-weight: 600;
+}
+
+/* TOOLTIP */
+
+.radio-group>label {
+  position: relative;
+}
+
+.info-icon-wrapper {
+  position: relative;
+  display: inline-block;
+  color: #007BFF;
+  font-size: 14px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 8px); /* separa el tooltip hacia la izquierda */
+  transform: translateY(-50%);
+  background-color: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  white-space: normal;
+  max-width: 150px;
+  width: max-content;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+.info-icon-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Botones */
+
+.clear-cart-btn{
+    padding: 10px 15px;
+    background-color: gray;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.8rem;
+}
+
+.send-order-cart-btn{
+    padding: 10px 15px;
+    background-color: var(--c_primary);
+    color: white;
+    border: 1px solid var(--c_primary);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+    font-size: 0.8rem;
+}
+
+.send-order-cart-btn i {
+  margin-right: 8px;
+}
+
+.send-order-cart-btn:hover{
+    background-color: var(--c_secondary);
+    transition: background-color 200ms ease;
+}
+
+.cart-options{
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    font-size: 0.85rem;
+}
+
+.cart-options>*{
+    margin-left: 10px;
+}

@@ -68,3 +68,22 @@
     max-width: 1800px;
 }
 
+.new-order {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  cursor: pointer;
+  padding: 3px;
+  margin-left: 10px;
+  font-weight: 300;
+  border: 1px solid #d1d5db; /* gris suave */
+  background: white;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.new-order:hover {
+  background: #f3f4f6; /* leve gris al pasar */
+}

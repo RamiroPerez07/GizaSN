@@ -1,0 +1,142 @@
+<div *ngIf="showModal$ | async">
+  <div class="modal-backdrop" (click)="closeModal()"></div>
+  <div class="custom-modal">
+    <ng-container *ngIf="pos$ | async as pos">
+      <form [formGroup]="form">
+        <h3>Nuevo pedido</h3>
+
+        <div class="modal-content">
+          <!--Nombre-->
+          <div class="input-group">
+            <input type="text" placeholder=" " formControlName="nombre" required
+              [class.invalid]="form.get('nombre')?.invalid && form.get('nombre')?.touched" />
+            <label [class.invalid]="form.get('nombre')?.invalid && form.get('nombre')?.touched">Nombre*</label>
+            <small *ngIf="form.get('nombre')?.invalid && form.get('nombre')?.touched"
+              style="color: red; margin-top: 4px;">
+              El nombre es obligatorio
+            </small>
+          </div>
+
+          <!-- Apellido -->
+          <div class="input-group">
+            <input type="text" placeholder=" " formControlName="apellido" required
+              [class.invalid]="form.get('apellido')?.invalid && form.get('apellido')?.touched" />
+            <label [class.invalid]="form.get('apellido')?.invalid && form.get('apellido')?.touched">Apellido*</label>
+            <small *ngIf="form.get('apellido')?.invalid && form.get('apellido')?.touched"
+              style="color: red; margin-top: 4px;">
+              El apellido es obligatorio
+            </small>
+          </div>
+
+          <!-- Forma de pago -->
+          <div class="select-form">
+            <label [class.invalid]="form.get('formaPago')?.invalid && form.get('formaPago')?.touched">Forma de
+              pago</label>
+            <select formControlName="formaPago" required
+              [class.invalid]="form.get('formaPago')?.invalid && form.get('formaPago')?.touched">
+              <option value="Efectivo" selected>Efectivo</option>
+              <option value="Transferencia">Transferencia</option>
+            </select>
+            <small *ngIf="form.get('formaPago')?.invalid && form.get('formaPago')?.touched"
+              style="color: red; margin-top: 4px;">
+              La forma de pago es obligatoria
+            </small>
+          </div>
+
+          <!-- DNI *-->
+          <div *ngIf="form.get('formaPago')?.value !== 'Efectivo'">
+            <div class="input-group">
+              <input type="text" placeholder=" " formControlName="documento" required
+                [class.invalid]="form.get('documento')?.invalid && form.get('documento')?.touched" />
+              <label [class.invalid]="form.get('documento')?.invalid && form.get('documento')?.touched">Documento
+                (DNI)*</label>
+              <small *ngIf="form.get('documento')?.invalid && form.get('documento')?.touched"
+                style="color: red; margin-top: 4px;">
+                El documento DNI es obligatorio
+              </small>
+            </div>
+          </div>
+
+          <div class="radio-form">
+            <label>Lugar de entrega</label>
+            <div class="radio-group">
+              <label *ngIf="pos && pos.ofreceRetiro">
+                <input type="radio" formControlName="tipoDireccion" value="estandar" />
+                <div>
+                  <div>
+                    <strong>{{pos?.puntoDeVenta}}</strong>
+                    <span class="direccion-det">({{pos?.direccion}}, {{pos?.localidad}})</span>
+                  </div>
+                  <span class="info-icon-wrapper">
+                    <i class="fa-solid fa-info-circle"></i>
+                    <span class="tooltip-text">Cliente retira en el punto de venta</span>
+                  </span>
+                </div>
+              </label>
+
+              <label *ngIf="gizaPos">
+                <input type="radio" formControlName="tipoDireccion" value="giza" />
+                <div>
+                  <div>
+                    <strong>{{ gizaPos.puntoDeVenta }}</strong>
+                    <span class="direccion-det">({{gizaPos.direccion}}, {{gizaPos.localidad}})</span>
+                  </div>
+                  <span class="info-icon-wrapper">
+                    <i class="fa-solid fa-info-circle"></i>
+                    <p class="tooltip-text">Cliente retira por nuestro local</p>
+                  </span>
+                </div>
+              </label>
+
+              <label>
+                <input type="radio" formControlName="tipoDireccion" value="personalizada" />
+                <strong>Dirección del cliente <i class="fas fa-hand-point-down" [style]="'margin-left:5px'"></i></strong>
+              </label>
+            </div>
+          </div>
+          
+          <!-- Direccion Cliente -->
+          <div *ngIf="form.get('tipoDireccion')?.value === 'personalizada'">
+            <div class="input-group">
+              <input type="text" placeholder=" " formControlName="direccion" required
+                [class.invalid]="form.get('direccion')?.invalid && form.get('direccion')?.touched" />
+              <label>Dirección*</label>
+              <small *ngIf="form.get('direccion')?.invalid && form.get('direccion')?.touched" style="color: red;">
+                La dirección es obligatoria
+              </small>
+            </div>
+
+            <div class="select-form">
+              <label
+                [class.invalid]="form.get('localidad')?.invalid && form.get('localidad')?.touched">Localidad</label>
+              <select formControlName="localidad" required
+                [class.invalid]="form.get('localidad')?.invalid && form.get('localidad')?.touched">
+                <option value="San Nicolás de los Arroyos" selected>San Nicolás de los Arroyos</option>
+                <option value="Ramallo">Ramallo</option>
+                <option value="Villa Constitución">Villa Constitución</option>
+                <option value="Baradero">Baradero</option>
+                <option value="Rosario">Rosario</option>
+                <option value="San Pedro">San Pedro</option>
+              </select>
+              <small *ngIf="form.get('localidad')?.invalid && form.get('localidad')?.touched"
+                style="color: red; margin-top: 4px;">
+                La localidad es obligatoria
+              </small>
+            </div>
+          </div>
+
+          <!--Productos-->
+          <div class="radio-form">
+            <label>Productos</label>
+            <app-order-products></app-order-products>
+          </div>
+
+        </div>
+        <div class="cart-options">
+          <button class="send-order-cart-btn" type="submit"><i class="fab fa-whatsapp"></i>Enviar Pedido</button>
+          <button class="clear-cart-btn" type="button" (click)="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+</div>

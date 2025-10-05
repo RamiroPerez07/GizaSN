@@ -3,17 +3,20 @@ import { Router } from "@angular/router";
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { NgClass } from '@angular/common';
 import { OrderCardComponent } from "../order-card/order-card.component";
+import { OrdersService } from '../../services/orders.service';
+import { OrderFormComponent } from "../order-form/order-form.component";
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [BreadcrumbComponent, NgClass, OrderCardComponent],
+  imports: [BreadcrumbComponent, NgClass, OrderCardComponent, OrderFormComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
 export class OrdersComponent {
 
   private readonly router = inject(Router);
+  private readonly orderSvc = inject(OrdersService);
 
   breadcrumbRoutes = [
     { name: 'Inicio', redirectFx: () => this.router.navigate(['']) },
@@ -48,4 +51,8 @@ export class OrdersComponent {
       monto: 23000,
     }
   ]
+
+  openNewOrderDialog(){
+    this.orderSvc.openCreateOrderModal();
+  }
 }

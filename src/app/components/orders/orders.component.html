@@ -1,8 +1,12 @@
 <ng-container>
     <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
     <section class="orders-wrapper">
-        <div class="title-container"></div>
-        <h2 class="orders-title">Pedidos</h2>
+        <div class="title-container">
+            <h2 class="orders-title">Pedidos</h2>
+            <button class="new-order" (click)="openNewOrderDialog()" title="Nuevo pedido">
+                <i class="fa-solid fa-file-circle-plus"></i>
+            </button>
+        </div>
         <div class="filter-panel">
             <div class="filter-tag" [ngClass]="{'active': filter === 'Pendientes'}" (click)="setFilter('Pendientes')">Pendientes</div>
         <div class="filter-tag" [ngClass]="{'active': filter === 'Entregados'}" (click)="setFilter('Entregados')">Entregados</div>
@@ -16,3 +20,5 @@
     </section>
 
 </ng-container>
+
+<app-order-form></app-order-form>
