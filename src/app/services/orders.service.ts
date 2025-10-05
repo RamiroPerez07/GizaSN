@@ -2,10 +2,35 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, scan, shareReplay, startWith, Subject } from 'rxjs';
 import { IProduct } from '../interfaces/products.interface';
 
-interface OrderAction {
-  type: 'add' | 'decrease' | 'remove' | 'clear';
-  payload?: IProduct;
+interface AddAction {
+  type: 'add';
+  payload: IProduct;
 }
+
+interface DecreaseAction {
+  type: 'decrease';
+  payload: IProduct;
+}
+
+interface RemoveAction {
+  type: 'remove';
+  payload: IProduct;
+}
+
+interface ClearAction {
+  type: 'clear';
+}
+
+interface UpdateAction {
+  type: 'update';
+  payload: {
+    product: IProduct;
+    field: 'quantity' | 'price';
+    value: number;
+  };
+}
+
+type OrderAction = AddAction | DecreaseAction | RemoveAction | ClearAction | UpdateAction;
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +79,13 @@ export class OrdersService {
     this.actions$.next({ type: 'remove', payload: product });
   }
 
+  updateProduct(product: IProduct, field: 'quantity' | 'price', value: number) {
+    this.actions$.next({ 
+      type: 'update', 
+      payload: { product, field, value } 
+    });
+  }
+
   clearOrder() {
     this.actions$.next({ type: 'clear' });
   }
@@ -94,6 +126,13 @@ export class OrdersService {
       }
       case 'clear':
         return [];
+      case 'update': {
+      const { product, field, value } = action.payload;
+      return products.map(p =>
+        p.id === product.id
+          ? { ...p, [field]: value }
+          : p
+      )}
       default:
         return products;
     }

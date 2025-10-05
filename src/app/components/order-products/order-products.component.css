@@ -1,0 +1,115 @@
+.autocomplete {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+}
+
+.autocomplete input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  outline: none;
+  font-size: 0.7rem;
+}
+
+.autocomplete-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-top: 4px;
+  z-index: 10;
+  list-style: none;
+  padding: 0;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.autocomplete-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* separa texto y precio */
+  gap: 8px;
+  padding: 8px 10px;
+  cursor: pointer;
+  white-space: nowrap; /* evita que se corte el precio */
+}
+
+.autocomplete-list li:hover {
+  background: #f4f4f4;
+}
+
+.thumb {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.price {
+  flex-shrink: 0; /* evita que se achique el precio */
+  text-align: right;
+  min-width: 80px; /* espacio reservado para el precio */
+  color: #444;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.description{
+  flex: 1; /* ocupa todo el espacio restante */
+  white-space: normal; /* permite que la descripción se parta si es larga */
+  font-size: 0.7rem;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 8px;
+}
+
+.order-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 0.7rem;
+  margin-top: 8px;
+}
+
+.order-row-quantity{
+  width: 30px;
+  margin-right: 5px;
+}
+
+.order-row-price {
+  width: 70px;
+  margin-left: 5px;
+}
+
+.order-row-description {
+  flex: 1;
+}
+
+/* Para Chrome, Edge, Safari */
+.order-row-quantity::-webkit-outer-spin-button,
+.order-row-quantity::-webkit-inner-spin-button,
+.order-row-price::-webkit-outer-spin-button,
+.order-row-price::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Para Firefox */
+.order-row-quantity[type=number],
+.order-row-price[type=number] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+.tbl-header>strong{
+  text-align: left;
+  font-weight: 600;
+}
+

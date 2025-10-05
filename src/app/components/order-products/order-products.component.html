@@ -1,1 +1,47 @@
-<div>Holaa</div>
+<div class="container">
+  <ng-container *ngIf="productsInOrder$ | async as products">
+    <ng-container *ngIf="products.length > 0">
+      <div class="order-row tbl-header">
+        <strong class="order-row-quantity">Cant.</strong>
+        <strong class="order-row-description">Descripción</strong>
+        <strong class="order-row-price">Precio</strong>
+      </div>
+      @for (product of (productsInOrder$ | async); track product.id) {
+        <div class="order-row">
+          <input class="order-row-quantity" type="number" min="1" name="quantity" [value]="product.quantity || 1" (input)="updateProduct(product, 'quantity', $any($event.target).valueAsNumber)"/>
+          <div class="order-row-description">
+            {{ product.description }}
+          </div>
+          <input class="order-row-price" type="number" min="1" name="price" [value]="product.price" (input)="updateProduct(product, 'price', $any($event.target).valueAsNumber)" />
+        </div>
+      }
+      <div class="order-row tbl-header">
+        <strong class="order-row-quantity">{{totalQuantity()}}</strong>
+        <strong class="order-row-description">Total</strong>
+        <strong class="order-row-price">{{subtotal() | currency:"ARS"}}</strong>
+      </div>
+    </ng-container>
+</ng-container>
+</div>
+<div class="autocomplete">
+  <input
+    type="text"
+    placeholder="Buscar producto..."
+    name="search-product"
+    [value]="query()"
+    (input)="onInputChange($any($event.target).value)"
+    (focus)="showList.set(true)"
+     />
+
+  @if (showList() && filtered().length > 0) {
+    <ul class="autocomplete-list">
+      @for (p of filtered(); track p.id) {
+        <li (click)="selectProduct(p)">
+          <img [src]="p.urlImg" alt="product-img" class="thumb" />
+          <span class="description">{{ p.description }}</span>
+          <small class="price">$ {{ p.price | number:'1.0-2' }}</small>
+        </li>
+      }
+    </ul>
+  }
+</div>
