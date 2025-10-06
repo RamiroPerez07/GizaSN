@@ -5,6 +5,11 @@
         <strong class="order-row-quantity">Cant.</strong>
         <strong class="order-row-description">Descripción</strong>
         <strong class="order-row-price">Precio</strong>
+        <strong class="action"> 
+          <button class="cart-btn-remove-product remove" disabled style="visibility: hidden;">
+            <i class="fa-solid fa-xmark" style="font-size: 0.8rem"></i>
+          </button>
+        </strong>
       </div>
       @for (product of (productsInOrder$ | async); track product.id) {
         <div class="order-row">
@@ -13,12 +18,20 @@
             {{ product.description }}
           </div>
           <input class="order-row-price" type="number" min="1" name="price" [value]="product.price" (input)="updateProduct(product, 'price', $any($event.target).valueAsNumber)" />
+          <button class="cart-btn-remove-product remove" type="button" (click)="removeItemFromOrder(product)">
+            <i class="fa-solid fa-xmark" style="font-size: 0.8rem"></i>
+          </button>
         </div>
       }
       <div class="order-row tbl-header">
         <strong class="order-row-quantity">{{totalQuantity()}}</strong>
         <strong class="order-row-description">Total</strong>
         <strong class="order-row-price">{{subtotal() | currency:"ARS"}}</strong>
+        <strong class="action">
+          <button class="cart-btn-remove-product remove" disabled style="visibility: hidden;">
+            <i class="fa-solid fa-xmark" style="font-size: 0.8rem"></i>
+          </button>
+        </strong>
       </div>
     </ng-container>
 </ng-container>

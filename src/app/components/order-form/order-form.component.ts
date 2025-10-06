@@ -1,10 +1,12 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
 import { OrdersService } from '../../services/orders.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PointOfSaleService } from '../../services/point-of-sale.service';
 import { Subscription } from 'rxjs';
 import { OrderProductsComponent } from "../order-products/order-products.component";
+import { PointOfSale } from '../../interfaces/pointofsale.interface';
+import { IProduct } from '../../interfaces/products.interface';
 
 @Component({
   selector: 'app-order-form',
@@ -21,6 +23,8 @@ export class OrderFormComponent implements OnInit {
 
   readonly pointOfSaleSvc = inject(PointOfSaleService);
 
+  productsInOrder$ = this.orderSvc.productsInOrder$;
+
   showModal$ = this.orderSvc.showCreateOrderModal$;
   pos$ = this.pointOfSaleSvc.pos$;
 
@@ -30,6 +34,46 @@ export class OrderFormComponent implements OnInit {
 
   ngOnDestroy() {
     this.subPos?.unsubscribe();
+  }
+
+  showErrorInProducts: boolean = false;
+
+  onSubmitForm(pos: PointOfSale | null, products: IProduct[]){
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    if (!pos || (this.gizaPos && pos.id != this.gizaPos.id)) return;
+
+    if (products.length<=0) {
+      this.showErrorInProducts = true;
+      return
+    };
+
+    const { nombre, apellido, documento, formaPago, direccion, tipoDireccion, localidad } =
+      this.form.value;
+
+    let direccionFinal = '';
+    let localidadFinal = '';
+
+    if (tipoDireccion === 'estandar') {
+      direccionFinal = pos.direccion ?? '';
+      localidadFinal = pos.localidad ?? '';
+    } else if (tipoDireccion === 'giza') {
+      direccionFinal = this.gizaPos?.direccion ?? '';
+      localidadFinal = this.gizaPos?.localidad ?? '';
+    } else {
+      direccionFinal = direccion ?? '';
+      localidadFinal = localidad ?? '';
+    }
+
+    this.closeModal();
+    this.orderSvc.clearOrder();
+    this.showErrorInProducts = false;
+    this.form.reset();
+    this.form.get('tipoDireccion')?.setValue('giza');
+    this.form.get('formaPago')?.setValue('Efectivo');
   }
 
   ngOnInit(): void {
@@ -78,6 +122,18 @@ export class OrderFormComponent implements OnInit {
 
   closeModal(){
     this.orderSvc.closeCreateOrderModal();
+  }
+
+  @ViewChild('orderProducts', { read: ElementRef }) orderProducts!: ElementRef;
+  @ViewChild('modalContent') modalContent!: ElementRef;
+
+  scrollToProducts() {
+    setTimeout(() => {
+      this.orderProducts.nativeElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    });
   }
 
 }

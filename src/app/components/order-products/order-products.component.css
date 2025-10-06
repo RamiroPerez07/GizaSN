@@ -26,7 +26,7 @@
   z-index: 10;
   list-style: none;
   padding: 0;
-  max-height: 250px;
+  max-height: 150px;
   overflow-y: auto;
 }
 
@@ -85,7 +85,7 @@
 }
 
 .order-row-price {
-  width: 70px;
+  width: 80px;
   margin-left: 5px;
 }
 
@@ -113,3 +113,29 @@
   font-weight: 600;
 }
 
+.cart-btn-remove-product{
+  margin: 0px 2px 0px 2px;
+  color: white;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  border-radius: 4px;
+  width: 16px;
+  height: 16px;
+  font-size: 0.1rem;
+}
+
+.cart-btn-remove-product>svg{
+  margin: 0 auto;
+  width: 14px;
+  height: 14px;
+}
+
+.remove{
+    background-color: rgb(255,55,0);
+    border: rgb(255,55,0) 1px solid;
+}
+
+.remove:hover{
+    background-color: rgb(247, 72, 24);
+}

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
 import { ProductsService } from '../../services/products.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { IProduct } from '../../interfaces/products.interface';
@@ -14,6 +14,9 @@ import { products } from '../../data/products';
   styleUrl: './order-products.component.css'
 })
 export class OrderProductsComponent {
+
+  @Output() listShown = new EventEmitter<void>();
+
   private readonly productsSvc = inject(ProductsService);
   private readonly productsSignal = signal<IProduct[]>([]);
   private readonly ordersSvc = inject(OrdersService);
@@ -63,6 +66,10 @@ export class OrderProductsComponent {
   onInputChange(value: string) {
     this.query.set(value);
     this.showList.set(!!value);
+    // Emití cuando hay productos
+    if (this.showList()) {
+      this.listShown.emit();
+    }
   }
 
   selectProduct(product: IProduct) {
@@ -79,6 +86,10 @@ export class OrderProductsComponent {
 
   desappear(){
     setTimeout(() => this.showList.set(false), 200)
+  }
+
+  removeItemFromOrder(product: IProduct){
+    this.ordersSvc.removeItemFromOrder(product);
   }
 
   updateProduct(product: IProduct, field: 'quantity' | 'price', value: number) {
