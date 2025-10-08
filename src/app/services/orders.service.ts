@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, scan, shareReplay, startWith, Subject } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { BehaviorSubject, map, Observable, scan, shareReplay, startWith, Subject, switchMap } from 'rxjs';
 import { IProduct } from '../interfaces/products.interface';
+import { HttpClient } from '@angular/common/http';
+import { IOrder } from '../interfaces/orders.interface';
 
 interface AddAction {
   type: 'add';
@@ -37,8 +39,39 @@ type OrderAction = AddAction | DecreaseAction | RemoveAction | ClearAction | Upd
 })
 export class OrdersService {
 
+  private readonly _http = inject(HttpClient);
+
+  private filterSubject = new BehaviorSubject<string>('Pendiente');
+
+  $filterSubject = this.filterSubject.asObservable();
+
+  // Método para cambiar el filtro
+  setFilter(status: string): void {
+    this.filterSubject.next(status);
+  }
+
+  
+  // Observable que emite los pedidos según el filtro actual
+  orders$: Observable<IOrder[]> = this.filterSubject.pipe(
+    switchMap(status => this.getOrdersByStatus(status))
+  );
+
+
+
+  getOrdersByStatus(status: string) : Observable<IOrder[]> {
+    return this._http.get<IOrder[]>(
+      "https://giza-sn-backend.vercel.app/api/orders/status/"+status
+    )
+  }
+
+  createOrder(order: IOrder): Observable<IOrder> {
+    return this._http.post<IOrder>(
+      "https://giza-sn-backend.vercel.app/api/orders", order
+    )
+  }
+
   // ---- Streams de acciones del carrito
-    private actions$ = new Subject<OrderAction>();
+  private actions$ = new Subject<OrderAction>();
 
   // ---- Estado del carrito (lista de productos)
   readonly productsInOrder$ = this.actions$.pipe(
@@ -88,6 +121,12 @@ export class OrdersService {
 
   clearOrder() {
     this.actions$.next({ type: 'clear' });
+  }
+
+  calculateOrderSubtotal(order: IOrder){
+    return order.items.reduce((acum, order) => {
+      return acum + order.price * (order.quantity ?? 0)
+    }, 0)
   }
 
   generateOrderId(): string {

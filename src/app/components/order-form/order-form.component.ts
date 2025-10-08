@@ -7,6 +7,10 @@ import { Subscription } from 'rxjs';
 import { OrderProductsComponent } from "../order-products/order-products.component";
 import { PointOfSale } from '../../interfaces/pointofsale.interface';
 import { IProduct } from '../../interfaces/products.interface';
+import { IOrder } from '../../interfaces/orders.interface';
+import { CartService } from '../../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-order-form',
@@ -22,6 +26,10 @@ export class OrderFormComponent implements OnInit {
   readonly orderSvc = inject(OrdersService);
 
   readonly pointOfSaleSvc = inject(PointOfSaleService);
+
+  readonly cartSvc = inject(CartService);
+
+  readonly toastSvc = inject(ToastrService);
 
   productsInOrder$ = this.orderSvc.productsInOrder$;
 
@@ -68,15 +76,53 @@ export class OrderFormComponent implements OnInit {
       localidadFinal = localidad ?? '';
     }
 
-    this.closeModal();
-    this.orderSvc.clearOrder();
-    this.showErrorInProducts = false;
-    this.form.reset();
-    this.form.get('tipoDireccion')?.setValue('giza');
-    this.form.get('formaPago')?.setValue('Efectivo');
+    const newOrder : IOrder = {
+      nameBuyer: nombre ?? '',
+      lastNameBuyer: apellido ?? '',
+      delivered: false,
+      charged: false,
+      address: direccionFinal ?? 'Sin Especificar',
+      locality: localidadFinal ?? 'Sin Especificar',
+      paymentMethod: formaPago ?? 'Efectivo',
+      identityDocument: documento || undefined,
+      idOrder: this.cartSvc.generateOrderId(),
+      items: products,
+      status: "Pendiente",
+      posId: this.gizaPos?.id ?? 'giza',
+      pos: this.gizaPos?.puntoDeVenta ?? 'Giza'
+    } 
+    
+    this.orderSvc.createOrder(newOrder).subscribe({
+      next: () => {
+        this.toastSvc.success("Pedido cargado exitosamente", "Carga exitosa");
+        this.closeModal();
+        this.orderSvc.clearOrder();
+        this.showErrorInProducts = false;
+        this.form.reset();
+        this.form.get('tipoDireccion')?.setValue('giza');
+        this.form.get('formaPago')?.setValue('Efectivo');
+        this.getOrdersByStatus(this.filterStatus);
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastSvc.error(error.message, "Error");
+      }
+    })
   }
 
+  getOrdersByStatus(status:string){
+      this.orderSvc.getOrdersByStatus(status);
+  }
+
+  filterStatus!: string;
+
   ngOnInit(): void {
+
+    this.orderSvc.$filterSubject.subscribe({
+      next: (filter: string) => {
+        this.filterStatus = filter;
+      }
+    })
+
     this.subPos = this.pos$.subscribe(pos => {
       if (pos?.ofreceRetiro) {
         this.form.get('tipoDireccion')?.setValue('estandar');

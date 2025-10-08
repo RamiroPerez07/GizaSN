@@ -1,7 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
-import { NgClass } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 import { OrderCardComponent } from "../order-card/order-card.component";
 import { OrdersService } from '../../services/orders.service';
 import { OrderFormComponent } from "../order-form/order-form.component";
@@ -9,7 +9,7 @@ import { OrderFormComponent } from "../order-form/order-form.component";
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [BreadcrumbComponent, NgClass, OrderCardComponent, OrderFormComponent],
+  imports: [BreadcrumbComponent, NgClass, OrderCardComponent, OrderFormComponent, CommonModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
@@ -23,34 +23,13 @@ export class OrdersComponent {
     { name: 'Pedidos', redirectFx: () => this.router.navigate(['orders']) }
   ]
 
-  filter! : string;
+  filter$ = this.orderSvc.$filterSubject;
+
+  orders$ = this.orderSvc.orders$;
 
   setFilter(status: string){
-    this.filter = status;
+    this.orderSvc.setFilter(status);
   }
-
-  orders = [
-    {
-      id: "dasdsadas",
-      pos: "Giza",
-      comprador: "Mariano Aguirre",
-      direccion: "Av. Savio 1500",
-      localidad: "San Nicolás de los Arroyos",
-      formaPago: "Efectivo",
-      documento: null,
-      monto: 19000,
-    },
-    {
-      id: "asddsa",
-      pos: "Giza",
-      comprador: "Gustavo Ferreyra",
-      direccion: "Av. Falcón 800",
-      localidad: "San Nicolás de los Arroyos",
-      formaPago: "Transferencia",
-      documento: "40486596",
-      monto: 23000,
-    }
-  ]
 
   openNewOrderDialog(){
     this.orderSvc.openCreateOrderModal();

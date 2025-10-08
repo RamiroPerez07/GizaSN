@@ -1,18 +1,18 @@
 <div class="order-card">
     <div class="status-tag">Pendiente</div>
-    <p><strong>ID: </strong><span>{{order.id}}</span></p>
+    <p><strong>ID: </strong><span>{{order.idOrder}}</span></p>
     <p><strong>Punto de venta: </strong><span>{{order.pos}}</span></p>
-    <p><strong>Comprador: </strong><span>{{order.comprador}}</span></p>
-    <p><strong>Dirección: </strong><span>{{order.direccion}}</span></p>
-    <p><strong>Localidad: </strong><span>{{order.localidad}}</span></p>
-    <p><strong>Forma de Pago: </strong><span>{{order.formaPago}}</span></p>
-    <p><strong>Monto: </strong><span>{{order.monto | currency:"ARS" }}</span></p>
+    <p><strong>Comprador: </strong><span>{{order.nameBuyer}} {{order.lastNameBuyer}}</span></p>
+    <p><strong>Dirección: </strong><span>{{order.address}}</span></p>
+    <p><strong>Localidad: </strong><span>{{order.locality}}</span></p>
+    <p><strong>Forma de Pago: </strong><span>{{order.paymentMethod}}</span></p>
+    <p><strong>Monto: </strong><span>{{subtotal | currency:"ARS" }}</span></p>
     <div class="cb-container">
-        <input class="card-cb" type="checkbox" id="entregado-{{order.id}}">
-        <label for="entregado-{{order.id}}">Entregado</label>
+        <input class="card-cb" type="checkbox" id="entregado-{{order.idOrder}}">
+        <label for="entregado-{{order.idOrder}}">Entregado</label>
 
-        <input class="card-cb" type="checkbox" id="cobrado-{{order.id}}">
-        <label for="cobrado-{{order.id}}">Cobrado</label>
+        <input class="card-cb" type="checkbox" id="cobrado-{{order.idOrder}}">
+        <label for="cobrado-{{order.idOrder}}">Cobrado</label>
 
         <button class="view-order-btn" >Ver</button>
   </div>

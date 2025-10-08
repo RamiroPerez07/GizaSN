@@ -8,14 +8,18 @@
             </button>
         </div>
         <div class="filter-panel">
-            <div class="filter-tag" [ngClass]="{'active': filter === 'Pendientes'}" (click)="setFilter('Pendientes')">Pendientes</div>
-        <div class="filter-tag" [ngClass]="{'active': filter === 'Entregados'}" (click)="setFilter('Entregados')">Entregados</div>
-        <div class="filter-tag" [ngClass]="{'active': filter === 'Anulados'}" (click)="setFilter('Anulados')">Anulados</div>
-    </div>
+            <ng-container *ngIf="filter$ | async as filter">
+                <div class="filter-tag" [ngClass]="{'active': filter === 'Pendiente'}" (click)="setFilter('Pendiente')">Pendientes</div>
+                <div class="filter-tag" [ngClass]="{'active': filter === 'Entregado'}" (click)="setFilter('Entregado')">Entregados</div>
+                <div class="filter-tag" [ngClass]="{'active': filter === 'Anulado'}" (click)="setFilter('Anulado')">Anulados</div>
+            </ng-container>
+        </div>
     <div class="container">
-        @for(order of orders; track order.id){
-            <app-order-card [order]="order"></app-order-card>
-        }
+        <ng-container *ngIf="orders$ | async as orders">
+            @for(order of orders ; track order.idOrder){
+                <app-order-card [order]="order"></app-order-card>
+            }
+        </ng-container>
     </div>
     </section>
 
