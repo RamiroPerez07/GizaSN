@@ -1,5 +1,5 @@
-<div class="order-card">
-    <div class="status-tag">Pendiente</div>
+<div class="order-card" [ngClass]="statusClasses[order.status]">
+    <div class="status-tag" [ngClass]="statusClasses[order.status]">{{order.status}}</div>
     <p><strong>ID: </strong><span>{{order.idOrder}}</span></p>
     <p><strong>Punto de venta: </strong><span>{{order.pos}}</span></p>
     <p><strong>Comprador: </strong><span>{{order.nameBuyer}} {{order.lastNameBuyer}}</span></p>
@@ -8,12 +8,25 @@
     <p><strong>Forma de Pago: </strong><span>{{order.paymentMethod}}</span></p>
     <p><strong>Monto: </strong><span>{{subtotal | currency:"ARS" }}</span></p>
     <div class="cb-container">
-        <input class="card-cb" type="checkbox" id="entregado-{{order.idOrder}}">
-        <label for="entregado-{{order.idOrder}}">Entregado</label>
+    <input type="checkbox"
+           id="entregado-{{ order.idOrder }}"
+           [checked]="order.delivered"
+           (change)="onDeliveredChange($event)"
+           class="card-cb">
+    <label for="entregado-{{ order.idOrder }}">Entregado</label>
 
-        <input class="card-cb" type="checkbox" id="cobrado-{{order.idOrder}}">
-        <label for="cobrado-{{order.idOrder}}">Cobrado</label>
+    <input type="checkbox"
+           id="cobrado-{{ order.idOrder }}"
+           [checked]="order.charged"
+           (change)="onChargedChange($event)"
+           class="card-cb">
+    <label for="cobrado-{{ order.idOrder }}">Cobrado</label>
 
-        <button class="view-order-btn" >Ver</button>
+    <button class="view-order-btn" (click)="viewOrderDetail(order)">Ver</button>
+  </div>
+  <div *ngIf="loading" class="loader-overlay">
+    <div class="loader-bar">
+      <div class="loader-fill"></div>
+    </div>
   </div>
 </div>

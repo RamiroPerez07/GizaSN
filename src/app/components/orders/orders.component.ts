@@ -23,7 +23,7 @@ export class OrdersComponent {
     { name: 'Pedidos', redirectFx: () => this.router.navigate(['orders']) }
   ]
 
-  filter$ = this.orderSvc.$filterSubject;
+  filter$ = this.orderSvc.filter$;
 
   orders$ = this.orderSvc.orders$;
 

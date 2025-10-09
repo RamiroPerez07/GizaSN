@@ -1,0 +1,67 @@
+<div class="order-detail" *ngIf="vm$ | async as order; else loading">
+  <h2>Pedido {{ order.idOrder }}</h2>
+
+  <div class="order-info">
+    <p><strong>Punto de venta:</strong> {{ order.pos }}</p>
+    <p><strong>Comprador:</strong> {{ order.nameBuyer }} {{ order.lastNameBuyer }}</p>
+    <p><strong>Dirección:</strong> {{ order.address }}</p>
+    <p><strong>Localidad:</strong> {{ order.locality }}</p>
+    <p><strong>Forma de pago:</strong> {{ order.paymentMethod }}</p>
+    <p><strong>Estado:</strong> {{ order.status }}</p>
+    @if(order.deliveryDate){
+      <p><strong>Fecha de entrega:</strong> {{ order.deliveryDate | date:'dd/MM/yyyy HH:mm'}}</p>
+    }
+  </div>
+
+  <!-- 🔹 Caja de comentarios -->
+  <div class="observations-box">
+    <label for="observations"><strong>Comentarios / Observaciones</strong></label>
+    <textarea
+      id="observations"
+      [(ngModel)]="observation"
+      placeholder="Agregá una nota sobre este pedido..."
+    ></textarea>
+    <button (click)="saveObservations(order._id)" [disabled]="saving">
+      {{ saving ? 'Guardando...' : 'Guardar' }}
+    </button>
+  </div>
+
+  <h3>Productos</h3>
+
+  <div class="product-list">
+    <div class="product-item" *ngFor="let item of order.items">
+      <img [src]="item.urlImg || '/assets/no-image.png'" alt="{{ item.description }}" class="product-img" />
+
+      <div class="product-info">
+        <h4>{{ item.description }}</h4>
+        <div class="product-detail">
+          <div>
+            <p class="brand">{{ item.brand }}</p>
+            <p class="quantity">Cantidad: {{ item.quantity ?? 1 }}</p>
+          </div>
+          <div class="product-price">
+            <p>{{ item.price | currency:'ARS' }}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="order-total">
+    <p><strong>Total:</strong> {{ order.subtotal| currency:'ARS' }}</p>
+  </div>
+</div>
+
+<ng-template #loading>
+  <div class="skeleton-card">
+    <div class="skeleton-title"></div>
+    <div class="skeleton-line"></div>
+    <div class="skeleton-line"></div>
+
+    <div class="skeleton-subtitle"></div>
+    <div class="skeleton-item"></div>
+    <div class="skeleton-item"></div>
+    <div class="skeleton-item"></div>
+  </div>
+</ng-template>

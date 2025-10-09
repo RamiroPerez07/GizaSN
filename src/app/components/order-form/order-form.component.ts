@@ -117,7 +117,7 @@ export class OrderFormComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.orderSvc.$filterSubject.subscribe({
+    this.orderSvc.filter$.subscribe({
       next: (filter: string) => {
         this.filterStatus = filter;
       }
