@@ -13,7 +13,7 @@ import { OrderFormComponent } from "../order-form/order-form.component";
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
 
   private readonly router = inject(Router);
   private readonly orderSvc = inject(OrdersService);
@@ -22,6 +22,10 @@ export class OrdersComponent {
     { name: 'Inicio', redirectFx: () => this.router.navigate(['']) },
     { name: 'Pedidos', redirectFx: () => this.router.navigate(['orders']) }
   ]
+
+  ngOnInit(): void {
+    this.orderSvc.refreshOrders();
+  }
 
   filter$ = this.orderSvc.filter$;
 

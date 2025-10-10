@@ -29,6 +29,10 @@
     border-left: 6px solid #5f5f5f;
 }
 
+.order-card.origin-cliente{
+  background-color: var(--c_primary_transparent);
+}
+
 
 span, strong {
     font-size: 0.7rem;

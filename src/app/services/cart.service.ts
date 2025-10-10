@@ -86,6 +86,7 @@ export class CartService {
     subtotal: number,
     subtotalConDescEfectivo: number,
     tieneDescuentoEfectivo: boolean,
+    idOrder: string,
   ) {
     let mensaje = `Hola! 👋\n\nTe hago un nuevo pedido:\n\n`;
     mensaje += `Punto de venta: *${puntoDeVenta}*\n\n`;
@@ -113,7 +114,7 @@ export class CartService {
     else {
       mensaje += `🧾 Total *$${subtotal}*\n\n`;
     }
-    mensaje += `ID del pedido: *${this.generateOrderId()}*\n`;
+    mensaje += `ID del pedido: *${idOrder}*\n`;
     mensaje += `Comprador: *${nombre.trim()} ${apellido.trim()}*\nForma de pago: *${formaPago}*\n`;
 
     if (documento) mensaje += `Documento: *${documento}*\n`;

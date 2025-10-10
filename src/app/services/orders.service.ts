@@ -100,6 +100,14 @@ export class OrdersService {
     this.refreshTrigger$.next();
   }
 
+  getFinalPrice(product: IProduct, formaPago: string): number {
+    let price = product.price * (1 - (product.discount ?? 0) / 100);
+    if (formaPago?.toLowerCase() === 'efectivo') {
+      price *= 1 - (product.cashDiscount ?? 0) / 100;
+    }
+    return Math.ceil(price / 100) * 100;
+  }
+
   // ---- Streams de acciones del carrito
   private actions$ = new Subject<OrderAction>();
 

@@ -14,6 +14,7 @@
     --c_secondary: #11C5D9; /* Color Secundario */
     --c_tertiary: #0D0D0D; /* Color Terciario */
     --c_background_light: #F5F5F5; /* Fondo Claro */
+    --c_primary_transparent: rgb(17, 180, 217,0.1); /* Color Primario */
   }
 
 body, html{
@@ -101,4 +102,23 @@ a{
   border-width: 0 2px 2px 0;
   transform: translate(-50%, -50%) rotate(45deg);
   box-sizing: border-box;
+}
+
+/* TOSTADAS */
+
+/* Cambiar tamaño y estilo del texto en los toasts */
+.toast-container .ngx-toastr {
+  font-size: 0.7rem;         /* tamaño de letra */
+  font-weight: 500;        /* grosor */
+}
+
+/* Si querés ajustar también los títulos */
+.toast-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+/* Y el mensaje */
+.toast-message {
+  font-size: 0.7rem;
 }

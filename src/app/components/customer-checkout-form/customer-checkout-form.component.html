@@ -142,8 +142,12 @@
             </div>
 
             <div class="cart-options">
-              <button class="send-order-cart-btn" type="submit"><i class="fab fa-whatsapp"></i>Enviar Pedido</button>
-              <button class="clear-cart-btn" type="button" (click)="closeModal()">Cancelar</button>
+              <button class="send-order-cart-btn" type="submit" [disabled]="isLoading">
+                <i class="fab fa-whatsapp"></i>
+                <span *ngIf="!isLoading">Enviar Pedido</span>
+                <span *ngIf="isLoading">Cargando...</span>
+              </button>
+              <button class="clear-cart-btn" type="button" (click)="closeModal()" [disabled]="isLoading">Cancelar</button>
             </div>
           </form>
 
@@ -151,5 +155,12 @@
       </ng-container>
     </ng-container>
     </ng-container>
+  </div>
+</div>
+
+<div *ngIf="isLoading" class="loading-overlay">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+    <p>Procesando pedido...</p>
   </div>
 </div>

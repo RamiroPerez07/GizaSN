@@ -9,6 +9,9 @@ import { businessAlias } from '../../utils/constants';
 import { IProduct } from '../../interfaces/products.interface';
 import { map, Subscription, take } from 'rxjs';
 import { unsubscribe } from 'node:diagnostics_channel';
+import { IOrder } from '../../interfaces/orders.interface';
+import { HttpErrorResponse } from '@angular/common/http';
+import { OrdersService } from '../../services/orders.service';
 
 @Component({
   selector: 'app-customer-checkout-form',
@@ -23,8 +26,11 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
   readonly cartSvc = inject(CartService);
   readonly toastSvc = inject(ToastrService);
   private readonly platformId = inject(PLATFORM_ID);
+  readonly orderSvc = inject(OrdersService);
 
   businessAlias = businessAlias;
+
+  isLoading = false; 
 
   form = this.fb.group({
     nombre: ['', Validators.required],
@@ -107,6 +113,13 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
       return;
     }
 
+    if (!products.length){
+      this.toastSvc.error("No hay productos en el carrito");
+      return;
+    } 
+
+    this.isLoading = true; 
+
     const { nombre, apellido, documento, formaPago, direccion, tipoDireccion, localidad } =
       this.form.value;
 
@@ -126,23 +139,65 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
       localidadFinal = localidad ?? '';
     }
 
-    this.cartSvc.generateOrderMessage(
-      pos.puntoDeVenta,
-      nombre!,
-      apellido!,
-      formaPago!,
-      documento!,
-      direccionFinal,
-      localidadFinal,
-      pos.telefono,
-      products,
-      subtotal,
-      subtotalWithCashDiscount,
-      this.hasCashDiscount,
-    );
+    const orderProducts = products.map((product: IProduct) => {
+      return {
+        ...product,
+        price: this.orderSvc.getFinalPrice(product, formaPago ?? "Efectivo"),
+      }
+    });
 
-    this.closeModal();
-    this.form.reset();
+    const idOrder = this.cartSvc.generateOrderId();
+
+    const newOrder : IOrder = {
+      nameBuyer: nombre ?? '',
+      lastNameBuyer: apellido ?? '',
+      delivered: false,
+      charged: false,
+      origin: "Cliente",
+      deliveryDate: null,
+      address: direccionFinal ?? 'Sin Especificar',
+      locality: localidadFinal ?? 'Sin Especificar',
+      paymentMethod: formaPago ?? 'Efectivo',
+      identityDocument: documento || undefined,
+      idOrder: idOrder,
+      items: orderProducts,
+      status: "Pendiente",
+      posId: pos.id ?? 'giza',
+      pos: pos.puntoDeVenta ?? 'Giza'
+    } 
+
+    this.orderSvc.createOrder(newOrder).subscribe({
+      next: () => {
+        this.toastSvc.success("Pedido cargado exitosamente", "Carga exitosa");
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastSvc.error(error.message, "Error");
+      },
+      complete: () => {
+        this.cartSvc.generateOrderMessage(
+          pos.puntoDeVenta,
+          nombre!,
+          apellido!,
+          formaPago!,
+          documento!,
+          direccionFinal,
+          localidadFinal,
+          pos.telefono,
+          products,
+          subtotal,
+          subtotalWithCashDiscount,
+          this.hasCashDiscount,
+          idOrder,
+        );
+
+        this.closeModal();
+        this.form.reset();
+        this.cartSvc.clearCart();
+        this.isLoading = false;
+      }
+    })
+
+    
   }
 
   copyAlias() {
