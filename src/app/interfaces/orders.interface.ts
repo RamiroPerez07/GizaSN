@@ -6,9 +6,10 @@ export interface IOrder{
     posId: string;
     pos: string;
     status: string;
+    origin: string;
     delivered: boolean;
     charged: boolean;
-    deliveryDate?: Date;
+    deliveryDate?: Date | null;
     nameBuyer: string;
     lastNameBuyer: string;
     identityDocument?: string;

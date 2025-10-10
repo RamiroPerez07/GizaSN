@@ -81,6 +81,8 @@ export class OrderFormComponent implements OnInit {
       lastNameBuyer: apellido ?? '',
       delivered: false,
       charged: false,
+      origin: "Manual",
+      deliveryDate: null,
       address: direccionFinal ?? 'Sin Especificar',
       locality: localidadFinal ?? 'Sin Especificar',
       paymentMethod: formaPago ?? 'Efectivo',

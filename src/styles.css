@@ -64,3 +64,41 @@ a{
   color: #006400;
   font-weight: bold;
 }
+
+.card-cb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  background-color: white; /* fondo inicial */
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* Hover sutil */
+.card-cb:hover {
+  background-color: #f0f0f0; /* solo un gris claro */
+}
+
+/* Checked: fondo y tilde blanca clásica */
+.card-cb:checked {
+  background-color: var(--c_primary);
+  border-color: var(--c_primary);
+}
+
+/* Tilde blanca clásica */
+.card-cb:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;   /* clásico tamaño de tilde */
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: translate(-50%, -50%) rotate(45deg);
+  box-sizing: border-box;
+}

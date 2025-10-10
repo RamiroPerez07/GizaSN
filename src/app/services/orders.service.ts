@@ -89,6 +89,12 @@ export class OrdersService {
       .pipe(tap(() => this.refreshOrders()));
   }
 
+  cancelOrder(orderId: string): Observable<IOrder> {
+    return this._http
+      .patch<IOrder>(`https://giza-sn-backend.vercel.app/api/orders/${orderId}`, { status: 'Anulado', delivered: false, charged: false, deliveryDate: null })
+      .pipe(tap(() => this.refreshOrders()));
+  }
+
   /** API para refrescar manualmente las órdenes */
   refreshOrders(): void {
     this.refreshTrigger$.next();
@@ -170,11 +176,11 @@ export class OrdersService {
     else if (charged) status = 'Pendiente de entrega';
 
     // Asignar deliveryDate según delivered
-    let deliveryDate: Date | undefined;
+    let deliveryDate: Date | undefined | null;
     if (delivered) {
       deliveryDate = order.deliveryDate ?? new Date(); // si ya tenía, no lo sobreescribimos
     } else {
-      deliveryDate = undefined; // explícitamente undefined si no está entregado
+      deliveryDate = null; // explícitamente undefined si no está entregado
     }
 
     const payload: Partial<IOrder> = {

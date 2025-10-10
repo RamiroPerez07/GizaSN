@@ -224,3 +224,77 @@
     background-position: 200% 0;
   }
 }
+
+/* Boton cancelar */
+
+.cancel-order {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.btn-cancel {
+  background-color: #d9534f;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #c9302c;
+}
+
+.btn-cancel:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.cb-container {
+  margin: 10px 0;
+  display: flex;
+  flex-direction: column; /* columna */
+  align-items: flex-start; /* alinear al inicio */
+}
+
+.cb-container > div {
+  display: flex;
+  align-items: center; /* checkbox y label alineados */
+  margin-bottom: 8px; /* espacio entre cada fila */
+}
+
+.card-cb + label {
+  font-size: 0.7rem; /* más legible */
+  cursor: pointer;
+  margin-left: 6px; /* separación del checkbox */
+}
+
+.spinner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  border-radius: 8px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #3498db; /* color azul, podés cambiarlo */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

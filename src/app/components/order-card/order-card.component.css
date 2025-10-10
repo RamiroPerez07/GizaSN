@@ -45,7 +45,7 @@ p{
     right: 5px;
     padding: 5px;
     border-radius: 8px;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     font-weight: 600;
 }
 
@@ -86,8 +86,11 @@ p{
     align-items: center;
 }
 
-.card-cb{
-    cursor: pointer;
+.card-cb { 
+  cursor: pointer; 
+  width: 14px; 
+  height: 14px; 
+  accent-color: var(--c_primary); 
 }
 
 .card-cb~label{

@@ -1,64 +1,98 @@
-<div class="order-detail" *ngIf="vm$ | async as order; else loading">
-  <h2>Pedido {{ order.idOrder }}</h2>
+<app-breadcrumb [breadcrumbRoutes]="(vm$ | async)?.breadcrumbRoutes"></app-breadcrumb>
 
-  <div class="order-info">
-    <p><strong>Punto de venta:</strong> {{ order.pos }}</p>
-    <p><strong>Comprador:</strong> {{ order.nameBuyer }} {{ order.lastNameBuyer }}</p>
-    <p><strong>Dirección:</strong> {{ order.address }}</p>
-    <p><strong>Localidad:</strong> {{ order.locality }}</p>
-    <p><strong>Forma de pago:</strong> {{ order.paymentMethod }}</p>
-    <p><strong>Estado:</strong> {{ order.status }}</p>
-    @if(order.deliveryDate){
-      <p><strong>Fecha de entrega:</strong> {{ order.deliveryDate | date:'dd/MM/yyyy HH:mm'}}</p>
-    }
-  </div>
+<ng-container *ngIf="order as order; else loadingTemplate">
+  <div class="order-detail">
+    <h2>Pedido #{{ order.idOrder }}</h2>
 
-  <!-- 🔹 Caja de comentarios -->
-  <div class="observations-box">
-    <label for="observations"><strong>Comentarios / Observaciones</strong></label>
-    <textarea
-      id="observations"
-      [(ngModel)]="observation"
-      placeholder="Agregá una nota sobre este pedido..."
-    ></textarea>
-    <button (click)="saveObservations(order._id)" [disabled]="saving">
-      {{ saving ? 'Guardando...' : 'Guardar' }}
-    </button>
-  </div>
+    <div class="order-info">
+      <p><strong>Fecha:</strong> {{ order.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Punto de venta:</strong> {{ order.pos }}</p>
+      <p><strong>Origen:</strong> {{ order.origin }}</p>
+      <p><strong>Comprador:</strong> {{ order.nameBuyer }} {{ order.lastNameBuyer }}</p>
+      <p><strong>Dirección:</strong> {{ order.address }}</p>
+      <p><strong>Localidad:</strong> {{ order.locality }}</p>
+      <p><strong>Forma de pago:</strong> {{ order.paymentMethod }}</p>
+      <p><strong>Estado:</strong> {{ order.status }}</p>
 
-  <h3>Productos</h3>
+      <p *ngIf="order.deliveryDate">
+        <strong>Fecha de entrega:</strong> {{ order.deliveryDate | date:'dd/MM/yyyy HH:mm' }}
+      </p>
 
-  <div class="product-list">
-    <div class="product-item" *ngFor="let item of order.items">
-      <img [src]="item.urlImg || '/assets/no-image.png'" alt="{{ item.description }}" class="product-img" />
+      <div class="cb-container">
+        <div *ngIf="isLoading" class="spinner-overlay">
+          <div class="spinner"></div>
+        </div>
+        <div>
+          <input type="checkbox"
+                id="entregado-{{ order.idOrder }}"
+                [checked]="order.delivered"
+                (change)="onDeliveredChange($event)"
+                class="card-cb">
+          <label for="entregado-{{ order.idOrder }}">Entregado</label>
+        </div>
 
-      <div class="product-info">
-        <h4>{{ item.description }}</h4>
-        <div class="product-detail">
-          <div>
-            <p class="brand">{{ item.brand }}</p>
-            <p class="quantity">Cantidad: {{ item.quantity ?? 1 }}</p>
-          </div>
-          <div class="product-price">
-            <p>{{ item.price | currency:'ARS' }}</p>
+        <div>
+          <input type="checkbox"
+                id="cobrado-{{ order.idOrder }}"
+                [checked]="order.charged"
+                (change)="onChargedChange($event)"
+                class="card-cb">
+          <label for="cobrado-{{ order.idOrder }}">Cobrado</label>
+        </div>
+      </div>
+
+      <div class="observations-box">
+        <label for="observations"><strong>Comentarios / Observaciones</strong></label>
+        <textarea
+          *ngIf="order"
+          id="observations"
+          [(ngModel)]="observation"
+          placeholder="Agregá una nota sobre este pedido..."
+        ></textarea>
+        <button (click)="saveObservations(order._id)" [disabled]="saving">
+          {{ saving ? 'Guardando...' : 'Guardar' }}
+        </button>
+      </div>
+
+      <h3>Productos</h3>
+
+      <div class="product-list">
+        <div class="product-item" *ngFor="let item of order.items">
+          <img [src]="item.urlImg || '/assets/no-image.png'" alt="{{ item.description }}" class="product-img" />
+
+          <div class="product-info">
+            <h4>{{ item.description }}</h4>
+            <div class="product-detail">
+              <div>
+                <p class="brand">{{ item.brand }}</p>
+                <p class="quantity">Cantidad: {{ item.quantity ?? 1 }}</p>
+              </div>
+              <div class="product-price">
+                <p>{{ item.price | currency:'ARS' }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
+      <div class="order-total">
+        <p><strong>Total:</strong> {{ order.subtotal| currency:'ARS' }}</p>
+      </div>
+
+      <div class="cancel-order" *ngIf="order.status != 'Anulado'">
+        <button class="btn-cancel" (click)="cancelOrder(order._id)" [disabled]="canceling">
+          {{ canceling ? 'Anulando...' : 'Anular pedido' }}
+        </button>
+      </div>
     </div>
   </div>
+</ng-container>
 
-  <div class="order-total">
-    <p><strong>Total:</strong> {{ order.subtotal| currency:'ARS' }}</p>
-  </div>
-</div>
-
-<ng-template #loading>
+<ng-template #loadingTemplate>
   <div class="skeleton-card">
     <div class="skeleton-title"></div>
     <div class="skeleton-line"></div>
     <div class="skeleton-line"></div>
-
     <div class="skeleton-subtitle"></div>
     <div class="skeleton-item"></div>
     <div class="skeleton-item"></div>

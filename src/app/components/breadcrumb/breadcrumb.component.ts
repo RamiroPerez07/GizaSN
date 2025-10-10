@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
   styleUrl: './breadcrumb.component.css'
 })
 export class BreadcrumbComponent {
-  @Input() breadcrumbRoutes ! : {name: string, redirectFx: Function}[];
+  @Input() breadcrumbRoutes ? : {name: string, redirectFx: Function}[];
 }
