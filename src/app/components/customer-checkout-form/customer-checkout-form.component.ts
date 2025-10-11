@@ -12,11 +12,12 @@ import { unsubscribe } from 'node:diagnostics_channel';
 import { IOrder } from '../../interfaces/orders.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OrdersService } from '../../services/orders.service';
+import { SpinnerComponent } from "../spinner/spinner.component";
 
 @Component({
   selector: 'app-customer-checkout-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './customer-checkout-form.component.html',
   styleUrl: './customer-checkout-form.component.css'
 })

@@ -158,9 +158,4 @@
   </div>
 </div>
 
-<div *ngIf="isLoading" class="loading-overlay">
-  <div class="spinner-container">
-    <div class="spinner"></div>
-    <p>Procesando pedido...</p>
-  </div>
-</div>
+<app-spinner *ngIf="isLoading" ></app-spinner>
