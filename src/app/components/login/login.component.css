@@ -1,0 +1,85 @@
+.form{
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 10px 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.form>h3{
+  text-align: center;
+}
+
+.input-group {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.input-group input {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 8px 4px;
+  font-size: 0.85rem;
+  background: transparent;
+  outline: none;
+}
+
+.input-group label {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  color: #aaa;
+  font-size: 0.85rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown):valid + label,
+.input-group input.ng-dirty + label {
+  top: -12px;
+  left: 0;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+input.invalid {
+  border-bottom-color: red !important;
+}
+
+label.invalid{
+    color: red !important;
+}
+
+/* botones */
+
+.login-options{
+  margin: 15px auto 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-btn{
+    padding: 10px 15px;
+    background-color: var(--c_primary);
+    color: white;
+    border: 1px solid var(--c_primary);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 200ms ease;
+    font-size: 0.8rem;
+}
+
+.login-btn i {
+  margin-right: 8px;
+}
+
+.login-btn:hover{
+    background-color: var(--c_secondary);
+    transition: background-color 200ms ease;
+}

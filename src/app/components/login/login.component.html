@@ -1,0 +1,38 @@
+<ng-container>
+  <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
+
+  <form [formGroup]="form" class="form">
+    <h3>Ingresar</h3>
+
+    <div class="modal-content">
+      <div class="input-group">
+        <input type="text" placeholder=" " formControlName="username" required
+          [class.invalid]="form.get('username')?.invalid && form.get('username')?.touched" />
+        <label [class.invalid]="form.get('username')?.invalid && form.get('username')?.touched">Usuario*</label>
+        <small *ngIf="form.get('username')?.invalid && form.get('username')?.touched" style="color: red; margin-top: 4px;">
+          El usuario es obligatorio
+        </small>
+      </div>
+
+      <div class="input-group">
+        <input type="password" placeholder=" " formControlName="password" required
+          [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched" />
+        <label [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched">Contraseña*</label>
+        <small *ngIf="form.get('password')?.invalid && form.get('password')?.touched" style="color: red; margin-top: 4px;">
+          La contraseña es obligatoria
+        </small>
+      </div>
+
+      <div class="login-options">
+        <button class="login-btn" type="submit" [disabled]="isLoading">
+          <i class="fa fa-sign-in"></i>
+          <span *ngIf="!isLoading">Ingresar</span>
+          <span *ngIf="isLoading">Cargando...</span>
+        </button>
+      </div>
+    
+    </div>
+  </form>
+
+
+</ng-container>
