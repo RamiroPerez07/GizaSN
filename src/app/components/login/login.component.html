@@ -1,7 +1,7 @@
 <ng-container>
   <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
 
-  <form [formGroup]="form" class="form">
+  <form [formGroup]="form" class="form" (ngSubmit)="onSubmit()">
     <h3>Ingresar</h3>
 
     <div class="modal-content">
@@ -12,6 +12,9 @@
         <small *ngIf="form.get('username')?.invalid && form.get('username')?.touched" style="color: red; margin-top: 4px;">
           El usuario es obligatorio
         </small>
+        <small *ngIf="loginError" class="error-message" style="color: red; margin-top: 4px;">
+          {{ loginError }}
+        </small>
       </div>
 
       <div class="input-group">
@@ -20,6 +23,9 @@
         <label [class.invalid]="form.get('password')?.invalid && form.get('password')?.touched">Contraseña*</label>
         <small *ngIf="form.get('password')?.invalid && form.get('password')?.touched" style="color: red; margin-top: 4px;">
           La contraseña es obligatoria
+        </small>
+        <small *ngIf="loginError" class="error-message" style="color: red; margin-top: 4px;">
+          {{ loginError }}
         </small>
       </div>
 

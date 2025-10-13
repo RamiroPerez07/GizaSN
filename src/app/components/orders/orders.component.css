@@ -8,6 +8,18 @@
     flex-wrap: wrap;
   }
 
+.user-msg{
+  font-size: 0.75rem;
+  margin: 2px auto;
+  text-align: left;
+  width: 100%;
+  max-width: 1800px;
+  padding: 10px 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .title-container{
     display: flex;
     align-items: center;

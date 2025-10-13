@@ -1,5 +1,6 @@
 <ng-container>
     <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
+    <p *ngIf="user$ | async as user" class="user-msg"><strong>Usuario: </strong> {{' ' +user.name}}</p>
     <section class="orders-wrapper">
         <div class="title-container">
             <h2 class="orders-title">Pedidos</h2>

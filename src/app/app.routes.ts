@@ -6,6 +6,7 @@ import { ProductDetailComponent } from './components/product-detail/product-deta
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { LoginComponent } from './components/login/login.component';
+import { ordersGuard } from './guards/orders.guard';
 
 export const routes: Routes = [
     {path: "", component: HeroComponent},
@@ -13,8 +14,8 @@ export const routes: Routes = [
     { path: "products/category/:categoryId", component: ProductsComponent },
     { path: "products/category/:categoryId/product/:id", component: ProductDetailComponent },
     {path: "products/:id", component: ProductDetailComponent},
-    {path: "orders", component: OrdersComponent},
-    {path: "orders/:id", component: OrderDetailComponent },
+    {path: "orders", component: OrdersComponent, canActivate: [ordersGuard],},
+    {path: "orders/:id", component: OrderDetailComponent, canActivate: [ordersGuard], },
     {path: "login", component: LoginComponent},
     {path: "cart", component: CartComponent},
 ];

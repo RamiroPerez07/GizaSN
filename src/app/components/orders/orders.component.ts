@@ -5,6 +5,7 @@ import { CommonModule, NgClass } from '@angular/common';
 import { OrderCardComponent } from "../order-card/order-card.component";
 import { OrdersService } from '../../services/orders.service';
 import { OrderFormComponent } from "../order-form/order-form.component";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-orders',
@@ -17,6 +18,9 @@ export class OrdersComponent implements OnInit {
 
   private readonly router = inject(Router);
   private readonly orderSvc = inject(OrdersService);
+  private readonly authSvc = inject(AuthService);
+
+  user$ = this.authSvc.user$;
 
   breadcrumbRoutes = [
     { name: 'Inicio', redirectFx: () => this.router.navigate(['']) },
