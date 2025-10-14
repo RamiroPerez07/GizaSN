@@ -11,15 +11,18 @@ import { IOrder } from '../../interfaces/orders.interface';
 import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
+import { SpinnerComponent } from '../spinner/spinner.component';
 
 @Component({
   selector: 'app-order-form',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, OrderProductsComponent],
+  imports: [CommonModule, ReactiveFormsModule, OrderProductsComponent, SpinnerComponent],
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.css'
 })
 export class OrderFormComponent implements OnInit {
+
+  isLoading: boolean = false;
 
   readonly fb = inject(FormBuilder);
 
@@ -58,6 +61,8 @@ export class OrderFormComponent implements OnInit {
       this.showErrorInProducts = true;
       return
     };
+
+    this.isLoading = true; // <- EMPIEZA LOADING
 
     const { nombre, apellido, documento, formaPago, direccion, tipoDireccion, localidad } =
       this.form.value;
@@ -104,9 +109,11 @@ export class OrderFormComponent implements OnInit {
         this.form.get('tipoDireccion')?.setValue('giza');
         this.form.get('formaPago')?.setValue('Efectivo');
         this.getOrdersByStatus(this.filterStatus);
+        this.isLoading = false; // <- TERMINA LOADING (éxito)
       },
       error: (error: HttpErrorResponse) => {
         this.toastSvc.error(error.message, "Error");
+        this.isLoading = false; // <- TERMINA LOADING (error)
       }
     })
   }

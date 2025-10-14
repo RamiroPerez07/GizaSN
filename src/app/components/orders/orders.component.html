@@ -17,13 +17,15 @@
                 <div class="filter-tag" [ngClass]="{'active': filter === 'Anulado'}" (click)="setFilter('Anulado')">Anulados</div>
             </ng-container>
         </div>
-    <div class="container">
+        <div class="container">
         <ng-container *ngIf="orders$ | async as orders; else skeletonList">
-            @for(order of orders ; track order.idOrder){
+            <ng-container *ngIf="orders.length > 0; else noOrders">
+            @for(order of orders; track order.idOrder) {
                 <app-order-card [order]="order"></app-order-card>
             }
+            </ng-container>
         </ng-container>
-    </div>
+        </div>
     </section>
 
 </ng-container>
@@ -36,6 +38,12 @@
       <div class="skeleton-line"></div>
       <div class="skeleton-line short"></div>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #noOrders>
+  <div class="no-orders-msg">
+    No hay pedidos en el filtro seleccionado.
   </div>
 </ng-template>
 

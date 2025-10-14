@@ -5,11 +5,13 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../../services/auth.service';
 import { of, switchMap, take } from 'rxjs';
+import { SpinnerComponent } from '../spinner/spinner.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, BreadcrumbComponent, ReactiveFormsModule],
+  imports: [CommonModule, BreadcrumbComponent, ReactiveFormsModule, SpinnerComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -20,6 +22,8 @@ export class LoginComponent {
   isLoading: boolean = false;
 
   private authService = inject(AuthService);
+
+  private toastSvc = inject(ToastrService);
   
   breadcrumbRoutes : {name: string, redirectFx: Function}[] = [
     {
@@ -46,6 +50,9 @@ export class LoginComponent {
   }
 
   ngOnInit(): void {
+    
+    this.isLoading = true;
+
     this.authService.user$
       .pipe(
         take(1),
@@ -56,9 +63,17 @@ export class LoginComponent {
           return of(false);
         })
       )
-      .subscribe(isValid => {
-        if (isValid) {
-          this.router.navigate(['/orders']);
+      .subscribe({
+        next: (isValid) => {
+          if (isValid) {
+            this.router.navigate(['/orders']);
+          }
+        },
+        error: (err) => {
+          this.toastSvc.error("Error en la validación del token");
+        },
+        complete: () => {
+          this.isLoading = false;
         }
       });
   }
