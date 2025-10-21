@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { of } from 'rxjs';
-import { finalize, switchMap, take, tap } from 'rxjs/operators';
+import { delay, finalize, switchMap, take, tap } from 'rxjs/operators';
 import { LoadingService } from '../services/loading.service';
 
 export const ordersGuard: CanActivateFn = (route, state) => {
@@ -14,6 +14,8 @@ export const ordersGuard: CanActivateFn = (route, state) => {
 
   return authService.user$.pipe(
     take(1),
+    tap(() => loading.show()),
+    delay(0),
     switchMap(user => {
       if (user?.token) {
         return authService.validateToken().pipe(

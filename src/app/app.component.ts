@@ -6,11 +6,14 @@ import { FooterComponent } from "./components/footer/footer.component";
 import { ProductsService } from './services/products.service';
 import { filter, map } from 'rxjs';
 import { WpButtonComponent } from './components/wp-button/wp-button.component';
+import { LoadingService } from './services/loading.service';
+import { SpinnerComponent } from './components/spinner/spinner.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, WpButtonComponent],
+  imports: [RouterOutlet, HeaderComponent, FooterComponent, WpButtonComponent, SpinnerComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -29,6 +32,10 @@ export class AppComponent implements OnInit {
   private readonly activatedRoute = inject(ActivatedRoute);
   private readonly pointOfSaleSvc = inject(PointOfSaleService);
   private readonly productsSvc = inject(ProductsService);
+  private readonly loadingSvc = inject(LoadingService);
+
+  loading$ = this.loadingSvc.loading$;
+
 
   ngOnInit(): void {
     // 1) Escuchar query param `pv` y enviar al servicio (reactivo)

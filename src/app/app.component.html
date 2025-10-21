@@ -7,3 +7,5 @@
 <app-footer></app-footer>
 <app-wp-button></app-wp-button>
 
+<app-spinner *ngIf="loading$ | async" [message]="'Cargando...'" ></app-spinner>
+

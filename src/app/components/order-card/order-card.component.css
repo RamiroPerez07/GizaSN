@@ -1,8 +1,8 @@
 .order-card{
     padding: 10px;
     box-shadow: 2px 2px 3px -2px rgba(0,0,0,0.3);
-    width: auto;
-    max-width: 350px;
+    width: 240px;
+    /*max-width: 350px;*/
     display: flex;
     flex-direction: column;
     position: relative;
