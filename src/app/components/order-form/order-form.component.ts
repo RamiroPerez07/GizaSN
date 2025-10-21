@@ -149,7 +149,7 @@ export class OrderFormComponent implements OnInit {
     // cambia validadores de formaPago
     this.form.get('formaPago')!.valueChanges.subscribe((value) => {
       const doc = this.form.get('documento')!;
-      value !== 'Efectivo' ? doc.setValidators([Validators.required]) : doc.clearValidators();
+      value == 'Transferencia' ? doc.setValidators([Validators.required]) : doc.clearValidators();
       doc.updateValueAndValidity();
     });
 
