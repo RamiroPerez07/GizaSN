@@ -37,6 +37,7 @@
                 [class.invalid]="form.get('formaPago')?.invalid && form.get('formaPago')?.touched">
                 <option value="Efectivo" selected>Efectivo</option>
                 <option value="Transferencia">Transferencia</option>
+                <option value="Cuenta Corriente">Cuenta Corriente</option>
               </select>
               <small *ngIf="form.get('formaPago')?.invalid && form.get('formaPago')?.touched"
                 style="color: red; margin-top: 4px;">
@@ -45,7 +46,7 @@
             </div>
   
             <!-- DNI *-->
-            <div *ngIf="form.get('formaPago')?.value !== 'Efectivo'">
+            <div *ngIf="form.get('formaPago')?.value === 'Transferencia'">
               <div class="input-group">
                 <input type="text" placeholder=" " formControlName="documento" required
                   [class.invalid]="form.get('documento')?.invalid && form.get('documento')?.touched" />
