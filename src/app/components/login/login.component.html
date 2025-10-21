@@ -30,10 +30,10 @@
       </div>
 
       <div class="login-options">
-        <button class="login-btn" type="submit" [disabled]="isLoading">
+        <button class="login-btn" type="submit" [disabled]="loading$ | async">
           <i class="fa fa-sign-in"></i>
-          <span *ngIf="!isLoading">Ingresar</span>
-          <span *ngIf="isLoading">Cargando...</span>
+          <span *ngIf="!(loading$ | async)">Ingresar</span>
+          <span *ngIf="loading$ | async">Cargando...</span>
         </button>
       </div>
     
@@ -42,4 +42,4 @@
 
 </ng-container>
 
-<app-spinner *ngIf="isLoading" [message]="'Ingresando...'" ></app-spinner>
+<app-spinner *ngIf="loading$ | async" [message]="'Cargando...'" ></app-spinner>

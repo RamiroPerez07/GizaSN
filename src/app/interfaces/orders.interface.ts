@@ -2,6 +2,7 @@ import { IProduct } from "./products.interface";
 
 export interface IOrder{
     _id?: string;
+    username?: string;
     idOrder: string;
     posId: string;
     pos: string;

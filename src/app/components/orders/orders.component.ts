@@ -42,4 +42,9 @@ export class OrdersComponent implements OnInit {
   openNewOrderDialog(){
     this.orderSvc.openCreateOrderModal();
   }
+
+  logout(){
+    this.authSvc.logout();
+    this.router.navigate(['login']);
+  }
 }

@@ -7,6 +7,7 @@ import { AuthService } from '../../services/auth.service';
 import { of, switchMap, take } from 'rxjs';
 import { SpinnerComponent } from '../spinner/spinner.component';
 import { ToastrService } from 'ngx-toastr';
+import { LoadingService } from '../../services/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -19,11 +20,15 @@ export class LoginComponent {
 
   private router = inject(Router);
 
-  isLoading: boolean = false;
+  //isLoading: boolean = false;
 
   private authService = inject(AuthService);
 
   private toastSvc = inject(ToastrService);
+
+  private loadingSvc = inject(LoadingService);
+
+  loading$ = this.loadingSvc.loading$;
   
   breadcrumbRoutes : {name: string, redirectFx: Function}[] = [
     {
@@ -51,7 +56,7 @@ export class LoginComponent {
 
   ngOnInit(): void {
     
-    this.isLoading = true;
+    this.loadingSvc.show();
 
     this.authService.user$
       .pipe(
@@ -73,7 +78,7 @@ export class LoginComponent {
           this.toastSvc.error("Error en la validación del token");
         },
         complete: () => {
-          this.isLoading = false;
+          this.loadingSvc.hide();
         }
       });
   }
@@ -84,13 +89,13 @@ export class LoginComponent {
       return;
     }
 
-    this.isLoading = true;
+    this.loadingSvc.show();
 
     const { username, password } = this.form.value;
 
     this.authService.login(username!, password!).subscribe({
       next: (user) => {
-        this.isLoading = false;
+        this.loadingSvc.hide();
         this.loginError = null;
 
         if (user) {
@@ -101,7 +106,7 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        this.isLoading = false;
+        this.loadingSvc.hide();
         console.error('Login error:', err);
         this.setLoginError('Usuario o contraseña incorrectos');
       }

@@ -6,6 +6,7 @@
 
     <div class="order-info">
       <p><strong>Fecha:</strong> {{ order.createdAt | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Usuario:</strong> {{ order.username ?? 'Cliente' }}</p>
       <p><strong>Punto de venta:</strong> {{ order.pos }}</p>
       <p><strong>Origen:</strong> {{ order.origin }}</p>
       <p><strong>Comprador:</strong> {{ order.nameBuyer }} {{ order.lastNameBuyer }}</p>

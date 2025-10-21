@@ -1,18 +1,18 @@
-import { Component, inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
 import { PointOfSale } from '../../interfaces/pointofsale.interface';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { CartService } from '../../services/cart.service';
 import { PointOfSaleService } from '../../services/point-of-sale.service';
 import { ToastrService } from 'ngx-toastr';
 import { businessAlias } from '../../utils/constants';
 import { IProduct } from '../../interfaces/products.interface';
-import { map, Subscription, take } from 'rxjs';
-import { unsubscribe } from 'node:diagnostics_channel';
+import { map, Subscription } from 'rxjs';
 import { IOrder } from '../../interfaces/orders.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { OrdersService } from '../../services/orders.service';
 import { SpinnerComponent } from "../spinner/spinner.component";
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-customer-checkout-form',
@@ -28,6 +28,7 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
   readonly toastSvc = inject(ToastrService);
   private readonly platformId = inject(PLATFORM_ID);
   readonly orderSvc = inject(OrdersService);
+  readonly authSvc = inject(AuthService);
 
   businessAlias = businessAlias;
 
@@ -164,7 +165,8 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
       items: orderProducts,
       status: "Pendiente",
       posId: pos.id ?? 'giza',
-      pos: pos.puntoDeVenta ?? 'Giza'
+      pos: pos.puntoDeVenta ?? 'Giza',
+      username: this.authSvc.getCurrentUser()?.name ?? "Cliente",
     } 
 
     this.orderSvc.createOrder(newOrder).subscribe({

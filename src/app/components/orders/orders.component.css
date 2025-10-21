@@ -149,3 +149,17 @@
   margin-top: 20px;
   font-style: italic;
 }
+
+
+
+.logout-btn {
+  margin-left: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.logout-btn:hover {
+  color: var(--c_primary);
+}

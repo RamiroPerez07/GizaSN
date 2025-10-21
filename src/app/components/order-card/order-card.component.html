@@ -2,6 +2,7 @@
     <div class="status-tag" [ngClass]="statusClasses[order.status]">{{order.status}}</div>
     <p><strong>ID: </strong><span>#{{order.idOrder}}</span></p>
     <p><strong>Fecha: </strong><span>{{order.createdAt | date:'dd/MM/yyyy HH:mm'}}</span></p>
+    <p><strong>Usuario: </strong><span>{{order.username ?? 'Cliente'}}</span></p>
     <p><strong>Punto de venta: </strong><span>{{order.pos}}</span></p>
     <p><strong>Origen: </strong><span>{{order.origin}}</span></p>
     <p><strong>Comprador: </strong><span>{{order.nameBuyer}} {{order.lastNameBuyer}}</span></p>

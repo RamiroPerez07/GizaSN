@@ -12,6 +12,7 @@ import { CartService } from '../../services/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { SpinnerComponent } from '../spinner/spinner.component';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-order-form',
@@ -33,6 +34,8 @@ export class OrderFormComponent implements OnInit {
   readonly cartSvc = inject(CartService);
 
   readonly toastSvc = inject(ToastrService);
+
+  readonly authSvc = inject(AuthService);
 
   productsInOrder$ = this.orderSvc.productsInOrder$;
 
@@ -96,7 +99,8 @@ export class OrderFormComponent implements OnInit {
       items: products,
       status: "Pendiente",
       posId: this.gizaPos?.id ?? 'giza',
-      pos: this.gizaPos?.puntoDeVenta ?? 'Giza'
+      pos: this.gizaPos?.puntoDeVenta ?? 'Giza',
+      username: this.authSvc.getCurrentUser()?.name ?? 'Cliente',
     } 
     
     this.orderSvc.createOrder(newOrder).subscribe({
