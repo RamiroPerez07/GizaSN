@@ -109,11 +109,11 @@
 }
 
 .discount-tag{
-  padding: 5px 8px;
+  padding: 5px;
   border-radius: 5px;
   border: none;
   width: min-content;
-  font-size: 0.7rem;
+  font-size: 0.65rem;
   display: grid;
   place-items: center;
   background-color: green;

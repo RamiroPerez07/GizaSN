@@ -54,7 +54,7 @@
         }
       </p>
       @if(vm.product.cashDiscount){
-        <p class="discount-tag">Además, -{{vm.product.cashDiscount}}% OFF pagando en efectivo!</p>
+        <p class="discount-tag">Además, -{{vm.product.cashDiscount}}% OFF pagando en efectivo! {{ roundTo100(vm.product.price * (1 - (vm.product.discount ?? 0) / 100) * (1 - (vm.product.cashDiscount) / 100)) | currency:"ARS" }}</p>
       }
       <button class="add-product-btn" (click)="addProduct(vm.product)" [disabled]="!vm.product.inStock">Agregar al carrito</button>
       @if(!vm.product.inStock){
