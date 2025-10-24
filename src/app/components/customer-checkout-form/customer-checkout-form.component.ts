@@ -157,6 +157,7 @@ export class CustomerCheckoutFormComponent implements OnInit, OnDestroy {
       charged: false,
       origin: "Cliente",
       deliveryDate: null,
+      addressType: tipoDireccion ?? 'estandar',
       address: direccionFinal ?? 'Sin Especificar',
       locality: localidadFinal ?? 'Sin Especificar',
       paymentMethod: formaPago ?? 'Efectivo',

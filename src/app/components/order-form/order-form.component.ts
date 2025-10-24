@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
 import { OrdersService } from '../../services/orders.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,6 +22,10 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './order-form.component.css'
 })
 export class OrderFormComponent implements OnInit {
+
+  @Input() mode: 'create' | 'edit' = 'create';
+
+  @Input() existingOrder?: IOrder;
 
   isLoading: boolean = false;
 
@@ -97,6 +101,7 @@ export class OrderFormComponent implements OnInit {
       identityDocument: documento || undefined,
       idOrder: this.cartSvc.generateOrderId(),
       items: products,
+      addressType: tipoDireccion ?? 'estandar',
       status: "Pendiente",
       posId: this.gizaPos?.id ?? 'giza',
       pos: this.gizaPos?.puntoDeVenta ?? 'Giza',
@@ -129,6 +134,18 @@ export class OrderFormComponent implements OnInit {
   filterStatus!: string;
 
   ngOnInit(): void {
+
+    if (this.mode === 'edit' && this.existingOrder) {
+      this.form.patchValue({
+        nombre: this.existingOrder.nameBuyer,
+        apellido: this.existingOrder.lastNameBuyer,
+        documento: this.existingOrder.identityDocument,
+        formaPago: this.existingOrder.paymentMethod,
+        //tipoDireccion: this.existingOrder. ?? 'personalizada',
+        direccion: this.existingOrder.address,
+        localidad: this.existingOrder.locality
+      });
+    }
 
     this.orderSvc.filter$.subscribe({
       next: (filter: string) => {
