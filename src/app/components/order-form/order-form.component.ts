@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { OrdersService } from '../../services/orders.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -21,7 +21,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.css'
 })
-export class OrderFormComponent implements OnInit, AfterViewInit {
+export class OrderFormComponent implements OnInit, AfterViewInit, OnChanges {
 
   @Input() mode: 'create' | 'edit' = 'create';
 
@@ -197,6 +197,52 @@ export class OrderFormComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     if (this.mode === 'edit' && this.existingOrder && this.existingOrder.items?.length > 0) {
       this.orderSvc.initializeProductsInOrder(this.existingOrder.items);
+    }
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['existingOrder'] && this.mode === 'edit' && this.existingOrder) {
+      this.form.patchValue({
+        nombre: this.existingOrder.nameBuyer,
+        apellido: this.existingOrder.lastNameBuyer,
+        documento: this.existingOrder.identityDocument ?? '',
+        formaPago: this.existingOrder.paymentMethod,
+        tipoDireccion: this.existingOrder.addressType ?? 'estandar',
+        direccion: this.existingOrder.address,
+        localidad: this.existingOrder.locality,
+      });
+
+      // ⚙️ Reaplicar validadores dinámicos según el valor actual
+      const formaPago = this.form.get('formaPago')!.value;
+      const tipoDireccion = this.form.get('tipoDireccion')!.value;
+
+      const doc = this.form.get('documento')!;
+      const dir = this.form.get('direccion')!;
+      const loc = this.form.get('localidad')!;
+
+      // --- Validadores de formaPago ---
+      if (formaPago === 'Transferencia') {
+        doc.setValidators([Validators.required]);
+      } else {
+        doc.clearValidators();
+      }
+      doc.updateValueAndValidity({ emitEvent: false });
+
+      // --- Validadores de tipoDireccion ---
+      if (tipoDireccion === 'personalizada') {
+        dir.setValidators([Validators.required]);
+        loc.setValidators([Validators.required]);
+      } else {
+        dir.clearValidators();
+        loc.clearValidators();
+      }
+      dir.updateValueAndValidity({ emitEvent: false });
+      loc.updateValueAndValidity({ emitEvent: false });
+
+      // 🔁 Inicializar productos si existen
+      if (this.existingOrder.items?.length > 0) {
+        this.orderSvc.initializeProductsInOrder(this.existingOrder.items);
+      }
     }
   }
 
