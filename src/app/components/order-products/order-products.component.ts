@@ -22,7 +22,7 @@ export class OrderProductsComponent {
   private readonly ordersSvc = inject(OrdersService);
   private readonly productsInOrderSignal = signal<IProduct[]>([]);
 
-  productsInOrder$ = this.ordersSvc.productsInOrder$
+  productsInOrder$ = this.ordersSvc.productsInOrder$;
 
   // campo de búsqueda
   query = signal('');

@@ -81,13 +81,18 @@
       </div>
 
       <div class="cancel-order" *ngIf="order.status != 'Anulado'">
+        <button (click)="editOrder()" class="edit-btn">
+          Editar
+        </button>
         <button class="btn-cancel" (click)="cancelOrder(order._id)" [disabled]="canceling">
           {{ canceling ? 'Anulando...' : 'Anular pedido' }}
         </button>
       </div>
     </div>
   </div>
+  <app-order-form [existingOrder]="order" [mode]="'edit'" (orderUpdated)="reloadOrder()"></app-order-form>
 </ng-container>
+
 
 <ng-template #loadingTemplate>
   <div class="skeleton-card">

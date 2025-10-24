@@ -154,7 +154,7 @@
   border-color: var(--c_primary);
 }
 
-.observations-box button {
+.observations-box button, .edit-btn {
   align-self: flex-end;
   background: var(--c_primary);
   color: white;
@@ -166,11 +166,15 @@
   transition: background 0.2s;
 }
 
-.observations-box button:hover {
+.edit-btn {
+  margin-right: 5px;
+}
+
+.observations-box button:hover , .edit-btn:hover {
   background: var(--c_primary);
 }
 
-.observations-box button[disabled] {
+.observations-box button[disabled], .edit-btn[disabled] {
   background: #aaa;
   cursor: not-allowed;
 }

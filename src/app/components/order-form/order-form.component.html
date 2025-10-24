@@ -3,8 +3,8 @@
   <div class="custom-modal">
     <ng-container *ngIf="pos$ | async as pos">
       <ng-container *ngIf="productsInOrder$ | async as products">
-        <form [formGroup]="form" (ngSubmit)="onSubmitForm(pos, products)">
-          <h3>Nuevo pedido</h3>
+        <form [formGroup]="form" (ngSubmit)="mode=='create'? onSubmitForm(pos, products): onSubmitFormEdit(products)">
+          <h3>{{mode==='create'?'Nuevo pedido':'Editar pedido'}}</h3>
   
           <div class="modal-content" #modalContent>
             <!--Nombre-->
@@ -58,47 +58,49 @@
                 </small>
               </div>
             </div>
-  
-            <div class="radio-form">
-              <label>Lugar de entrega</label>
-              <div class="radio-group">
-                <label *ngIf="pos && pos.ofreceRetiro">
-                  <input type="radio" formControlName="tipoDireccion" value="estandar" />
-                  <div>
+            
+            <ng-container *ngIf="mode !=='edit'">
+              <div class="radio-form">
+                <label>Lugar de entrega</label>
+                <div class="radio-group">
+                  <label *ngIf="pos && pos.ofreceRetiro">
+                    <input type="radio" formControlName="tipoDireccion" value="estandar" />
                     <div>
-                      <strong>{{pos?.puntoDeVenta}}</strong>
-                      <span class="direccion-det">({{pos?.direccion}}, {{pos?.localidad}})</span>
+                      <div>
+                        <strong>{{pos?.puntoDeVenta}}</strong>
+                        <span class="direccion-det">({{pos?.direccion}}, {{pos?.localidad}})</span>
+                      </div>
+                      <span class="info-icon-wrapper">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <span class="tooltip-text">Cliente retira en el punto de venta</span>
+                      </span>
                     </div>
-                    <span class="info-icon-wrapper">
-                      <i class="fa-solid fa-info-circle"></i>
-                      <span class="tooltip-text">Cliente retira en el punto de venta</span>
-                    </span>
-                  </div>
-                </label>
-  
-                <label *ngIf="gizaPos">
-                  <input type="radio" formControlName="tipoDireccion" value="giza" />
-                  <div>
+                  </label>
+    
+                  <label *ngIf="gizaPos">
+                    <input type="radio" formControlName="tipoDireccion" value="giza" />
                     <div>
-                      <strong>{{ gizaPos.puntoDeVenta }}</strong>
-                      <span class="direccion-det">({{gizaPos.direccion}}, {{gizaPos.localidad}})</span>
+                      <div>
+                        <strong>{{ gizaPos.puntoDeVenta }}</strong>
+                        <span class="direccion-det">({{gizaPos.direccion}}, {{gizaPos.localidad}})</span>
+                      </div>
+                      <span class="info-icon-wrapper">
+                        <i class="fa-solid fa-info-circle"></i>
+                        <p class="tooltip-text">Cliente retira por nuestro local</p>
+                      </span>
                     </div>
-                    <span class="info-icon-wrapper">
-                      <i class="fa-solid fa-info-circle"></i>
-                      <p class="tooltip-text">Cliente retira por nuestro local</p>
-                    </span>
-                  </div>
-                </label>
-  
-                <label>
-                  <input type="radio" formControlName="tipoDireccion" value="personalizada" />
-                  <strong>Dirección del cliente <i class="fas fa-hand-point-down" [style]="'margin-left:5px'"></i></strong>
-                </label>
+                  </label>
+    
+                  <label>
+                    <input type="radio" formControlName="tipoDireccion" value="personalizada" />
+                    <strong>Dirección del cliente <i class="fas fa-hand-point-down" [style]="'margin-left:5px'"></i></strong>
+                  </label>
+                </div>
               </div>
-            </div>
+            </ng-container>
             
             <!-- Direccion Cliente -->
-            <div *ngIf="form.get('tipoDireccion')?.value === 'personalizada'">
+            <div *ngIf="(form.get('tipoDireccion')?.value === 'personalizada') || (mode ==='edit')">
               <div class="input-group">
                 <input type="text" placeholder=" " formControlName="direccion" required
                   [class.invalid]="form.get('direccion')?.invalid && form.get('direccion')?.touched" />

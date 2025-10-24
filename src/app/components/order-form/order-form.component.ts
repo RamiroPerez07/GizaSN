@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, inject, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { OrdersService } from '../../services/orders.service';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -21,11 +21,14 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './order-form.component.html',
   styleUrl: './order-form.component.css'
 })
-export class OrderFormComponent implements OnInit {
+export class OrderFormComponent implements OnInit, AfterViewInit {
 
   @Input() mode: 'create' | 'edit' = 'create';
 
   @Input() existingOrder?: IOrder;
+
+  // EventEmitter para avisar al padre que hubo cambios
+  @Output() orderUpdated = new EventEmitter<void>();
 
   isLoading: boolean = false;
 
@@ -56,13 +59,71 @@ export class OrderFormComponent implements OnInit {
 
   showErrorInProducts: boolean = false;
 
+  onSubmitFormEdit(products: IProduct[]){
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      return;
+    }
+
+    if (products.length<=0) {
+      this.showErrorInProducts = true;
+      return
+    };
+
+    const { nombre, apellido, documento, formaPago, direccion, tipoDireccion, localidad } =
+      this.form.value;
+
+    const editedOrder : IOrder = {
+      _id: this.existingOrder?._id,
+      nameBuyer: nombre ?? '',
+      lastNameBuyer: apellido ?? '',
+      delivered: this.existingOrder?.delivered ?? false,
+      charged: this.existingOrder?.charged ?? false,
+      origin: this.existingOrder?.origin ?? 'Manual',
+      deliveryDate: this.existingOrder?.deliveryDate,
+      address: direccion ?? 'Sin Especificar',
+      locality: localidad ?? 'Sin Especificar',
+      paymentMethod: formaPago ?? 'Efectivo',
+      identityDocument: documento || undefined,
+      idOrder: this.existingOrder?.idOrder ?? '',
+      items: products,
+      addressType: this.existingOrder?.address === direccion ? (tipoDireccion ?? '') : 'personalizada',
+      status: this.existingOrder?.status ?? 'Pendiente',
+      posId: this.existingOrder?.posId ?? 'giza',
+      pos: this.existingOrder?.pos ?? 'Giza',
+      username: this.existingOrder?.username ?? 'Cliente',
+      observation: this.existingOrder?.observation ?? '',
+      telBuyer: this.existingOrder?.telBuyer ?? undefined,
+    }
+
+    this.orderSvc.updateOrder(editedOrder).subscribe({
+      next: () => {
+        this.toastSvc.success("Pedido editado exitosamente", "Edición exitosa");
+        this.closeModal();
+        this.orderSvc.clearOrder();
+        this.showErrorInProducts = false;
+        this.form.reset();
+        this.form.get('tipoDireccion')?.setValue('giza');
+        this.form.get('formaPago')?.setValue('Efectivo');
+        this.getOrdersByStatus(this.filterStatus);
+        this.isLoading = false; // <- TERMINA LOADING (éxito)
+        this.orderUpdated.emit();
+      },
+      error: (error: HttpErrorResponse) => {
+        this.toastSvc.error(error.message, "Error");
+        this.isLoading = false; // <- TERMINA LOADING (error)
+      }
+    })
+
+  }
+
   onSubmitForm(pos: PointOfSale | null, products: IProduct[]){
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    if (!pos || (this.gizaPos && pos.id != this.gizaPos.id)) return;
+    if (!pos) return;
 
     if (products.length<=0) {
       this.showErrorInProducts = true;
@@ -133,19 +194,27 @@ export class OrderFormComponent implements OnInit {
 
   filterStatus!: string;
 
+  ngAfterViewInit() {
+    if (this.mode === 'edit' && this.existingOrder && this.existingOrder.items?.length > 0) {
+      this.orderSvc.initializeProductsInOrder(this.existingOrder.items);
+    }
+  }
+
   ngOnInit(): void {
+
+    this.orderSvc.clearOrder();
 
     if (this.mode === 'edit' && this.existingOrder) {
       this.form.patchValue({
         nombre: this.existingOrder.nameBuyer,
         apellido: this.existingOrder.lastNameBuyer,
-        documento: this.existingOrder.identityDocument,
+        documento: this.existingOrder.identityDocument ?? '',
         formaPago: this.existingOrder.paymentMethod,
-        //tipoDireccion: this.existingOrder. ?? 'personalizada',
+        tipoDireccion: this.existingOrder.addressType ?? 'estandar',
         direccion: this.existingOrder.address,
         localidad: this.existingOrder.locality
       });
-    }
+    };
 
     this.orderSvc.filter$.subscribe({
       next: (filter: string) => {

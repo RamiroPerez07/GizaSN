@@ -3,6 +3,7 @@ import { BehaviorSubject, combineLatest, map, Observable, scan, shareReplay, sta
 import { IProduct } from '../interfaces/products.interface';
 import { HttpClient } from '@angular/common/http';
 import { IOrder } from '../interfaces/orders.interface';
+import { ServerTestingModule } from '@angular/platform-server/testing';
 
 interface AddAction {
   type: 'add';
@@ -32,7 +33,12 @@ interface UpdateAction {
   };
 }
 
-type OrderAction = AddAction | DecreaseAction | RemoveAction | ClearAction | UpdateAction;
+interface InitializeAction {
+  type: 'initialize';
+  payload: IProduct[];
+}
+
+type OrderAction = AddAction | DecreaseAction | RemoveAction | ClearAction | UpdateAction | InitializeAction;
 
 @Injectable({
   providedIn: 'root'
@@ -108,15 +114,17 @@ export class OrdersService {
     return Math.ceil(price / 100) * 100;
   }
 
+
   // ---- Streams de acciones del carrito
-  private actions$ = new Subject<OrderAction>();
+  private actions$ = new BehaviorSubject<OrderAction>({ type: 'clear' });
 
   // ---- Estado del carrito (lista de productos)
   readonly productsInOrder$ = this.actions$.pipe(
-    startWith<OrderAction>({ type: 'clear' }),
+    //startWith<OrderAction>({ type: 'clear' }),
     scan((products, action) => this.reduce(products, action), [] as IProduct[]),
     shareReplay({ bufferSize: 1, refCount: true })
   );
+
 
   hasCashDiscount$ = this.productsInOrder$.pipe(
     map(products => products.some(p => !!p.cashDiscount))
@@ -167,6 +175,10 @@ export class OrdersService {
     }, 0)
   }
 
+  initializeProductsInOrder(products: IProduct[]) {
+    this.actions$.next({ type: 'initialize', payload: products });
+  }
+
   generateOrderId(): string {
     const timestamp = Date.now().toString(36);
     const random = Math.floor(Math.random() * 1000).toString(36);
@@ -201,9 +213,16 @@ export class OrdersService {
       .pipe(tap(() => this.refreshOrders()));
   }
 
+  updateOrder(payload: Partial<IOrder>): Observable<IOrder> {
+    return this._http.patch<IOrder>(`https://giza-sn-backend.vercel.app/api/orders/${payload._id}`, payload)
+      .pipe(tap(() => this.refreshOrders()));
+  }
+
   // ---- Reducer
   private reduce(products: IProduct[], action: OrderAction): IProduct[] {
     switch (action.type) {
+      case 'initialize':
+        return [...action.payload];
       case 'add': {
         const product = action.payload!;
         const existing = products.find(p => p.id === product.id);
