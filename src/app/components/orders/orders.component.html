@@ -33,26 +33,30 @@
           <app-order-card [order]="order"></app-order-card>
           }
 
-          <!-- 🔹 Paginador -->
-          <div class="pagination-controls">
-            <button class="page-btn" (click)="prevPage()" [disabled]="data.page === 1" title="Página anterior">
-              ◀
-            </button>
-
-            <span class="page-info">
-              Página {{ data.page }} de {{ data.totalPages }}
-            </span>
-
-            <button class="page-btn" (click)="nextPage()" [disabled]="data.page === data.totalPages"
-              title="Página siguiente">
-              ▶
-            </button>
-          </div>
         </ng-container>
       </ng-container>
     </div>
+    <ng-container *ngIf="(paginatedOrders$ | async) as data">
+      <ng-container *ngIf="data.orders.length > 0">
+        <!-- 🔹 Paginador -->
+        <div class="pagination-controls">
+          <button class="page-btn" (click)="prevPage()" [disabled]="data.page === 1" title="Página anterior">
+            ◀
+          </button>
+      
+          <span class="page-info">
+            Página {{ data.page }} de {{ data.totalPages }}
+          </span>
+      
+          <button class="page-btn" (click)="nextPage()" [disabled]="data.page === data.totalPages"
+            title="Página siguiente">
+            ▶
+          </button>
+        </div>
+      </ng-container>
+    </ng-container>
   </section>
-
+  
 </ng-container>
 
 <ng-template #skeletonList>

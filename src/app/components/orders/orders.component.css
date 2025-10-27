@@ -179,10 +179,15 @@
   color: white;
   border: none;
   border-radius: 6px;
-  padding: 6px 12px;
+  padding: 5px 10px;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 0.7rem;
   transition: all 0.2s ease;
+}
+
+.page-btn:hover{
+  background-color: var(--c_secondary);
+  transition: background-color 200ms ease-out;
 }
 
 .page-btn:disabled {
@@ -193,4 +198,5 @@
 .page-info {
   font-weight: bold;
   color: #333;
+  font-size: 0.65rem;
 }
