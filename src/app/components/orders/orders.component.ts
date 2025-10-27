@@ -27,13 +27,29 @@ export class OrdersComponent implements OnInit {
     { name: 'Pedidos', redirectFx: () => this.router.navigate(['orders']) }
   ]
 
+  currentPage = 1;
+
+  nextPage() {
+    this.currentPage++;
+    this.orderSvc.setPage(this.currentPage);
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.orderSvc.setPage(this.currentPage);
+    }
+  }
+
   ngOnInit(): void {
     this.orderSvc.refreshOrders();
   }
 
   filter$ = this.orderSvc.filter$;
 
-  orders$ = this.orderSvc.orders$;
+  // orders$ = this.orderSvc.orders$;
+
+  paginatedOrders$ = this.orderSvc.paginatedOrders$;
 
   setFilter(status: string){
     this.orderSvc.setFilter(status);

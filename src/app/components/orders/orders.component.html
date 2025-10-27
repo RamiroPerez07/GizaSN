@@ -1,36 +1,57 @@
 <ng-container>
-    <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
-    <p *ngIf="user$ | async as user" class="user-msg"><strong>Usuario: </strong> {{' ' +user.name}}
-      <button (click)="logout()" class="logout-btn" title="Cerrar sesión">
-        <i class="fas fa-sign-out-alt"></i>
+  <app-breadcrumb [breadcrumbRoutes]="breadcrumbRoutes" class="breadcrumb"></app-breadcrumb>
+  <p *ngIf="user$ | async as user" class="user-msg"><strong>Usuario: </strong> {{' ' +user.name}}
+    <button (click)="logout()" class="logout-btn" title="Cerrar sesión">
+      <i class="fas fa-sign-out-alt"></i>
+    </button>
+  </p>
+  <section class="orders-wrapper">
+    <div class="title-container">
+      <h2 class="orders-title">Pedidos</h2>
+      <button class="new-order" (click)="openNewOrderDialog()" title="Nuevo pedido">
+        <i class="fa-solid fa-file-circle-plus"></i>
       </button>
-    </p>
-    <section class="orders-wrapper">
-        <div class="title-container">
-            <h2 class="orders-title">Pedidos</h2>
-            <button class="new-order" (click)="openNewOrderDialog()" title="Nuevo pedido">
-                <i class="fa-solid fa-file-circle-plus"></i>
+    </div>
+    <div class="filter-panel">
+      <ng-container *ngIf="filter$ | async as filter">
+        <div class="filter-tag" [ngClass]="{'active': filter === 'Pendiente'}" (click)="setFilter('Pendiente')">
+          Pendientes</div>
+        <div class="filter-tag" [ngClass]="{'active': filter === 'Pendiente de entrega'}"
+          (click)="setFilter('Pendiente de entrega')">Pendientes de entrega</div>
+        <div class="filter-tag" [ngClass]="{'active': filter === 'Pendiente de cobro'}"
+          (click)="setFilter('Pendiente de cobro')">Pendientes de cobro</div>
+        <div class="filter-tag" [ngClass]="{'active': filter === 'Entregado y cobrado'}"
+          (click)="setFilter('Entregado y cobrado')">Entregados y cobrados</div>
+        <div class="filter-tag" [ngClass]="{'active': filter === 'Anulado'}" (click)="setFilter('Anulado')">Anulados
+        </div>
+      </ng-container>
+    </div>
+    <div class="container">
+      <ng-container *ngIf="paginatedOrders$ | async as data; else skeletonList">
+        <ng-container *ngIf="data.orders.length > 0; else noOrders">
+          @for(order of data.orders; track order.idOrder) {
+          <app-order-card [order]="order"></app-order-card>
+          }
+
+          <!-- 🔹 Paginador -->
+          <div class="pagination-controls">
+            <button class="page-btn" (click)="prevPage()" [disabled]="data.page === 1" title="Página anterior">
+              ◀
             </button>
-        </div>
-        <div class="filter-panel">
-            <ng-container *ngIf="filter$ | async as filter">
-                <div class="filter-tag" [ngClass]="{'active': filter === 'Pendiente'}" (click)="setFilter('Pendiente')">Pendientes</div>
-                <div class="filter-tag" [ngClass]="{'active': filter === 'Pendiente de entrega'}" (click)="setFilter('Pendiente de entrega')">Pendientes de entrega</div>
-                <div class="filter-tag" [ngClass]="{'active': filter === 'Pendiente de cobro'}" (click)="setFilter('Pendiente de cobro')">Pendientes de cobro</div>
-                <div class="filter-tag" [ngClass]="{'active': filter === 'Entregado y cobrado'}" (click)="setFilter('Entregado y cobrado')">Entregados y cobrados</div>
-                <div class="filter-tag" [ngClass]="{'active': filter === 'Anulado'}" (click)="setFilter('Anulado')">Anulados</div>
-            </ng-container>
-        </div>
-        <div class="container">
-        <ng-container *ngIf="orders$ | async as orders; else skeletonList">
-            <ng-container *ngIf="orders.length > 0; else noOrders">
-            @for(order of orders; track order.idOrder) {
-                <app-order-card [order]="order"></app-order-card>
-            }
-            </ng-container>
+
+            <span class="page-info">
+              Página {{ data.page }} de {{ data.totalPages }}
+            </span>
+
+            <button class="page-btn" (click)="nextPage()" [disabled]="data.page === data.totalPages"
+              title="Página siguiente">
+              ▶
+            </button>
+          </div>
         </ng-container>
-        </div>
-    </section>
+      </ng-container>
+    </div>
+  </section>
 
 </ng-container>
 

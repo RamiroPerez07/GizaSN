@@ -24,3 +24,11 @@ export interface IOrder{
     updatedAt?: Date;
     createdAt?: Date;
 }
+
+export interface PaginatedOrders {
+  total: number;
+  page: number;
+  totalPages: number;
+  limit: number;
+  orders: IOrder[];
+}

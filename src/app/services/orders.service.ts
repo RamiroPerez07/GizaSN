@@ -2,8 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, map, Observable, scan, shareReplay, startWith, Subject, switchMap, tap } from 'rxjs';
 import { IProduct } from '../interfaces/products.interface';
 import { HttpClient } from '@angular/common/http';
-import { IOrder } from '../interfaces/orders.interface';
-import { ServerTestingModule } from '@angular/platform-server/testing';
+import { IOrder, PaginatedOrders } from '../interfaces/orders.interface';
 
 interface AddAction {
   type: 'add';
@@ -55,11 +54,27 @@ export class OrdersService {
   private refreshTrigger$ = new Subject<void>();
 
   /** 🔹 Stream principal de órdenes (reactivo y autoactualizable) */
-  readonly orders$: Observable<IOrder[]> = combineLatest([
+  // readonly orders$: Observable<IOrder[]> = combineLatest([
+  //   this.filter$,
+  //   this.refreshTrigger$.pipe(startWith(void 0)) // Emite una vez inicial y luego cada vez que disparamos un refresh
+  // ]).pipe(
+  //   switchMap(([status]) => this.getOrdersByStatus(status)),
+  //   shareReplay({ bufferSize: 1, refCount: true })
+  // );
+
+  private pageSubject = new BehaviorSubject<number>(1);
+  page$ = this.pageSubject.asObservable();
+
+  setPage(page: number): void {
+    this.pageSubject.next(page);
+  }
+
+  readonly paginatedOrders$ = combineLatest([
     this.filter$,
-    this.refreshTrigger$.pipe(startWith(void 0)) // Emite una vez inicial y luego cada vez que disparamos un refresh
+    this.page$,
+    this.refreshTrigger$.pipe(startWith(void 0))
   ]).pipe(
-    switchMap(([status]) => this.getOrdersByStatus(status)),
+    switchMap(([status, page]) => this.getOrdersByStatus(status, page)),
     shareReplay({ bufferSize: 1, refCount: true })
   );
 
@@ -69,11 +84,17 @@ export class OrdersService {
   }
 
 
-  getOrdersByStatus(status: string) : Observable<IOrder[]> {
-    return this._http.get<IOrder[]>(
-      "https://giza-sn-backend.vercel.app/api/orders/status/"+status
-    )
+  getOrdersByStatus(status: string, page = 1, limit = 10): Observable<PaginatedOrders> {
+    return this._http.get<PaginatedOrders>(
+      `https://giza-sn-backend.vercel.app/api/orders/status/${status}?page=${page}&limit=${limit}`
+    );
   }
+
+  // getOrdersByStatus(status: string) : Observable<IOrder[]> {
+  //   return this._http.get<IOrder[]>(
+  //     "https://giza-sn-backend.vercel.app/api/orders/status/"+status
+  //   )
+  // }
 
   getOrderById(id: string) : Observable<IOrder> {
     return this._http.get<IOrder>(
