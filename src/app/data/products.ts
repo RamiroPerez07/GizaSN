@@ -1184,5 +1184,32 @@ export const products: IProduct[] = [
       services: "30"
     },
     relatedProductsIds: [17,18,19,20,21]
-  }
+  },
+  {
+    id: 51,
+    description: "HYDROMAX Sport Drink 1500g - Pomelo",
+    longDescription: "Bebida deportiva isotónica c/ electrolitos (sodio, potasio, cloruros). Fuente de Vit E y C. Sin TACC",
+    brand: "Nutremax",
+    idCategories: ["suplementos","nutremax","nutremax-hidratacion"],
+    priority: 9,
+    visible: true,
+    price: 24200,
+    iva: 0,
+    discount: null,
+    updatedAt: new Date("2024-03-18"),
+    urlImg: "https://res.cloudinary.com/dhnicvwkw/image/upload/v1759784125/hydromax1500_alta_mod_evp8dg.png",
+    inStock: true,
+    tags: ["suplementos","sport", "drink", "hydromax", "pomelo","bebida","isotonica","bebida isotonica","hidratacion","sodio","electrolitos","potasio","cloruros"],
+    showInHeroCarousel: true,
+    attributes: {
+      colour: "#96A53C",
+      content: "1520g",
+      textColor: "#ffffff",
+      flavor: "Pomelo",
+      packaging: "Envase plástico",
+      performance: "1 Servicio/500ml",
+      services: "46",
+    },
+    relatedProductsIds: [1,2],
+  },
 ]
