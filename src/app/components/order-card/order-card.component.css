@@ -38,6 +38,14 @@ span, strong {
     font-size: 0.7rem;
 }
 
+.order-card p span {
+  display: inline-block;
+  max-width: 150px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 p{
     line-height: 1.1;
 }

@@ -5,9 +5,9 @@
     <p><strong>Usuario: </strong><span>{{order.username ?? 'Cliente'}}</span></p>
     <p><strong>Punto de venta: </strong><span>{{order.pos}}</span></p>
     <p><strong>Origen: </strong><span>{{order.origin}}</span></p>
-    <p><strong>Comprador: </strong><span>{{order.nameBuyer}} {{order.lastNameBuyer}}</span></p>
-    <p><strong>Dirección: </strong><span>{{order.address}}</span></p>
-    <p><strong>Localidad: </strong><span>{{order.locality}}</span></p>
+    <p><strong>Comprador: </strong><span [title]="order.nameBuyer + ' ' + order.lastNameBuyer">{{order.nameBuyer}} {{order.lastNameBuyer}}</span></p>
+    <p><strong>Dirección: </strong><span [title]="order.address">{{order.address}}</span></p>
+    <p><strong>Localidad: </strong><span [title]="order.locality">{{order.locality}}</span></p>
     <p><strong>Forma de Pago: </strong><span>{{order.paymentMethod}}</span></p>
     <p><strong>Monto: </strong><span>{{subtotal | currency:"ARS" }}</span></p>
     <div class="cb-container">

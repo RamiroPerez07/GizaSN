@@ -52,6 +52,8 @@ export class OrdersComponent implements OnInit {
   paginatedOrders$ = this.orderSvc.paginatedOrders$;
 
   setFilter(status: string){
+    this.currentPage = 1;
+    this.orderSvc.setPage(this.currentPage);
     this.orderSvc.setFilter(status);
   }
 
