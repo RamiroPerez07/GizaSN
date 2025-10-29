@@ -1,0 +1,202 @@
+/* BACKDROP */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 10000;
+}
+
+/* MODAL */
+.custom-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+  border-radius: 12px;
+  z-index: 10001;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 400px;
+  max-height: 90%;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* INPUTS */
+.input-group {
+  position: relative;
+  margin-top: 1.5rem;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  padding: 8px 4px;
+  font-size: 0.85rem;
+  background: transparent;
+  outline: none;
+}
+
+.input-group label {
+  position: absolute;
+  top: 8px;
+  left: 4px;
+  color: #aaa;
+  font-size: 0.85rem;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown):valid + label,
+.input-group input.ng-dirty + label,
+.input-group select:focus + label {
+  top: -12px;
+  left: 0;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+input.invalid,
+select.invalid {
+  border-bottom-color: red !important;
+}
+
+label.invalid {
+  color: red !important;
+}
+
+/* SELECT FORMS */
+.select-form {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.select-form > label {
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.select-form > select {
+  margin-top: 10px;
+  font-size: 0.85rem;
+  width: 100%;
+}
+
+/* DATE RANGE */
+.date-range {
+  display: flex;
+  gap: 10px;
+}
+
+/* TITLES */
+.tit-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* TOOLTIP */
+.info-icon-wrapper {
+  position: relative;
+  display: inline-block;
+  color: #007BFF;
+  font-size: 14px;
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.tooltip-text {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 8px);
+  transform: translateY(-50%);
+  background-color: #333;
+  color: #fff;
+  font-size: 12px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  white-space: normal;
+  max-width: 150px;
+  width: max-content;
+  text-align: center;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 100;
+}
+
+.info-icon-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* BOTONES */
+.clear-cart-btn,
+.send-order-cart-btn {
+  padding: 10px 15px;
+  border-radius: 3px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.clear-cart-btn {
+  background-color: gray;
+  color: white;
+  border: 1px solid gray;
+}
+
+.send-order-cart-btn {
+  background-color: var(--c_primary);
+  color: white;
+  border: 1px solid var(--c_primary);
+  transition: background-color 200ms ease;
+  display: flex;
+  align-items: center;
+}
+
+.send-order-cart-btn i {
+  margin-right: 8px;
+}
+
+.send-order-cart-btn:hover {
+  background-color: var(--c_secondary);
+}
+
+/* CONTENEDOR DE BOTONES */
+.cart-options {
+  max-width: 600px;
+  margin: 10px auto;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  font-size: 0.85rem;
+}
+
+.error-message{
+  color: red; 
+  margin-top: 4px; 
+  display: block;
+  font-size: 0.75rem;
+}

@@ -189,7 +189,7 @@ export class OrderFormComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   getOrdersByStatus(status:string){
-      this.orderSvc.getOrdersByStatus(status);
+    this.orderSvc.getOrdersByStatus(status);
   }
 
   filterStatus!: string;

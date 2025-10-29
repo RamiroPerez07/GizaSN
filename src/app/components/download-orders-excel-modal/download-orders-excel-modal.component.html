@@ -1,0 +1,70 @@
+<div *ngIf="showDownloadOrdersToExcelModal$ | async">
+  <div class="modal-backdrop" (click)="closeModal()"></div>
+  <div class="custom-modal">
+    <form [formGroup]="form" (ngSubmit)="onExport()">
+      <h3>Exportar pedidos a Excel</h3>
+
+      <div class="modal-content">
+        <!-- Estado del pedido -->
+        <div class="select-form">
+          <label for="status">Estado del pedido</label>
+          <select id="status" formControlName="status">
+            <option value="">Todos</option>
+            <option value="Pendiente">Pendiente</option>
+            <option value="Pendiente de entrega">Pendientes de entrega</option>
+            <option value="Pendiente de cobro">Pendientes de cobro</option>
+            <option value="Entregado y cobrado">Entregados y cobrados</option>
+          </select>
+        </div>
+
+        <!-- Punto de venta -->
+         <!-- Estado del pedido -->
+        <div class="select-form">
+          <label for="posId">Punto de venta</label>
+          <select id="posId" formControlName="posId">
+            <option value="">Todos</option>
+            <option *ngFor="let pos of posList" [value]="pos.id">
+              {{ pos.puntoDeVenta }}<span *ngIf="pos.contacto"> ({{ pos.contacto }})</span>
+            </option>
+          </select>
+        </div>
+
+        <!-- Rango de fechas -->
+        <div class="tit-label">Rango de fechas</div>
+        <div class="date-range">
+          <div class="input-group">
+            <input type="date" formControlName="from" />
+            <label>Desde</label>
+          </div>
+          <div class="input-group">
+            <input type="date" formControlName="to" />
+            <label>Hasta</label>
+          </div>
+        </div>
+      </div>
+      <small *ngIf="form.get('from')?.invalid && form.get('from')?.touched" class="error-message">
+        La fecha “Desde” es obligatoria
+      </small>
+      <small *ngIf="form.get('to')?.invalid && form.get('to')?.touched" class="error-message">
+        La fecha “Hasta” es obligatoria
+      </small>
+      <small *ngIf="form.errors?.['dateRangeTooLong']" class="error-message">
+        El rango máximo permitido es de 2 meses.
+      </small>
+
+      <!-- Botones -->
+      <div class="cart-options">
+        <button class="send-order-cart-btn" type="submit" [disabled]="isLoading">
+          <i class="fa-solid fa-file-excel"></i>
+          <span *ngIf="!isLoading">Exportar Excel</span>
+          <span *ngIf="isLoading">Generando...</span>
+        </button>
+        <button class="clear-cart-btn" type="button" (click)="closeModal()" [disabled]="isLoading">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<app-spinner *ngIf="isLoading" [message]="'Generando archivo Excel...'"></app-spinner>

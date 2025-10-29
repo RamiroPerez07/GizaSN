@@ -32,6 +32,13 @@ interface UpdateAction {
   };
 }
 
+export interface ExportOrdersFilters {
+  status?: string;
+  from?: string;
+  to?: string;
+  posId?: string;
+}
+
 interface InitializeAction {
   type: 'initialize';
   payload: IProduct[];
@@ -122,6 +129,31 @@ export class OrdersService {
       .pipe(tap(() => this.refreshOrders()));
   }
 
+  exportOrdersToExcel(filters?: ExportOrdersFilters) {
+    const params = new URLSearchParams();
+
+    if (filters) {
+      (Object.keys(filters) as (keyof ExportOrdersFilters)[]).forEach(key => {
+        const value = filters[key];
+        if (value) params.append(key, value);
+      });
+    }
+
+    return this._http.get(
+      `https://giza-sn-backend.vercel.app/api/orders/export/excel?${params.toString()}`,
+      { responseType: 'blob' }
+    ).pipe(
+      tap((blob: Blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'pedidos.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      })
+    );
+  }
+
   /** API para refrescar manualmente las órdenes */
   refreshOrders(): void {
     this.refreshTrigger$.next();
@@ -164,6 +196,19 @@ export class OrdersService {
 
   closeCreateOrderModal() {
     this.modalSubject.next(false);
+  }
+
+  // ---- Estado modal descargar pedidos
+  private modalDownloadOrdersToExcelSubject = new BehaviorSubject<boolean>(false);
+  readonly showDownloadOrdersToExcelModal$ = this.modalDownloadOrdersToExcelSubject.asObservable();
+  
+
+  openDownloadOrdersToExcelModal() {
+    this.modalDownloadOrdersToExcelSubject.next(true);
+  }
+
+  closeDownloadOrdersToExcelModal() {
+    this.modalDownloadOrdersToExcelSubject.next(false);
   }
 
   // ---- API pública (acciones)

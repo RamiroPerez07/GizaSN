@@ -11,6 +11,9 @@
       <button class="new-order" (click)="openNewOrderDialog()" title="Nuevo pedido">
         <i class="fa-solid fa-file-circle-plus"></i>
       </button>
+      <button class="export-orders" (click)="openExportOrdersToExcelDialog()" title="Exportar Excel con pedidos">
+        <i class="fa-solid fa-download"></i>
+      </button>
     </div>
     <div class="filter-panel">
       <ng-container *ngIf="filter$ | async as filter">
@@ -77,3 +80,4 @@
 </ng-template>
 
 <app-order-form></app-order-form>
+<app-download-orders-excel-modal></app-download-orders-excel-modal>

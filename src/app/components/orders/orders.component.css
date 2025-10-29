@@ -77,7 +77,7 @@
     max-width: 1800px;
 }
 
-.new-order {
+.new-order, .export-orders {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -93,7 +93,7 @@
   transition: all 0.2s ease;
 }
 
-.new-order:hover {
+.new-order:hover, .export-orders:hover {
   background: #f3f4f6; /* leve gris al pasar */
 }
 

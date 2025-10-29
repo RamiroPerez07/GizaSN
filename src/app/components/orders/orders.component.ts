@@ -6,11 +6,12 @@ import { OrderCardComponent } from "../order-card/order-card.component";
 import { OrdersService } from '../../services/orders.service';
 import { OrderFormComponent } from "../order-form/order-form.component";
 import { AuthService } from '../../services/auth.service';
+import { DownloadOrdersExcelModalComponent } from "../download-orders-excel-modal/download-orders-excel-modal.component";
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [BreadcrumbComponent, NgClass, OrderCardComponent, OrderFormComponent, CommonModule],
+  imports: [BreadcrumbComponent, NgClass, OrderCardComponent, OrderFormComponent, CommonModule, DownloadOrdersExcelModalComponent],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
@@ -59,6 +60,10 @@ export class OrdersComponent implements OnInit {
 
   openNewOrderDialog(){
     this.orderSvc.openCreateOrderModal();
+  }
+
+  openExportOrdersToExcelDialog(){
+    this.orderSvc.openDownloadOrdersToExcelModal();
   }
 
   logout(){

@@ -55,4 +55,8 @@ export class PointOfSaleService {
   public getPointOfSaleById(pvId: string): PointOfSale | undefined {
     return POINTS_OF_SALE.find(pos => pos.id === pvId);
   }
+
+  public getPointsOfSale(): PointOfSale[] {
+    return POINTS_OF_SALE;
+  }
 }
