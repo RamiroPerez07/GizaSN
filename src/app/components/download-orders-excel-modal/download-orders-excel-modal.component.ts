@@ -39,6 +39,30 @@ export class DownloadOrdersExcelModalComponent implements OnInit {
     return toDate > maxTo ? { dateRangeTooLong: true } : null;
   };
 
+  dateLimitsValidator: ValidatorFn = (group: AbstractControl): ValidationErrors | null => {
+    const from = group.get('from')?.value;
+    const to = group.get('to')?.value;
+
+    if (!from || !to) return null; // No validamos si falta algún dato
+
+    const fromDate = new Date(from);
+    const toDate = new Date(to);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // ignorar horas/minutos/segundos para la comparación
+
+    const errors: ValidationErrors = {};
+
+    if (fromDate > today) {
+      errors['fromInFuture'] = true; // from no puede ser mayor al día de hoy
+    }
+
+    if (toDate < fromDate) {
+      errors['fromInFuture'] = true; // to no puede ser menor que from
+    }
+
+    return Object.keys(errors).length ? errors : null;
+  };
+
   ngOnInit() {
     // Tipamos directamente con la interfaz ExportOrdersFilters
     this.form = this.fb.group({
@@ -47,7 +71,7 @@ export class DownloadOrdersExcelModalComponent implements OnInit {
       buyer: [''],
       from: ['', Validators.required],
       to: ['', Validators.required]
-    }, { validators: this.dateRangeValidator });
+    }, { validators: [this.dateRangeValidator, this.dateLimitsValidator] });
 
     this.posList = this.posSvc.getPointsOfSale();
 

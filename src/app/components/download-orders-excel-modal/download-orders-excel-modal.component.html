@@ -48,8 +48,17 @@
       <small *ngIf="form.get('to')?.invalid && form.get('to')?.touched" class="error-message">
         La fecha “Hasta” es obligatoria
       </small>
-      <small *ngIf="form.errors?.['dateRangeTooLong']" class="error-message">
+      <small *ngIf="form.errors?.['dateRangeTooLong'] && (form.get('from')?.touched || form.get('to')?.touched)" class="error-message">
         El rango máximo permitido es de 2 meses.
+      </small>
+      <!-- Error: From en el futuro -->
+      <small *ngIf="form.errors?.['fromInFuture'] && (form.get('from')?.touched || form.get('to')?.touched)" class="error-message">
+        La fecha “Desde” no puede ser mayor al día de hoy.
+      </small>
+
+      <!-- Error: To antes que From -->
+      <small *ngIf="form.errors?.['toBeforeFrom'] && (form.get('from')?.touched || form.get('to')?.touched)" class="error-message">
+        La fecha “Hasta” no puede ser menor que “Desde”.
       </small>
 
       <!-- Botones -->
