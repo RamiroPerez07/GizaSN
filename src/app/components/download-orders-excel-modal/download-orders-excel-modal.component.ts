@@ -57,7 +57,7 @@ export class DownloadOrdersExcelModalComponent implements OnInit {
     }
 
     if (toDate < fromDate) {
-      errors['fromInFuture'] = true; // to no puede ser menor que from
+      errors['toBeforeFrom'] = true; // to no puede ser menor que from
     }
 
     return Object.keys(errors).length ? errors : null;
