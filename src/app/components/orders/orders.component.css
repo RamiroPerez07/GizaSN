@@ -43,7 +43,7 @@
 .filter-tag{
     border-radius: 10px;
     font-size: 0.75rem;
-    padding: 4px 12px;
+    padding: 6px 14px;
     border: 1px solid #ccc;
     cursor: pointer;
     margin: 5px;
@@ -65,6 +65,10 @@
     background-color: var(--c_primary);
     color: white;
     transition: background-color 150ms ease-in;
+}
+
+.filter-tag i{
+  margin-right: 5px;
 }
 
 .container{

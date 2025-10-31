@@ -14,7 +14,7 @@
     --c_secondary: #11C5D9; /* Color Secundario */
     --c_tertiary: #0D0D0D; /* Color Terciario */
     --c_background_light: #F5F5F5; /* Fondo Claro */
-    --c_primary_transparent: rgb(17, 180, 217,0.1); /* Color Primario */
+    --c_primary_transparent: rgb(17, 180, 217, 0.1); /* Color Primario */
   }
 
 body, html{

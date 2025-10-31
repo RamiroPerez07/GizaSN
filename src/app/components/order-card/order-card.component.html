@@ -1,15 +1,16 @@
 <div class="order-card" [ngClass]="[statusClasses[order.status],order.origin === 'Cliente' ? 'origin-cliente' : '']">
     <div class="status-tag" [ngClass]="statusClasses[order.status]">{{order.status}}</div>
-    <p><strong>ID: </strong><span>#{{order.idOrder}}</span></p>
-    <p><strong>Fecha: </strong><span>{{order.createdAt | date:'dd/MM/yyyy HH:mm'}}</span></p>
-    <p><strong>Usuario: </strong><span>{{order.username ?? 'Cliente'}}</span></p>
-    <p><strong>Punto de venta: </strong><span>{{order.pos}}</span></p>
-    <p><strong>Origen: </strong><span>{{order.origin}}</span></p>
-    <p><strong>Comprador: </strong><span [title]="order.nameBuyer + ' ' + order.lastNameBuyer">{{order.nameBuyer}} {{order.lastNameBuyer}}</span></p>
-    <p><strong>Dirección: </strong><span [title]="order.address">{{order.address}}</span></p>
-    <p><strong>Localidad: </strong><span [title]="order.locality">{{order.locality}}</span></p>
-    <p><strong>Forma de Pago: </strong><span>{{order.paymentMethod}}</span></p>
-    <p><strong>Monto: </strong><span>{{subtotal | currency:"ARS" }}</span></p>
+    <p><strong title="ID del pedido"><i class="fa-solid fa-hashtag" aria-hidden="true"></i></strong><span>{{order.idOrder}}</span></p>
+    <p><strong title="Fecha del pedido"><i class="fa fa-clock" aria-hidden="true"></i></strong><span>{{order.createdAt | date:'dd/MM/yyyy HH:mm'}}</span></p>
+    <p><strong title="Usuario creador"><i class="fa fa-user" aria-hidden="true"></i></strong><span>{{order.username ?? 'Cliente'}} ({{order.pos}})</span></p>
+    <!-- <p><strong>Punto de venta: </strong><span></span></p> -->
+    <!-- <p><strong>Origen: </strong><span>{{order.origin}}</span></p> -->
+    <p><strong title="Comprador"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i></strong><span [title]="order.nameBuyer + ' ' + order.lastNameBuyer">{{order.nameBuyer}} {{order.lastNameBuyer}}</span></p>
+    <p><strong title="Dirección"><i class="fa-solid fa-map-marker-alt" aria-hidden="true"></i></strong><span [title]="order.address">{{order.address}}</span></p>
+    <p><strong title="Localidad"><i class="fa-solid fa-city" aria-hidden="true"></i></strong><span [title]="order.locality">{{order.locality}}</span></p>
+    <p><strong title="Forma de pago"><i class="fa-solid fa-sack-dollar" aria-hidden="true"></i></strong><span>{{order.paymentMethod}}</span></p>
+    <p><strong style="font-size: 0.9rem; text-align: end;margin-top: 5px;">{{subtotal | currency:"ARS" }}</strong></p>
+    <!-- <p><strong>Monto: </strong><span>{{subtotal | currency:"ARS" }}</span></p> -->
     <div class="cb-container">
       <input type="checkbox"
             id="entregado-{{ order.idOrder }}"
